@@ -1,0 +1,66 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Hakyll - Creating feeds</title>
+
+        <!-- Stylesheets. -->
+        <link rel="stylesheet" type="text/css" href="part06_files/default.css">
+        <link rel="stylesheet" type="text/css" href="part06_files/syntax.css">
+
+        <!-- Metadata. -->
+        <meta name="keywords" content="hakyll,static site generator,static,site,generator,haskell,blog">
+        <meta name="description" content="Hakyll - A Static Site Generator in Haskell.">
+    </head>
+    <body>
+        <div id="main">
+            <div id="header">
+                <img src="part06_files/lambda.png" alt="lambda">
+                <h1>Hakyll - Creating feeds</h1>
+            </div>
+            <!-- Sidebar. -->
+            <div id="sidebar">
+                <div id="navigation"><h2>Navigation</h2><p><a href="http://jaspervdj.be/hakyll/index.html">home</a> <a href="http://jaspervdj.be/hakyll/philosophy.html">philosophy</a> <a href="http://jaspervdj.be/hakyll/about.html">about</a> <a href="http://jaspervdj.be/hakyll/tutorials.html">tutorials</a> <a href="http://jaspervdj.be/hakyll/reference.html">reference</a> <a href="http://jaspervdj.be/hakyll/changelog.html">changelog</a></p></div>
+            </div>
+
+            <div id="content">
+                <div id="adding-feeds"><h2>Adding Feeds</h2><p>In this tutorial, we’re going to add an RSS feed to the blog we wrote in the previous part. Here is a <a href="http://jaspervdj.be/hakyll/examples/feedblog.zip">zip file</a> containing the source.</p><p>You will be glad to hear that Hakyll has native support for RSS as well as Atom feeds<sup><a href="#fn1" class="footnoteRef" id="fnref1">1</a></sup>. This simplifies our object a lot.</p><p>This is the first time that the absolute URL of your site you have to give to the <code>hakyll</code> function actually matters. That’s because the specifications of those feed formats dictate you need the full URL of them.</p></div><div id="creating-a-configuration"><h2>Creating a configuration</h2><p>The
+ first thing to do is creating a configuration for your feed. You could 
+place this code outside of your main function, as is done in the 
+example.</p><pre class="sourceCode haskell"><code>myFeedConfiguration <span class="fu">=</span> <span class="dt">FeedConfiguration</span><br>    { feedUrl         <span class="fu">=</span> <span class="st">"rss.xml"</span><br>    , feedTitle       <span class="fu">=</span> <span class="st">"SimpleBlog RSS feed."</span><br>    , feedDescription <span class="fu">=</span> <span class="st">"Simple demo of a feed created with Hakyll."</span><br>    , feedAuthorName  <span class="fu">=</span> <span class="st">"Jasper Van der Jeugt"</span><br>    }<br></code></pre><p>Note
+ that we enter the url of the feed in our configuration. So the function
+ to render our feed only takes two arguments, the configuration and a 
+list of items to put in the feed. Let’s put the three most recent posts 
+in our feed.</p><pre class="sourceCode haskell"><code>renderRss myFeedConfiguration (<span class="fu">take</span> <span class="dv">3</span> postPages)<br></code></pre></div><div id="but-its-not-that-easy"><h2>But it’s not that easy</h2><p>If you look at our generated RSS feed (build the site), you will see <code>$description</code> tags appearing in our final render. We don’t want that! How did they get there in the first place?</p><p>To render feeds, Hakyll expects a number of fields in the renderables you put in the feed. They are:</p><ul><li><code>$title</code>: Title of the item. This is set in our posts, since we use a <code>title</code> metadata field.</li><li><code>$url</code>: Url of the item. This is automatically set by Hakyll, so you shouldn’t worry about it.</li><li><code>$description</code>: A description of our item to appear in the feed reader.</li></ul><p>The latter is obviously the problem: we don’t have a description in our posts. In fact, we would like to copy the <code>$body</code> key to the <code>$description</code> key, so people can read the full post in their feed readers.</p></div><div id="where-arrows-come-in"><h2>Where arrows come in</h2><p>The <code>Text.Hakyll.ContextManipulations</code> module contains a number of simple functions that create Arrows for us. One of these functions is <code>copyValue</code>, which takes a source and a destination key. So, we need to pass our items through this Arrow first.</p><pre class="sourceCode haskell"><code>renderRss myFeedConfiguration <span class="fu">$</span><br>    <span class="fu">map</span> (<span class="fu">&gt;&gt;&gt;</span> copyValue <span class="st">"body"</span> <span class="st">"description"</span>) (<span class="fu">take</span> <span class="dv">3</span> postPages)<br></code></pre><p>And that’s that, now our feed gets rendered properly. Exercise for the reader is to add a Atom feed<sup><a href="#fn2" class="footnoteRef" id="fnref2">2</a></sup>.</p></div><div id="the-gist-of-it"><h2>The gist of it</h2><ul><li>Hakyll has native support for RSS and Atom feeds.</li><li>The items must contain <code>$title</code> and <code>$description</code> fields.</li><li>Arrows can be used to copy values in a <code>Context</code>.</li></ul></div><div class="footnotes"><hr><ol><li id="fn1"><p>Since Hakyll–2.0 <a href="#fnref1" class="footnoteBackLink" title="Jump back to footnote 1">↩</a></p></li><li id="fn2"><p>Hint: look around in the <a href="http://jaspervdj.be/hakyll/reference.html">reference</a>. <a href="#fnref2" class="footnoteBackLink" title="Jump back to footnote 2">↩</a></p></li></ol></div>
+
+<h2>Helping out</h2>
+
+Hakyll is an open source project, and one of the hardest parts is writing
+correct, up-to-date, and understandable documentation. Therefore, the
+authors would really appreciate it if you would
+<a href="http://groups.google.com/group/hakyll">give some feedback</a> about
+the tutorials, and especially report errors or difficulties you encountered.
+Thanks!
+
+            </div>
+
+            <div id="footer">
+                Site proudly generated by <a href="http://github.com/jaspervdj/hakyll">hakyll</a>.
+            </div>
+        </div>
+
+        <!-- Google Analytics -->
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script><script src="part06_files/ga.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-11993001-1");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    
+
+
+</body></html>

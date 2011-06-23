@@ -1,0 +1,15 @@
+Name: JSON
+Version: 0.0.1
+Synopsis:      My pretty printing library, with JSON support
+Description:
+  A simple pretty printing library that illustrates how to
+  develop a Haskell library.
+Maintainer: haisgwu
+Build-Type: Simple
+Cabal-Version: >= 1.2
+
+Library
+        Exposed-Modules: PutJSON
+                         JSON
+        Build-Depends:   base >= 2.0
+                                                        

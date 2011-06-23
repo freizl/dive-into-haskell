@@ -1,0 +1,91 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Hakyll - CategoryBlog</title>
+
+        <!-- Stylesheets. -->
+        <link rel="stylesheet" type="text/css" href="part09_files/default.css">
+        <link rel="stylesheet" type="text/css" href="part09_files/syntax.css">
+
+        <!-- Metadata. -->
+        <meta name="keywords" content="hakyll,static site generator,static,site,generator,haskell,blog">
+        <meta name="description" content="Hakyll - A Static Site Generator in Haskell.">
+    </head>
+    <body>
+        <div id="main">
+            <div id="header">
+                <img src="part09_files/lambda.png" alt="lambda">
+                <h1>Hakyll - CategoryBlog</h1>
+            </div>
+            <!-- Sidebar. -->
+            <div id="sidebar">
+                <div id="navigation"><h2>Navigation</h2><p><a href="http://jaspervdj.be/hakyll/index.html">home</a> <a href="http://jaspervdj.be/hakyll/philosophy.html">philosophy</a> <a href="http://jaspervdj.be/hakyll/about.html">about</a> <a href="http://jaspervdj.be/hakyll/tutorials.html">tutorials</a> <a href="http://jaspervdj.be/hakyll/reference.html">reference</a> <a href="http://jaspervdj.be/hakyll/changelog.html">changelog</a></p></div>
+            </div>
+
+            <div id="content">
+                <div id="categories"><h2>Categories</h2><p>Most people familiar with “tags” will also know the concept “categories”.</p><div class="figure"><img src="part09_files/tutorial8-tags.png" alt="Tags illustration"><p class="caption">Tags illustration</p></div><p>In
+ fact, tags are harder to implement because they have to be represented 
+as a many-to-many relation, and categories are a simple 1-to-many 
+relation.</p><div class="figure"><img src="part09_files/tutorial8-categories.png" alt="Tags illustration"><p class="caption">Tags illustration</p></div><p>This
+ is also the reason you can “simulate” categories using tags. In this 
+tutorial we will adapt the blog to use categories instead of tags. Here 
+is <a href="http://jaspervdj.be/hakyll/examples/categoryblog.zip">a zip file</a> containing the files used in this tutorial.</p></div><div id="about-category-support"><h2>About category support</h2><p>Categories
+ are simpler, but they are usually used in custom ways. That’s why 
+Hakyll provides less “standard” functions to deal with them. But this 
+gives us another chance to learn some of the things we can do with 
+Hakyll.</p></div><div id="reading-categories"><h2>Reading Categories</h2><p>Tags are located in the <code>tags</code>
+ metadata field. Since one post can only belong in one category, a 
+different approach was chosen here. The category of a post is determined
+ by the subfolder it is in. Here you see the directory layout for our 
+posts using categories:</p><pre><code>posts
+|-- coding
+|   |-- 2009-11-05-a-first-post.markdown
+|   |-- 2009-11-28-a-third-post.markdown
+|   `-- 2009-12-04-this-blog-aint-dead.markdown
+`-- random
+    |-- 2009-11-10-another-post.markdown
+    `-- 2009-12-23-almost-christmas.markdown
+</code></pre><p>Because we find all our posts in different 
+subdirectories, sorting them is a little harder: we still want them 
+sorted by date, so it boils down to sorting them by “base name”. I hope 
+it does not surprise you Hakyll provides a function for that:</p><pre class="sourceCode haskell"><code>postPaths &lt;- liftM (<span class="fu">reverse</span> <span class="fu">.</span> sortByBaseName)<br>                   (getRecursiveContents <span class="st">"posts"</span>)<br></code></pre><p>We reverse them again, because we want the most recent posts first. Now, we can use the <code>readCategoryMap</code> function instead of <code>readTagMap</code>, which has the same signature, but assigns categories based on the folders the posts are in.</p><pre class="sourceCode haskell"><code>categoryMap &lt;- readCategoryMap <span class="st">"categoryMap"</span> renderablePosts<br></code></pre><p>The rest of the <code>hakyll.hs</code> is very similar to the one in the previous tutorial, except we want to render a category list instead of a tag cloud.</p></div><div id="rendering-a-category-list"><h2>Rendering a category list</h2><p>Because
+ rendering a category list is quite easy, and it would be hard to write a
+ “general” function for this, hakyll does not provide such a function — 
+but it is not hard to write. First, we write an auxiliary function that 
+produces a list item for one category:</p><pre class="sourceCode haskell"><code>categoryListItem category posts <span class="fu">=</span><br>    <span class="st">"&lt;li&gt;"</span> <span class="fu">++</span> link category (categoryToUrl category)<br>    <span class="fu">++</span> <span class="st">" - "</span> <span class="fu">++</span> <span class="fu">show</span> (<span class="fu">length</span> posts) <span class="fu">++</span> <span class="st">" items.&lt;/li&gt;"</span><br></code></pre><p>This is nothing more that some basic string concatenation to create a <code>li</code> HTML element. The function that applies this on every element in the <code>TagMap</code> is more interesting:</p><pre class="sourceCode haskell"><code>categoryList :: <span class="dt">HakyllAction</span> <span class="dt">TagMap</span> <span class="dt">String</span><br>categoryList <span class="fu">=</span> arr <span class="fu">$</span> <span class="fu">uncurry</span> categoryListItem <span class="fu">&lt;=&lt;</span> toList<br></code></pre><p>This function might seem a little harder to understand if you are not familiar with the <code>&lt;=&lt;</code> operator — but it’s just right-to-left monad composition in the list monad. <code>uncurry categoryListItem &lt;=&lt; toList</code> is a pure function we want to execute on the <code>TagMap</code>. But this is not possible in Hakyll<sup><a href="#fn1" class="footnoteRef" id="fnref1">1</a></sup>. We need to make an arrow of this function. The <code>arr</code> function solves this problem easily.</p><p>We
+ then add this to our index page, and we are done. Feel free to hack 
+around with the source code. If you still have questions, feel free to 
+ask them at the <a href="http://groups.google.com/group/hakyll">google discussion group</a>.</p></div><div id="the-gist-of-it"><h2>The gist of it</h2><ul><li>Hakyll supports categories as well as tags.</li><li>Tags are actually a generalization of categories.</li><li>Use <code>readCategoryMap</code> to read categories.</li><li>You need to write some custom functions to render category lists etc.</li></ul></div><div class="footnotes"><hr><ol><li id="fn1"><p>This is a feature, not a bug. It helps dependency handling. <a href="#fnref1" class="footnoteBackLink" title="Jump back to footnote 1">↩</a></p></li></ol></div>
+
+<h2>Helping out</h2>
+
+Hakyll is an open source project, and one of the hardest parts is writing
+correct, up-to-date, and understandable documentation. Therefore, the
+authors would really appreciate it if you would
+<a href="http://groups.google.com/group/hakyll">give some feedback</a> about
+the tutorials, and especially report errors or difficulties you encountered.
+Thanks!
+
+            </div>
+
+            <div id="footer">
+                Site proudly generated by <a href="http://github.com/jaspervdj/hakyll">hakyll</a>.
+            </div>
+        </div>
+
+        <!-- Google Analytics -->
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script><script src="part09_files/ga.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-11993001-1");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    
+
+
+</body></html>

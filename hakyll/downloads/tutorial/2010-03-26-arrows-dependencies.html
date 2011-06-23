@@ -1,0 +1,169 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <title>jaspervdj - Using Arrows for Dependency Handling</title>
+
+        <!-- Stylesheets. -->
+        <link rel="stylesheet" type="text/css" href="2010-03-26-arrows-dependencies_files/default.css">
+        <link rel="stylesheet" type="text/css" href="2010-03-26-arrows-dependencies_files/syntax.css">
+
+        <!-- JavaScript. -->
+        <script type="text/javascript" src="2010-03-26-arrows-dependencies_files/jquery.js"> </script>
+        <script type="text/javascript" src="2010-03-26-arrows-dependencies_files/jquery_002.js"> </script>
+
+        <!-- RSS. -->
+        <link rel="alternate" type="application/rss+xml" title="jaspervdj - a personal blog" href="http://jaspervdj.be/rss.xml">
+
+        <!-- Metadata. -->
+        <meta name="keywords" content="Jasper Van der Jeugt,blog,programming,coding,haskell,function,personal,homepage">
+        <meta name="description" content="Personal home page and blog of Jasper Van der Jeugt.">
+    <script src="2010-03-26-arrows-dependencies_files/embed.js" async="" type="text/javascript"></script></head>
+    <body>
+        <!-- Header on top of the page. -->
+        <div id="header">
+            <a href="http://jaspervdj.be/">
+                jaspervdj - a personal bλog
+            </a>
+        </div>
+
+        <div id="wide-content">
+            <div id="content">
+                <script type="text/javascript">
+    var disqus_developer = 1;
+</script>
+
+<h1>Using Arrows for Dependency Handling</h1>
+<div class="tags">
+    Tags: <a href="http://jaspervdj.be/tags/haskell.html">haskell</a>, <a href="http://jaspervdj.be/tags/code.html">code</a>, <a href="http://jaspervdj.be/tags/arrows.html">arrows</a>.
+</div>
+
+<h2 id="what-is-this-about">What is this about</h2>
+<p>Arrows are, like Monads or Monoids, a mathematical concept that can 
+be used in the Haskell programming language. This post analyzes and 
+explains a certain use case for Arrows, namely dependency tracking. But 
+let’s begin with a quite unrelated quote from Jimi Hendrix.</p>
+<blockquote>
+<p>Well my arrows are made of desire<br>From far away as Jupiter’s sulphur mines</p>
+</blockquote>
+<p>Arrows are less common than Monads or Monoids (in Haskell code, that 
+is), but they are certainly not harder to understand. This blogpost aims
+ to give a quick, informal introduction to Arrows. As concrete subject 
+and example, we use dependency handling in Hakyll.</p>
+<h2 id="the-problem">The problem</h2>
+<p><a href="http://jaspervdj.be/hakyll">Hakyll</a> is a static site 
+generator I use to run this blog. The principles behind it are pretty 
+simple: you write your pages in markdown or something similar, and you 
+write templates in html. Then, you render the pages with some templates 
+using a configuration DSL.</p>
+<p>In Hakyll, the rendering algorithm is more or less like this:</p>
+<ul>
+<li>Read a page from a file, say <code>contact.markdown</code>.</li>
+<li>Parse and render this page to HTML using <a href="http://johnmacfarlane.net/pandoc/">pandoc</a>.</li>
+<li>Do some further manipulations on the result.</li>
+<li>Render the result using a HTML template.</li>
+<li>Write the result to <code>_site/contact.html</code>.</li>
+</ul>
+<p>The catch is, say <code>_site/contact.html</code> is “newer” than <code>contact.markdown</code>
+ and the HTML templates. In this case, we do not want to do anything. 
+Haskell lazyness will not help us a lot here, since we’re dealing with a
+ lot of <code>IO</code> code.</p>
+<p>Suppose we’re currently reading the page from a file. We know the 
+timestamp of the file we’re reading, but since we don’t yet know the 
+timestamp of the other files on which the final result depends, we don’t
+ know if we can skip this read or not. This means dependency handling 
+should happen on a higher level, above these specific functions — so we 
+need to abstract dependency handling.</p>
+<h2 id="a-general-notion-of-computation">A general notion of computation</h2>
+<p>So let’s create a wrapper for functions dealing with dependencies.</p>
+<pre class="sourceCode"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">HakyllAction</span> a b <span class="fu">=</span> <span class="dt">HakyllAction</span><br>    {<span class="ot"> actionDependencies </span><span class="ot">::</span> [<span class="fu">FilePath</span>]<br>    ,<span class="ot"> actionUrl          </span><span class="ot">::</span> <span class="dt">Maybe</span> (<span class="dt">Hakyll</span> <span class="fu">FilePath</span>)<br>    ,<span class="ot"> actionFunction     </span><span class="ot">::</span> a <span class="ot">-&gt;</span> <span class="dt">Hakyll</span> b<br>    }</code></pre>
+<p>Some explanation might be needed here. You can think of <code>a</code> as the input for our action, and then <code>b</code> is the output. The <code>actionUrl</code> contains the final destination of our computations — this can be <code>Nothing</code>, if it is not yet known. And finally, the <code>actionFunction</code> contains the actual action.</p>
+<p>The <code>Hakyll</code> is a usual monad stack with <code>IO</code> at the bottom.</p>
+<h2 id="categories">Categories</h2>
+<p>To qualify as an <code>Arrow</code>, a datatype needs to be a <code>Category</code>. So lets create an <code>instance Category HakyllAction</code> first. There are two functions we need to implement:</p>
+<ul>
+<li><code>id</code>: The simple identity category. This is comparable to the <code>Prelude.id</code> function.</li>
+<li><code>.</code>: Category composition — this is comparable to function composition.</li>
+</ul>
+<p>The <code>id</code> action has no dependencies, no destination, and simply returns itself.</p>
+<pre class="sourceCode"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Category</span> <span class="dt">HakyllAction</span> <span class="kw">where</span><br>    <span class="fu">id</span> <span class="fu">=</span> <span class="dt">HakyllAction</span><br>        { actionDependencies <span class="fu">=</span> []<br>        , actionUrl          <span class="fu">=</span> <span class="kw">Nothing</span><br>        , actionFunction     <span class="fu">=</span> <span class="fu">return</span><br>        }</code></pre>
+<p>The <code>.</code> action is not complicated either. The new 
+dependencies consist of all the dependencies of the two actions. For our
+ destination, we use an <code>mplus</code> with the latest applied function first, so it gets chosen over the other destination.</p>
+<pre class="sourceCode"><code class="sourceCode haskell">    x <span class="fu">.</span> y <span class="fu">=</span> <span class="dt">HakyllAction</span><br>        { actionDependencies <span class="fu">=</span> actionDependencies x <span class="fu">++</span> actionDependencies y<br>        , actionUrl          <span class="fu">=</span> actionUrl x <span class="ot">`mplus`</span> actionUrl y<br>        , actionFunction     <span class="fu">=</span> actionFunction x <span class="fu">&lt;=&lt;</span> actionFunction y<br>        }</code></pre>
+<p>The <code>&lt;=&lt;</code> operator is <a href="http://www.haskell.org/ghc/docs/latest/html/libraries/base/Control-Monad.html#v%3A%3C%3D%3C">right-to-left monad composition</a>.</p>
+<h2 id="arrows">Arrows</h2>
+<p>To make our action a real <code>Arrow</code>, we need to implement two more functions:</p>
+<ul>
+<li><code>arr</code>: This should lift a pure function (thus, with an <code>a -&gt; b</code> signature) into <code>HakyllAction</code>, so we have the type signature <code>(a -&gt; b) -&gt; HakyllAction a b</code>.</li>
+<li><code>first</code>: This is a function that should operate on one value of a tuple. This all happens “inside” <code>HakyllAction</code> — perhaps an illustration will explain this better. You can see how <code>f :: a -&gt; b</code> applies to an <code>(a, c)</code> tuple, where <code>f</code> is applied on the first value.</li>
+</ul>
+<div class="figure">
+<img src="2010-03-26-arrows-dependencies_files/2010-03-26-first.png" alt="Illustration of arrow first"><p class="caption">Illustration of arrow first</p>
+</div>
+<pre class="sourceCode"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Arrow</span> <span class="dt">HakyllAction</span> <span class="kw">where</span><br>    arr f <span class="fu">=</span> <span class="fu">id</span> { actionFunction <span class="fu">=</span> <span class="fu">return</span> <span class="fu">.</span> f}<br>    first x <span class="fu">=</span> x<br>        { actionFunction <span class="fu">=</span> \(y, z) <span class="ot">-&gt;</span> <span class="kw">do</span><br>            y' <span class="ot">&lt;-</span> actionFunction x y<br>            <span class="fu">return</span> (y', z)<br>        }</code></pre>
+<h2 id="actually-using-it">Actually using it</h2>
+<p>Now that we’ve put all this trouble into creating an Arrow, we might 
+as well use it. Let’s examine some functions from Hakyll and see how 
+they fit.</p>
+<pre class="sourceCode"><code class="sourceCode haskell"><span class="ot">createPage </span><span class="ot">::</span> <span class="fu">FilePath</span> <span class="ot">-&gt;</span> <span class="dt">HakyllAction</span> () <span class="dt">Context</span><br><span class="ot">render     </span><span class="ot">::</span> <span class="fu">FilePath</span> <span class="ot">-&gt;</span> <span class="dt">HakyllAction</span> <span class="dt">Context</span> <span class="dt">Context</span><br><span class="ot">writePage  </span><span class="ot">::</span> <span class="dt">HakyllAction</span> <span class="dt">Context</span> ()</code></pre>
+<p>Arrows are usually combined using the <code>&gt;&gt;&gt;</code> operator. This gives us:</p>
+<pre class="sourceCode"><code class="sourceCode haskell">test <span class="fu">=</span>   createPage <span class="st">"contact.markdown"</span><br>     <span class="fu">&gt;&gt;&gt;</span> render <span class="st">"templates/default.html"</span><br>     <span class="fu">&gt;&gt;&gt;</span> writePage</code></pre>
+<p>This creates a <code>HakyllAction</code> but doesn’t actually do 
+anything. We still need to run it. And now we can see the benefits of 
+this method, since we can write a function that does dependency checking
+ on the combined functions.</p>
+<pre class="sourceCode"><code class="sourceCode haskell">runHakyllActionIfNeeded test</code></pre>
+<p>The actual implementation of <code>runHakyllActionIfNeeded</code> goes more or less like this:</p>
+<pre class="sourceCode"><code class="sourceCode haskell"><span class="ot">runHakyllActionIfNeeded </span><span class="ot">::</span> <span class="dt">HakyllAction</span> () ()<br>                        <span class="ot">-&gt;</span> <span class="dt">Hakyll</span> ()<br>runHakyllActionIfNeeded action <span class="fu">=</span> <span class="kw">do</span><br>    url <span class="ot">&lt;-</span> <span class="kw">case</span> actionUrl action <span class="kw">of</span><br>        (<span class="kw">Just</span> u) <span class="ot">-&gt;</span> u<br>        <span class="kw">Nothing</span>  <span class="ot">-&gt;</span> <span class="fu">error</span> <span class="st">"At this time, an URL should be set!"</span><br>    valid <span class="ot">&lt;-</span> isFileMoreRecent url <span class="fu">$</span> actionDependencies action<br>    unless valid (actionFunction action ())</code></pre>
+<p>The <code>isFileMoreRecent</code> function checks if the first file is more recent than all of the other files.</p>
+<h2 id="profit">Profit!</h2>
+<p>We have now developped a more robust and better dependency checking 
+system, and learned something about Arrows. If you are interested, the 
+complete code that led to this blogpost is available on <a href="http://github.com/jaspervdj/Hakyll/blob/master/src/Text/Hakyll/HakyllAction.hs">here</a> on GitHub. There are also a few other interesting things to consider:</p>
+<ul>
+<li>Can you prove the Arrows/Category <a href="http://en.wikipedia.org/wiki/Arrow_%28computer_science%29#Definition">laws</a> on <code>HakyllAction</code>?</li>
+<li>Why can’t this be done using Monads?</li>
+</ul>
+<p>These questions are left as an exercise to the reader. On a sidenote, kudos to BCoppens for proofreading through this post.</p>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_identifier = '/posts/2010-03-26-arrows-dependencies.html';
+var disqus_url = 'http://jaspervdj.be' + '/posts/2010-03-26-arrows-dependencies.html';
+var disqus_title = 'Using Arrows for Dependency Handling';
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = 'http://jaspervdj.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript><p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=jaspervdj">comments powered by Disqus.</a></p></noscript>
+
+            </div>
+
+            <div style="clear: both;"> </div>
+        </div>
+
+        <div id="footer">
+            Site proudly generated by <a href="http://jaspervdj.be/hakyll">Hakyll</a>.
+            The entire source code of this website is
+            <a href="http://github.com/jaspervdj/jaspervdj">available at github</a>.
+        </div>
+
+        <!-- Google Analytics -->
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script><script src="2010-03-26-arrows-dependencies_files/ga.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-11993001-1");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    
+
+</body></html>

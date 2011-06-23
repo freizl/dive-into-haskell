@@ -1,0 +1,73 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Hakyll - Interlude</title>
+
+        <!-- Stylesheets. -->
+        <link rel="stylesheet" type="text/css" href="part08_files/default.css">
+        <link rel="stylesheet" type="text/css" href="part08_files/syntax.css">
+
+        <!-- Metadata. -->
+        <meta name="keywords" content="hakyll,static site generator,static,site,generator,haskell,blog">
+        <meta name="description" content="Hakyll - A Static Site Generator in Haskell.">
+    </head>
+    <body>
+        <div id="main">
+            <div id="header">
+                <img src="part08_files/lambda.png" alt="lambda">
+                <h1>Hakyll - Interlude</h1>
+            </div>
+            <!-- Sidebar. -->
+            <div id="sidebar">
+                <div id="navigation"><h2>Navigation</h2><p><a href="http://jaspervdj.be/hakyll/index.html">home</a> <a href="http://jaspervdj.be/hakyll/philosophy.html">philosophy</a> <a href="http://jaspervdj.be/hakyll/about.html">about</a> <a href="http://jaspervdj.be/hakyll/tutorials.html">tutorials</a> <a href="http://jaspervdj.be/hakyll/reference.html">reference</a> <a href="http://jaspervdj.be/hakyll/changelog.html">changelog</a></p></div>
+            </div>
+
+            <div id="content">
+                <div id="syntax-highlighting"><h2>Syntax-highlighting</h2><p>Pandoc
+ (which Hakyll uses as a backend) offers powerful syntax highlighting. 
+To enable this, Pandoc needs to be compiled with highlighting support. 
+If this is not the case, you can fix this using:</p><pre><code>[jasper@alice ~]$ cabal install --reinstall -fhighlighting pandoc
+</code></pre></div><div id="auto-compilation"><h2>Auto-compilation</h2><p>Hakyll features a simple <em>auto-compilation</em> mode. This is invoked by running</p><pre><code>[jasper@alice ~]$ ./hakyll preview
+Starting hakyll server on port 8000...
+</code></pre><p>Now, Hakyll will recompile your site when you refresh in your browser. This will not update your site automatically when <code>hakyll.hs</code> changes. So if you make any changes to the configuration file, you’ll have to compile it again, and then you can enter <code>preview</code> mode again.</p><p>If you use a custom <code>HakyllConfiguration</code>, you can select your custom <code>PreviewMode</code>:</p><ul><li><code>BuildOnRequest</code>: rebuild site when the preview server receives a request (default).</li><li><code>BuildOnInterval</code>: build when you change files.</li></ul></div><div id="when-to-rebuild"><h2>When to rebuild</h2><p>If you execute a <code>./hakyll build</code>, Hakyll will build your site incrementally. This means it will be very fast, but it will not pick up <em>all</em> changes.</p><ul><li>In case you edited <code>hakyll.hs</code>, you first want to compile it again.</li><li>It is generally recommended to do a <code>./hakyll rebuild</code> before you deploy your site.</li></ul><p>After
+ rebuilding your site, all files will look as “modified” to the 
+filesystem. This means that when you upload your site, it will usually 
+transfer all files — this can generate more traffic than necessary, 
+since it is possible that some files were not actually modified. If you 
+use <code>rsync</code>, you can counter this using the <code>--checksum</code> option.</p></div><div id="pretty-urls"><h2>Pretty URL’s</h2><p>There
+ is an option in Hakyll to produce pretty URL’s, which is disabled by 
+default because it can be confusing when you’re first introduced to 
+Hakyll.</p><p>It can be enabled this way:</p><pre class="sourceCode haskell"><code><span class="kw">import</span> <span class="dt">Text.Hakyll</span><br><span class="kw">import</span> <span class="dt">Text.Hakyll.HakyllMonad</span><br><br>myConfig :: <span class="dt">HakyllConfiguration</span><br>myConfig <span class="fu">=</span> (defaultHakyllConfiguration <span class="st">"http://jaspervdj.be"</span>)<br>    { enableIndexUrl <span class="fu">=</span> <span class="kw">True</span><br>    }<br><br>main <span class="fu">=</span> hakyllWithConfiguration myConfig <span class="fu">$</span> <span class="kw">do</span><br>    <span class="co">-- Further code here</span><br></code></pre><p>The effect will be that the internal <code>toUrl</code> function will behave differently. A few examples:</p><ul><li><code>about.html</code> will be rendered to <code>about/index.html</code>.</li><li><code>posts/2010-02-16-a-post.markdown</code> will be rendered to <code>posts/2010-02-16-a-post/index.html</code>.</li><li>However, <code>index.markdown</code> will still be rendered to <code>index.html</code>. Likewise, <code>posts/index.html</code> would be rendered to <code>posts.index.html</code>.</li></ul><p>The benefit of this is simply prettier URL’s. That is, if you consider <code>example.com/about</code> prettier than <code>example.com/about.html</code>.</p></div><div id="default-values"><h2>Default values</h2><p>At some point, you might want to use a number of global key-value pairs, for example, <code>$author</code>. There are two possible ways to achieve this.</p><ul><li><p>There is an option in <code>HakyllConfiguration</code> supporting this, called <code>additionalContext</code>. For an example on how to use <code>HakyllConfiguration</code>, see the pretty URL’s section above.</p></li><li><p>Another option is to use a <code>defaults.markdown</code> file, simply containing some metadata, and then <code>combine</code> this file with other pages. The advantage is that autocompilation mode will pick up changes in this file<sup><a href="#fn1" class="footnoteRef" id="fnref1">1</a></sup>.</p></li></ul></div><div class="footnotes"><hr><ol><li id="fn1"><p>Original idea by zenzike. <a href="#fnref1" class="footnoteBackLink" title="Jump back to footnote 1">↩</a></p></li></ol></div>
+
+<h2>Helping out</h2>
+
+Hakyll is an open source project, and one of the hardest parts is writing
+correct, up-to-date, and understandable documentation. Therefore, the
+authors would really appreciate it if you would
+<a href="http://groups.google.com/group/hakyll">give some feedback</a> about
+the tutorials, and especially report errors or difficulties you encountered.
+Thanks!
+
+            </div>
+
+            <div id="footer">
+                Site proudly generated by <a href="http://github.com/jaspervdj/hakyll">hakyll</a>.
+            </div>
+        </div>
+
+        <!-- Google Analytics -->
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script><script src="part08_files/ga.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-11993001-1");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    
+
+
+</body></html>

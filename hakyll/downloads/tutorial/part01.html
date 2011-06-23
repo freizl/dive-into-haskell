@@ -1,0 +1,100 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Hakyll - Quickstart</title>
+
+        <!-- Stylesheets. -->
+        <link rel="stylesheet" type="text/css" href="part01_files/default.css">
+        <link rel="stylesheet" type="text/css" href="part01_files/syntax.css">
+
+        <!-- Metadata. -->
+        <meta name="keywords" content="hakyll,static site generator,static,site,generator,haskell,blog">
+        <meta name="description" content="Hakyll - A Static Site Generator in Haskell.">
+    </head>
+    <body>
+        <div id="main">
+            <div id="header">
+                <img src="part01_files/lambda.png" alt="lambda">
+                <h1>Hakyll - Quickstart</h1>
+            </div>
+            <!-- Sidebar. -->
+            <div id="sidebar">
+                <div id="navigation"><h2>Navigation</h2><p><a href="http://jaspervdj.be/hakyll/index.html">home</a> <a href="http://jaspervdj.be/hakyll/philosophy.html">philosophy</a> <a href="http://jaspervdj.be/hakyll/about.html">about</a> <a href="http://jaspervdj.be/hakyll/tutorials.html">tutorials</a> <a href="http://jaspervdj.be/hakyll/reference.html">reference</a> <a href="http://jaspervdj.be/hakyll/changelog.html">changelog</a></p></div>
+            </div>
+
+            <div id="content">
+                <div id="getting-started"><h2>Getting started</h2><p>First, make sure you have Hakyll installed. The recommended way to do this is through <a href="http://hackage.haskell.org/">hackage</a> using <a href="http://www.haskell.org/haskellwiki/Cabal-Install">cabal-install</a>. This tutorial also assumes you have a basic knowledge of Haskell.</p><pre><code>[jasper@alice ~]$ cabal install hakyll
+</code></pre></div><div id="building-a-simple-static-site"><h2>Building a simple static site</h2><p>As
+ an example to get started with, we’re going to develop a so called 
+“Brochure Site” for an imaginary company. The first step is to create a 
+directory for our new site.</p><pre><code>[jasper@alice Sites]$ mkdir brochure
+[jasper@alice Sites]$ cd brochure/
+[jasper@alice brochure]$
+</code></pre><p>I have a <a href="http://jaspervdj.be/hakyll/examples/brochure.zip">zip file</a>
+ with the files we need for this tutorial available. Please unzip it in 
+the brochure directory we just created. We’ll first have a look at what 
+we’re going to create (because we’re curious and all that).</p><pre><code>[jasper@alice brochure]$ ghc --make hakyll.hs 
+[1 of 1] Compiling Main             ( hakyll.hs, hakyll.o )
+Linking hakyll ...
+[jasper@alice brochure]$ ./hakyll preview
+Starting hakyll server on port 8000...
+</code></pre><p>If you now point your browser at <a href="http://localhost:8000/">localhost:8000</a> you should see our simple brochure site.</p></div><div id="hakyll.hs"><h2>hakyll.hs</h2><p>The main configuration file of a Hakyll site is traditionally called <code>hakyll.hs</code>. It is nothing special, just a small Haskell program. There is no magic going on.</p><pre class="sourceCode haskell"><code><span class="kw">import</span> <span class="dt">Text.Hakyll</span> (hakyll)<br><span class="kw">import</span> <span class="dt">Control.Monad.Trans</span> (liftIO)<br>main <span class="fu">=</span> hakyll <span class="st">"http://example.com"</span> <span class="fu">$</span> <span class="kw">do</span><br>    liftIO <span class="fu">$</span> <span class="fu">putStrLn</span> <span class="st">"I'm in your computer, generating your site!"</span><br></code></pre><p>Note how we wrap everything in the <code>hakyll</code> function. This is useful because it will generate a very nice main function. We also pass the full site URL to the <code>hakyll</code>
+ function. If you don’t have an URL for your site yet, it doesn’t really
+ matter for now; just fill in anything then. The URL is only used for 
+certain specific purposes where a full URL is needed, such as rendering 
+RSS feeds.</p></div><div id="context"><h2>Context</h2><p>Let’s look at one of the most important types in Hakyll.</p><pre class="sourceCode haskell"><code><span class="kw">type</span> <span class="dt">Context</span> <span class="fu">=</span> <span class="dt">Map</span> <span class="dt">String</span> <span class="dt">String</span><br></code></pre><p>A <code>Context</code> is a key-value mapping, used to represent pieces of information. One way to write such a <code>Context</code>, is a page.</p></div><div id="pages"><h2>Pages</h2><p>Another
+ important concept in Hakyll is pages. Pages are text files that can be 
+written in markdown, html, rst… basically anything Pandoc supports. 
+Furthermore, they can also contain some metadata. The metadata is placed
+ in the file header and surrounded by <code>---</code> lines. Each line should contain a <code>key: value</code> pair. Let’s have a look at the <code>index.markdown</code> page.</p><pre><code>---
+title: About
+---
+Nullam imperdiet sodales orci vitae molestie.
+Nunc quam orci, pharetra a rhoncus vitae,
+eleifend id felis. Suspendisse potenti...
+</code></pre><p>This contains one <code>key: value</code> pair, namely <code>title: About</code>. The rest of the file is treated as markdown by pandoc. If you want to know more about markdown, I think <a href="http://daringfireball.net/projects/markdown/syntax">this</a> is a pretty good page.</p></div><div id="templates"><h2>Templates</h2><p>Another
+ concept are the so-called templates. Templates are text files (usually 
+html files) containing a number of keys. The syntax for these keys is <code>$identifier</code>. Our example site contains one template, namely <code>templates/default.html</code>. Let’s have a better look at that.</p><pre class="sourceCode html"><code><span class="kw">&lt;html&gt;</span><br>  <span class="kw">&lt;head&gt;</span><br>    <span class="kw">&lt;title&gt;</span>MyAweSomeCompany - $title<span class="kw">&lt;/title&gt;</span><br>    <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">"stylesheet"</span><span class="ot"> type=</span><span class="st">"text/css"</span><br><span class="ot">          href=</span><span class="st">"$root/css/default.css"</span> <span class="kw">/&gt;</span><br>    <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">"stylesheet"</span><span class="ot"> type=</span><span class="st">"text/css"</span><br><span class="ot">          href=</span><span class="st">"$root/css/syntax.css"</span> <span class="kw">/&gt;</span><br>  <span class="kw">&lt;/head&gt;</span><br>  <span class="kw">&lt;body&gt;</span><br>    <span class="kw">&lt;h1&gt;</span>MyAweSomeCompany - $title<span class="kw">&lt;/h1&gt;</span><br>    <span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">"navigation"</span><span class="kw">&gt;</span><br>      <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">"$root/index.html"</span><span class="kw">&gt;</span>Home<span class="kw">&lt;/a&gt;</span><br>      <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">"$root/about.html"</span><span class="kw">&gt;</span>About<span class="kw">&lt;/a&gt;</span><br>      <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">"$root/code.html"</span><span class="kw">&gt;</span>Code<span class="kw">&lt;/a&gt;</span><br>    <span class="kw">&lt;/div&gt;</span><br><br>    $body<br>  <span class="kw">&lt;/body&gt;</span><br><span class="kw">&lt;/html&gt;</span><br></code></pre><p>We can see how our <code>Page</code> would fit in. When we render the page we saw using this template, <code>$title</code> would be replaced by <code>About</code>, and <code>$body</code> would be replaced by the body of the about page. <code>body</code> is the traditional name for the body of any page - that is the convention in Hakyll. Also note that in this case, <code>$body</code> would be replaced by a chunk of html - the result of the markdown-to-html conversion.</p></div><div id="the-root-key"><h2>The $root key</h2><p>There
+ are a few “special” keys in Hakyll: one of them is the $root key. What 
+is so special about it? Well, internally, it is treated differently - 
+but this should not concern you. The thing is that it is the only key 
+you can also use in <strong>Pages</strong>.</p><p>It will be substituted by a relative url part (like <code>..</code> or <code>../..</code>)
+ so it points to the root directory of your site. It is recommended to 
+use this whenever you need it, it can save you some time from messing 
+with absolute and relative URL’s.</p></div><div id="putting-it-all-together"><h2>Putting it all together</h2><p>Now, we’ll render the page using the <code>renderChain</code> function. This function takes a list of templates and a <code>Context</code>. In our case, we only have one template, and our <code>Context</code> is the about page we just saw - we can load that using the <code>createPage</code> function.</p><pre class="sourceCode haskell"><code><span class="kw">import</span> <span class="dt">Text.Hakyll</span> (hakyll)<br><span class="kw">import</span> <span class="dt">Text.Hakyll.Render</span> (renderChain)<br><span class="kw">import</span> <span class="dt">Text.Hakyll.CreateContext</span> (createPage)<br>main <span class="fu">=</span> hakyll <span class="st">"http://example.com"</span> <span class="fu">$</span> <span class="kw">do</span><br>    renderChain [<span class="st">"templates/default.html"</span>]<br>        (createPage <span class="st">"index.markdown"</span>)<br></code></pre><p>Or, to render all our three pages:</p><pre class="sourceCode haskell"><code><span class="kw">import</span> <span class="dt">Text.Hakyll</span> (hakyll)<br><span class="kw">import</span> <span class="dt">Text.Hakyll.Render</span> (renderChain)<br><span class="kw">import</span> <span class="dt">Text.Hakyll.CreateContext</span> (createPage)<br>main <span class="fu">=</span> hakyll <span class="st">"http://example.com"</span> <span class="fu">$</span> <span class="kw">do</span><br>    render <span class="st">"about.rst"</span><br>    render <span class="st">"index.markdown"</span><br>    render <span class="st">"code.lhs"</span><br>    <span class="kw">where</span> render <span class="fu">=</span> renderChain [<span class="st">"templates/default.html"</span>]<br>                 <span class="fu">.</span> createPage<br></code></pre><p>As you can see, we can render a variety of formats. This will create the following files:</p><pre><code>_site/about.html
+_site/index.html
+_site/code.html
+</code></pre></div><div id="css-images-and-other-static-files"><h2>CSS, images and other static files</h2><p>Now, we also have a css file we would like to have in the <code>_site</code> directory. Static files can be rendered using the <code>static</code> function in Hakyll. We could use:</p><pre class="sourceCode haskell"><code><span class="kw">import</span> <span class="dt">Text.Hakyll</span> (hakyll)<br><span class="kw">import</span> <span class="dt">Text.Hakyll.Render</span> (static)<br>main <span class="fu">=</span> hakyll <span class="st">"http://example.com"</span> <span class="fu">$</span> <span class="kw">do</span><br>    static <span class="st">"css/default.css"</span><br></code></pre><p>This would work, but let’s not forget that Hakyll also has css compression. If we want to use that, we would use <code>css</code> instead of <code>static</code>.</p><pre class="sourceCode haskell"><code><span class="kw">import</span> <span class="dt">Text.Hakyll</span> (hakyll)<br><span class="kw">import</span> <span class="dt">Text.Hakyll.Render</span> (css)<br>main <span class="fu">=</span> hakyll <span class="st">"http://example.com"</span> <span class="fu">$</span> <span class="kw">do</span><br>    css <span class="st">"css/default.css"</span><br></code></pre><p>If we were to create another css file, we would have to add a line to our <code>hakyll.hs</code> configuration file. This is pretty stupid, because the whole directory <code>css</code> contains only css files. That’s why Hakyll has a <code>directory</code> function, which will execute a given function on an entire directory. So, our example would become:</p><pre class="sourceCode haskell"><code><span class="kw">import</span> <span class="dt">Text.Hakyll</span> (hakyll)<br><span class="kw">import</span> <span class="dt">Text.Hakyll.Render</span> (css)<br><span class="kw">import</span> <span class="dt">Text.Hakyll.File</span> (directory)<br>main <span class="fu">=</span> hakyll <span class="st">"http://example.com"</span> <span class="fu">$</span> <span class="kw">do</span><br>    directory css <span class="st">"css"</span><br></code></pre></div><div id="deploying"><h2>Deploying</h2><p>To setup your site, simply copy the contents of <code>_site</code> to your hosting provider using your favorite piece of software.</p></div><div id="the-gist-of-it"><h2>The gist of it</h2><ul><li>You render “pages” with “templates”.</li><li>The most common render function is <code>renderChain</code>.</li><li>Hakyll also deals with static files and css.</li></ul></div>
+
+<h2>Helping out</h2>
+
+Hakyll is an open source project, and one of the hardest parts is writing
+correct, up-to-date, and understandable documentation. Therefore, the
+authors would really appreciate it if you would
+<a href="http://groups.google.com/group/hakyll">give some feedback</a> about
+the tutorials, and especially report errors or difficulties you encountered.
+Thanks!
+
+            </div>
+
+            <div id="footer">
+                Site proudly generated by <a href="http://github.com/jaspervdj/hakyll">hakyll</a>.
+            </div>
+        </div>
+
+        <!-- Google Analytics -->
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script><script src="part01_files/ga.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-11993001-1");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+    
+
+
+</body></html>
