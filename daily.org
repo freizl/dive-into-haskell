@@ -1,4 +1,5 @@
 * BACKLOG
+** KnightQuests exercise                                               :LYGH:
 ** FG                                                                 :gragh:
 ** study 4blocks source code                                         :gtk2hs:
 ** tic toe tac game                                                  :gtk2hs:
@@ -23,6 +24,7 @@
           - a regx module
 * Tags
 
-| TAG | Full Name              |
-|-----+------------------------|
-| PIH | Programming in Haskell |
+| TAG  | Full Name               |
+|------+-------------------------|
+| PIH  | Programming in Haskell  |
+| LYGH | Learn Your Good Haskell |
