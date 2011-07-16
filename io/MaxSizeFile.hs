@@ -21,6 +21,7 @@ handler e
   | isDoesNotExistError e = case ioeGetFileName e of
                               Just path -> putStrLn $ "File does not exist: " ++ path
                               Nothing   -> putStrLn "Whoops! File does not exist at unknown location!"
+  | isPermissionError e   = return ()
   | otherwise             = ioError e
 
 toTry :: IO ()
