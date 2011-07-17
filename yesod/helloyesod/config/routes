@@ -7,3 +7,4 @@
 / RootR GET
 /contact ContactR GET
 /hello HelloR GET
+/form FormR GET

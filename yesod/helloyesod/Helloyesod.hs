@@ -20,6 +20,7 @@ import Yesod.Helpers.Static
 import Yesod.Helpers.Auth
 import Yesod.Helpers.Auth.OpenId
 import Yesod.Helpers.Auth.Email
+import Yesod.Helpers.Auth.Facebook
 import qualified Settings
 import System.Directory
 import qualified Data.ByteString.Lazy as L
@@ -77,7 +78,8 @@ mkYesodData "Helloyesod" $(parseRoutesFile "config/routes")
 -- of settings which can be configured by overriding methods here.
 instance Yesod Helloyesod where
     approot _ = Settings.approot
-
+    clientSessionDuration _ = 1    
+    
     defaultLayout widget = do
         mmsg <- getMessage
         pc <- widgetToPageContent $ do
@@ -140,6 +142,9 @@ instance YesodAuth Helloyesod where
                 fmap Just $ insert $ User (credsIdent creds) Nothing
 
     authPlugins = [ authOpenId
+                    , authFacebook "157813777573244"
+                                 "327e6242e855954b16f9395399164eec"
+                                 []
                   , authEmail
                   ]
 
