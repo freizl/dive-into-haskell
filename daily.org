@@ -1,4 +1,7 @@
 * BACKLOG
+** Re-impl weibo following Twitter/G+                                 :Yesod:
+** LambdaHack Game study
+   1. [[https://github.com/kosmikus/LambdaHack][Source Code]]
 ** KnightQuests exercise                                               :LYGH:
 ** FG                                                                 :gragh:
 ** study 4blocks source code                                         :gtk2hs:
@@ -6,9 +9,11 @@
 ** hangman game                                                         :PIH:
 ** nim game                                                             :PIH:
 * IN-PROGRESS
-** TODO Quickcheck
+** TODO Yesod OAuth authenticate                                      :Yesod:
+   1. failed at getting access token
+** TODO Quickcheck                                                     :Test:
    1. [ ] what and how
-** TODO hakyll (src and tutorial)
+** TODO hakyll (src and tutorial)                                    :Hakyll:
 * DONE
 ** DONE stockwatcher in haskell
     CLOSED: [2011-05-16 Mon 06:02]
@@ -16,7 +21,7 @@
    CLOSED: [2011-05-16 Mon 06:01]
    - Note taken on [2011-05-16 Mon 06:02] \\
      finish once...probably need re-read..
-
+     
 * Questions
 ** String / List
    1. [X] substitue function / re exp
