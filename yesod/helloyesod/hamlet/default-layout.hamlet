@@ -1,0 +1,28 @@
+!!!
+<html
+    <head
+        <title>Hello Yesod Sandbox | #{pageTitle pc}
+        <link rel=stylesheet media=screen href=@{StaticR blueprint_screen_css}>
+        ^{pageHead pc}
+    <body
+        <div .container
+            <header
+                <nav .round
+                  <ul
+                    <li
+                      <a href=@{RootR}>Home
+                    <li
+                      <a href=@{ContactR}>Contact
+                    <li
+                      <a href=@{HelloR}>Hello
+                    <li
+                      <a href=@{FormR}>Form
+            <section .round
+               $maybe msg <- mmsg
+                 <div #message>#{msg}
+               ^{pageBody pc}
+            <footer
+               <nav .round>
+                 <ul
+                   <li
+                      <a href=@{ContactR}>Contact

@@ -1,0 +1,12 @@
+<h1>Demo Form usage
+<h3>Session values
+<p>#{show sess}
+
+<hr>
+<p>#{output}
+<form enctype="#{enctype}">
+    <table>
+        ^{form}
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Randomize!">

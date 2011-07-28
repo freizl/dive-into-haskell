@@ -3,6 +3,9 @@
 ** LambdaHack Game study
    1. [[https://github.com/kosmikus/LambdaHack][Source Code]]
 ** KnightQuests exercise                                               :LYGH:
+   - [ ] Could leverage Control.Monad.Writer
+   - [ ] ArrowLoop, ArrowChoice
+   - [ ] Kleisli type
 ** FG                                                                 :gragh:
 ** study 4blocks source code                                         :gtk2hs:
 ** tic toe tac game                                                  :gtk2hs:

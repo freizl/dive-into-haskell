@@ -1,0 +1,8 @@
+It is yesod sandbox
+
+1. [ ] How to add parameter to URL as routes rule defined in a plain file
+2. [ ] How to pass variables into hamlet tepmlate.
+   - NOTE: the example only shows inner template
+   - setTitle is one
+3. passing message between pages
+   - getMessage / setMessage

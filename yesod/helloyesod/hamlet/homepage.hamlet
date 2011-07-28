@@ -1,0 +1,18 @@
+<h1>Hello Yesod
+<h2 ##{h2id}>You do not have Javascript enabled.
+<p>This is the home page for the
+<ul>
+    <li>
+        <a href="http://www.yesod.com">Yesod tutorial
+    <li>
+        <a href=@{ContactR}>Contact
+$maybe u <- mu
+    <p
+        You are logged in as #{userIdent $ snd u}. #
+        <a href=@{AuthR LogoutR}>Logout.
+$nothing
+    <p
+        You are not logged in. #
+        <a href=@{AuthR LoginR}>Login now.
+    <p    
+        <a href="#" .signup_button .round>Sign up now!
