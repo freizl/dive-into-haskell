@@ -6,6 +6,7 @@
         <a href="http://www.yesod.com">Yesod tutorial
     <li>
         <a href=@{ContactR}>Contact
+    <p>#{show sess}
 $maybe u <- mu
     <p
         You are logged in as #{userIdent $ snd u}. #

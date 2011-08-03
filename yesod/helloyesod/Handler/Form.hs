@@ -17,7 +17,7 @@ data Params = Params
     , maxNumber :: Int
     , singleWord :: Text
     , pluralWord :: Text
-    , birthday :: Maybe Day
+    , birthday :: Text
     }
 
 --paramsFormlet :: Maybe Params -> Form s m Params
@@ -26,7 +26,8 @@ paramsFormlet mparams = fieldsToTable $ Params
     <*> intField "Maximum number" (fmap maxNumber mparams)
     <*> stringField "Single word" (fmap singleWord mparams)
     <*> stringField "Plural word" (fmap pluralWord mparams)
-    <*> maybeJqueryDayField def "My birthday" (fmap birthday mparams)
+    <*> stringField "My birthday" (fmap birthday mparams)
+    -- MaybeJqueryDay
     
 -- | Demostrate form usage
 getFormR :: Handler RepHtml

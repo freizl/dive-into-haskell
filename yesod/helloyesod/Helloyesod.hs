@@ -21,6 +21,7 @@ import Yesod.Helpers.Auth
 import Yesod.Helpers.Auth.OpenId
 import Yesod.Helpers.Auth.Email
 import Yesod.Helpers.Auth.Facebook
+import Yesod.Helpers.Auth.OAuth
 import qualified Settings
 import System.Directory
 import qualified Data.ByteString.Lazy as L
@@ -145,6 +146,12 @@ instance YesodAuth Helloyesod where
                     , authFacebook "157813777573244"
                                  "327e6242e855954b16f9395399164eec"
                                  []
+                    , authOAuth "Weibo" "user_id" -- how get the user infor from authorised credential
+                                "http://api.t.sina.com.cn/oauth/request_token"
+                                "http://api.t.sina.com.cn/oauth/access_token"
+                                "http://api.t.sina.com.cn/oauth/authorize"
+                                "3762275114"
+                                "f07825f316c06cfd8051159a80cc3530"
                   , authEmail
                   ]
 

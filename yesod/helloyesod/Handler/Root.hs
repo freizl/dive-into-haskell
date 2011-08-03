@@ -13,6 +13,7 @@ import Helloyesod
 getRootR :: Handler RepHtml
 getRootR = do
     mu <- maybeAuth
+    sess <- getSession
     defaultLayout $ do
         h2id <- lift newIdent
         setTitle "Home"
