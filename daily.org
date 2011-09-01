@@ -1,4 +1,5 @@
 * BACKLOG
+** TODO hakyll (src and tutorial)                                    :Hakyll:
 ** Re-impl weibo following Twitter/G+                                 :Yesod:
 ** LambdaHack Game study
    1. [[https://github.com/kosmikus/LambdaHack][Source Code]]
@@ -13,10 +14,9 @@
 ** nim game                                                             :PIH:
 * IN-PROGRESS
 ** TODO Yesod OAuth authenticate                                      :Yesod:
-   1. failed at getting access token
-** TODO Quickcheck                                                     :Test:
-   1. [ ] what and how
-** TODO hakyll (src and tutorial)                                    :Hakyll:
+   1. [X] failed at getting access token
+          need callback at getting auth code
+** TODO Hxml study
 * DONE
 ** DONE stockwatcher in haskell
     CLOSED: [2011-05-16 Mon 06:02]
@@ -25,6 +25,12 @@
    - Note taken on [2011-05-16 Mon 06:02] \\
      finish once...probably need re-read..
      
+** DONE Quickcheck                                                     :Test:
+   CLOSED: [2011-09-01 Thu 15:34]
+   1. [X] what and how
+   2. [[http://www.cse.chalmers.se/~rjmh/QuickCheck/][Home page]]
+   3. [X] how to create Test suite
+
 * Questions
 ** String / List
    1. [X] substitue function / re exp
