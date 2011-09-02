@@ -16,7 +16,9 @@
 ** TODO Yesod OAuth authenticate                                      :Yesod:
    1. [X] failed at getting access token
           need callback at getting auth code
+   2. [ ] post the finding
 ** TODO Hxml study
+** TODO Post functor Applicative
 * DONE
 ** DONE stockwatcher in haskell
     CLOSED: [2011-05-16 Mon 06:02]
