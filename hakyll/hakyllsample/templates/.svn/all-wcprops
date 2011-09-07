@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/215/trunk/python/hakyllsample/templates
+END
+default.html
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/215/trunk/python/hakyllsample/templates/default.html
+END
+postitem.html
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/215/trunk/python/hakyllsample/templates/postitem.html
+END
+post.html
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/215/trunk/python/hakyllsample/templates/post.html
+END
+posts.html
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/215/trunk/python/hakyllsample/templates/posts.html
+END

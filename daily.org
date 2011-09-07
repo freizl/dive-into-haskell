@@ -19,6 +19,7 @@
    2. [ ] post the finding
 ** TODO Hxml study
 ** TODO Post functor Applicative
+** TODO Countdown problem study
 * DONE
 ** DONE stockwatcher in haskell
     CLOSED: [2011-05-16 Mon 06:02]
