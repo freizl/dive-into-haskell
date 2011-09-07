@@ -1,9 +1,0 @@
-<div>
-$tagcloud$
-</div>
-
-<h1>$title$</h1>
-
-<ul>
-    $posts$
-</ul>
