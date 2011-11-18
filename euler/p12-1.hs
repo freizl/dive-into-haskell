@@ -15,9 +15,7 @@ p12 :: Int -> Int
 p12 n = head $ filter (factorLimit n) [ smartGaus x | x <- [1..]]
 
 smartGaus :: Int -> Int
-smartGaus n
-  | n <= 1     = n
-  | n > 1      = (1+n)*n `div` 2
+smartGaus n = (1+n)*n `div` 2
 
 {-- |
   Is factor count under the limit  
