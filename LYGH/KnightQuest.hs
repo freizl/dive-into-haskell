@@ -1,5 +1,9 @@
 module KnightQuests where
 
+{-- |
+  http://learnyouahaskell.com/a-fistful-of-monads
+--}
+
 import Control.Monad(foldM)
 
 type KnightPos = (Int, Int)
