@@ -1,23 +1,24 @@
 * BACKLOG
-** TODO hakyll (src and tutorial)                                    :Hakyll:
-** Re-impl weibo following Twitter/G+                                 :Yesod:
+** Monad for web application                                          :VIDEO:
+** Advanced FP                                                        :VIDEO:
+** HXT study
+** hakyll (src and tutorial)                                         :Hakyll:
 ** LambdaHack Game study
    1. [[https://github.com/kosmikus/LambdaHack][Source Code]]
 ** KnightQuests exercise                                               :LYGH:
    - [ ] Could leverage Control.Monad.Writer
    - [ ] ArrowLoop, ArrowChoice
    - [ ] Kleisli type
-** FG                                                                 :gragh:
 ** study 4blocks source code                                         :gtk2hs:
 ** tic toe tac game                                                  :gtk2hs:
 ** hangman game                                                         :PIH:
 ** nim game                                                             :PIH:
+** Re-impl weibo following Twitter/G+                                 :Yesod:
 * IN-PROGRESS
 ** TODO Yesod OAuth authenticate                                      :Yesod:
    1. [X] failed at getting access token
           need callback at getting auth code
    2. [ ] post the finding
-** TODO Hxml study
 ** TODO Post functor Applicative
 ** TODO Countdown problem study
 * DONE
