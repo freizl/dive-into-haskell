@@ -15,6 +15,7 @@
 ** nim game                                                             :PIH:
 ** Re-impl weibo following Twitter/G+                                 :Yesod:
 * IN-PROGRESS
+** TODO Move notes in google code wiki to `notes` here
 ** TODO Yesod OAuth authenticate                                      :Yesod:
    1. [X] failed at getting access token
           need callback at getting auth code
