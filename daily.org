@@ -1,17 +1,26 @@
 * BACKLOG
+** Monad for web application                                          :VIDEO:
+** Advanced FP                                                        :VIDEO:
+** HXT study
+** hakyll (src and tutorial)                                         :Hakyll:
+** LambdaHack Game study
+   1. [[https://github.com/kosmikus/LambdaHack][Source Code]]
 ** KnightQuests exercise                                               :LYGH:
    - [ ] Could leverage Control.Monad.Writer
    - [ ] ArrowLoop, ArrowChoice
    - [ ] Kleisli type
-** FG                                                                 :gragh:
 ** study 4blocks source code                                         :gtk2hs:
 ** tic toe tac game                                                  :gtk2hs:
 ** hangman game                                                         :PIH:
 ** nim game                                                             :PIH:
+** Re-impl weibo following Twitter/G+                                 :Yesod:
 * IN-PROGRESS
-** TODO Quickcheck
-   1. [ ] what and how
-** TODO hakyll (src and tutorial)
+** TODO Yesod OAuth authenticate                                      :Yesod:
+   1. [X] failed at getting access token
+          need callback at getting auth code
+   2. [ ] post the finding
+** TODO Post functor Applicative
+** TODO Countdown problem study
 * DONE
 ** DONE stockwatcher in haskell
     CLOSED: [2011-05-16 Mon 06:02]
@@ -19,6 +28,12 @@
    CLOSED: [2011-05-16 Mon 06:01]
    - Note taken on [2011-05-16 Mon 06:02] \\
      finish once...probably need re-read..
+     
+** DONE Quickcheck                                                     :Test:
+   CLOSED: [2011-09-01 Thu 15:34]
+   1. [X] what and how
+   2. [[http://www.cse.chalmers.se/~rjmh/QuickCheck/][Home page]]
+   3. [X] how to create Test suite
 
 * Questions
 ** String / List

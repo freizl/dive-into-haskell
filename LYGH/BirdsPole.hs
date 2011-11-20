@@ -1,5 +1,7 @@
 module BirdsPole where
 
+-- http://learnyouahaskell.com/a-fistful-of-monads
+
 type Birds = Int
 data Pole  = P {left::Birds, right::Birds} deriving (Show)
 
