@@ -4,6 +4,7 @@ import Data.Word
 {-- |
     Project euler 14
     Solution 1
+`ghc --make p14-1.hs -O2 -fforce-recomp -rtsopts`
 --}
     
 main :: IO ()
