@@ -9,12 +9,15 @@ digraph structs {
     real          [label="<real> Real"];
     num           [label="<num> Num"];
     
+    floating  -> fractional
+    
     realfloat -> floating;
     realfloat -> realfrac;
 
     realfrac -> real;
     realfrac -> fractional;
 
+    fractional -> num;
     integral -> real;
     real -> num;
     
