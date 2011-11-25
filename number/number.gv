@@ -1,0 +1,21 @@
+digraph structs {
+    node [shape=record, style=rounded];
+    
+    realfloat     [label="<realfloat> RealFloat"];
+    floating      [label="<floating> Floating"];
+    realfrac      [label="<realfrac> RealFrac"];
+    fractional    [label="<fractional> Fractional"];
+    integral      [label="<integral> Integral"];
+    real          [label="<real> Real"];
+    num           [label="<num> Num"];
+    
+    realfloat -> floating;
+    realfloat -> realfrac;
+
+    realfrac -> real;
+    realfrac -> fractional;
+
+    integral -> real;
+    real -> num;
+    
+}
