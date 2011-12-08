@@ -6,8 +6,8 @@ import Database.HDBC.MySQL
 main :: IO ()
 main = do conn <- connectMySQL defaultMySQLConnectInfo {
             mysqlUser     = "root",
-            mysqlPassword = "navichina",
-            mysqlDatabase = "unifiedbuild"
+            mysqlPassword = "test",
+            mysqlDatabase = "test"
             }
 
           rows <- quickQuery' conn "SELECT root_cause, logs FROM build WHERE root_cause IS NOT NULL" []
