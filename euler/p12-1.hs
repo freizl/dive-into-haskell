@@ -1,11 +1,12 @@
 module Main where
 
 import Data.List
-import Primeing (primeFactors)
+import Number.Primeing (primeFactors)
 
 {-- |
     Project euler 12
     Solution 1
+    find detail fo Number.Primeing at ../mylib directory
 --}
     
 main :: IO ()
