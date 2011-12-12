@@ -1,4 +1,10 @@
 
+-- TODO: set up swu haskell lib including prime and fibs
+-- swu
+--   -> number
+--          -> Prime
+--          -> Fibonacci
+
 import Data.List
 
 main = do
