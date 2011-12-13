@@ -16,7 +16,7 @@
 ** Re-impl weibo following Twitter/G+                                 :Yesod:
 ** The Haskell School of Expression                                    :BOOK:
 * IN-PROGRESS
-** Control.Parellel
+** TODO Post what learn from euler 104
 ** TODO Yesod OAuth authenticate                                      :Yesod:
    1. [X] failed at getting access token
           need callback at getting auth code
