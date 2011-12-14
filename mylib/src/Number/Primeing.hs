@@ -1,4 +1,7 @@
-module Number.Primeing where
+module Number.Primeing 
+       (primes,
+        primeFactors)
+       where
 
 sieve :: [Integer] -> [Integer]
 sieve []     = []

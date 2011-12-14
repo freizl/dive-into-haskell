@@ -4,7 +4,7 @@ import Data.List
 import Number.Fibonacci(fibs)
 
 main :: IO ()
-main = print $ snd $ head $ dropWhile (\(x,y) -> (not . bothNinePandigit "123456789") x) (zip fibs [1..])
+main = print $ snd $ head $ dropWhile (\(x,y) -> (not . isLastNinePandigit "123456789") x) (zip fibs [1..])
 
 {--
   | test last 9 first make great difference
@@ -12,8 +12,8 @@ main = print $ snd $ head $ dropWhile (\(x,y) -> (not . bothNinePandigit "123456
     
 bothNinePandigit digits n =  isLastNinePandigit digits n && isFirstNinePandigit digits n
 
-isLastNinePandigit  digits n = digits == sort (lastDigits 9 n)
-isFirstNinePandigit digits n = digits == sort (firstDigits 9 n)
+isLastNinePandigit  digits = (== digits) . sort . lastDigits 9 
+isFirstNinePandigit digits = (== digits) . sort . firstDigits 9 
 
 firstDigits k n = take k (show n)
 lastDigits  k n = show (n `mod` 10^k)
