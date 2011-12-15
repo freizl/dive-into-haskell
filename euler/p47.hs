@@ -8,23 +8,17 @@ import Data.List(nub, find)
 
 main = print $ p47
 
-lower = 600
-count = 4
+lower = 100
+count = 3
 
-p47   = find isConsecutive (candidates distinctPrimeFactors)
+p47 = find isConsecutive (candidates distinctPrimeFactors)
 
-candidates []         = []
-candidates (x:y:[])   = []
-candidates (x:y:z:[]) = []
-candidates xs         = (take count xs) : (candidates $ tail xs)
+makeCandidates    :: [(Integer, [Integer])] -> [[(Integer, [Integer])]]
+makeCandidates xs = (take count xs) : (makeCandidates $ tail xs)
 
+distinctPrimeFactors :: [(Integer, [Integer])]
 distinctPrimeFactors = map (\x -> (x, (nub . primeFactors) x)) [lower..]
 
-isConsecutive xs@(x:y:z:z1:[]) = countDistinct (length xs) (snd x) (snd y) (snd z) (snd z1)
-isConsecutive _           = False
-
-countDistinct l xs ys zs zs1 =  length xs == l
-                        && length ys == l
-                        && length zs == l
-                        && length zs1 == l
+isConsecutive    ::  [(Integer,[Integer])] -> Bool
+isConsecutive xs = and $ map ((== count) . length . snd) xs
                         
