@@ -1,31 +1,30 @@
 module Main where
 
 import Number.Primeing(primeFactors)
-import Data.List(nub, intersect)
+import Data.List(nub, find)
 
 -- Question
 -- 1. how to access tuple (1,"a","b")
 
 main = print $ p47
 
-upper = 1000
-lower = 100
-consentive = 3
+lower = 600
+count = 4
 
-p47   = filter isConsentive (candidates2 candidates)
+p47   = find isConsecutive (candidates distinctPrimeFactors)
 
-candidates2 [] = []
-candidates2 (x:y:[]) = []
-candidates2 xs = (take 3 xs) : (candidates2 $ tail xs)
-candidates = map (\x -> (x, (nub . primeFactors) x)) [lower..upper]
+candidates []         = []
+candidates (x:y:[])   = []
+candidates (x:y:z:[]) = []
+candidates xs         = (take count xs) : (candidates $ tail xs)
 
-isConsentive xs@(x:y:z:[]) = isConsentive2 (length xs) (snd x) (snd y) (snd z)
-isConsentive _           = False
+distinctPrimeFactors = map (\x -> (x, (nub . primeFactors) x)) [lower..]
 
-isConsentive2 l xs ys zs = length xs == l
+isConsecutive xs@(x:y:z:z1:[]) = countDistinct (length xs) (snd x) (snd y) (snd z) (snd z1)
+isConsecutive _           = False
+
+countDistinct l xs ys zs zs1 =  length xs == l
                         && length ys == l
                         && length zs == l
-                        && (xs `intersect` ys) == []
-                        && (zs `intersect` ys) == []
-                        && (xs `intersect` zs) == []
+                        && length zs1 == l
                         
