@@ -11,7 +11,7 @@ main = print $ p47
 lower = 100
 count = 3
 
-p47 = find isConsecutive (candidates distinctPrimeFactors)
+p47 = find isConsecutive (makeCandidates distinctPrimeFactors)
 
 makeCandidates    :: [(Integer, [Integer])] -> [[(Integer, [Integer])]]
 makeCandidates xs = (take count xs) : (makeCandidates $ tail xs)
