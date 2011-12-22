@@ -3,15 +3,15 @@ TemplateHaskell, OverloadedStrings #-}
 import Yesod
 data HelloWorld = HelloWorld
 
-mkYesod "HelloWorld" [parseRoutes|/ HomeR GET|]
+mkYesod "HelloWorld" [$parseRoutes|/ HomeR GET|]
 
 instance Yesod HelloWorld where approot _ = ""
 
 getHomeR = defaultLayout $ do
   addScriptRemote "https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"
   
-  addHamlet [hamlet|
-<h1>Hello World!
+  addHamlet [$hamlet|
+  <h1>Hello World!
   <p>Here are some of my favorite links:
     <ul>
       <li>
@@ -19,10 +19,17 @@ getHomeR = defaultLayout $ do
       <li>
         <a href=http://www.haskell.org/>Haskell Homepage
   <p>Thanks for visiting!
+  <p #my-id .my-class
+    This paragraph has an ID and a class. It also has #
+    <b>bold
+    \ and #
+    <i>italic
+    , and shows you how to control whitespace.
+
 |]
 
   addCassius
-    [cassius|
+    [$cassius|
 h1
   color: green
 ul > li:first-child
@@ -31,7 +38,7 @@ ul > li:first-child
 
   addJulius
 -- START
-    [julius|
+    [$julius|
 $(function(){
    $("h1").after("<p><a href='#' id='mylink'>Never click me</a></p>");
    $("#mylink").click(function(){
