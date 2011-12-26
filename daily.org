@@ -15,14 +15,16 @@
 ** nim game                                                             :PIH:
 ** Re-impl weibo following Twitter/G+                                 :Yesod:
 ** The Haskell School of Expression                                    :BOOK:
+** Countdown problem study
 * IN-PROGRESS
-** TODO Post what learn from euler 104
+** TODO wai-handler-webkit                                            :Yesod:
+   - This backend combines Warp and QtWebkit to create an executable
+     that a user simply double-clicks.
 ** TODO Yesod OAuth authenticate                                      :Yesod:
    1. [X] failed at getting access token
           need callback at getting auth code
    2. [ ] post the finding
 ** TODO Post functor Applicative
-** TODO Countdown problem study
 * DONE
 ** DONE stockwatcher in haskell
     CLOSED: [2011-05-16 Mon 06:02]
@@ -38,6 +40,8 @@
 
 ** DONE Move notes in google code wiki to `notes` here
    CLOSED: [2011-11-20 Sun 15:09]
+** DONE Post what learn from euler 104
+   CLOSED: [2011-12-26 Mon 19:45]
 * Questions
 ** String / List
    1. [X] substitue function / re exp
