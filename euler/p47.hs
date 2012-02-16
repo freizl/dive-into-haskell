@@ -9,7 +9,7 @@ import Data.List(nub, find)
 main = print $ p47
 
 lower = 100
-count = 3
+count = 4
 
 p47 = find isConsecutive (makeCandidates distinctPrimeFactors)
 

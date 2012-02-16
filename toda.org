@@ -10,7 +10,7 @@
 ** LambdaHack Game study
    1. [[https://github.com/kosmikus/LambdaHack][Source Code]]
 ** Countdown problem study
-** HXT study
+** HXT studyc                                                           :LIB:
 ** hakyll (src and tutorial)                                         :Hakyll:
 ** The Haskell School of Expression                                    :BOOK:
 ** Yesod OAuth authenticate                                           :Yesod:
@@ -18,8 +18,11 @@
           need callback at getting auth code
    2. [ ] post the finding
 ** Re-impl weibo following Twitter/G+                                 :Yesod:
-* IN-PROGRESS
+** xmonad                                                               :LIB:
+** mtl                                                                  :LIB:
 ** tic toe tac game                                                  :gtk2hs:
+* IN-PROGRESS
+** All about Monad
 ** TODO Post functor Applicative
 * DONE
 ** DONE stockwatcher in haskell
