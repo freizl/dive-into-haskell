@@ -1,10 +1,16 @@
 module Main where
 
+import System.Environment (getArgs)
+
 main :: IO ()
 main = do
-  print $ map pr1 testdata
-  print $ map pr2 testdata
-  print $ map pr3 testdata  
+    xs <- getArgs
+    let tds = case xs of
+          ("testdata":_) -> testdata
+          ("testdata2":_) -> testdata2
+          _ -> testdata
+    mapM_ (print . runt tds) [pr1,pr2,pr3]
+  where runt tds fn = map fn tds
 
 -- | test data
 
@@ -59,8 +65,9 @@ pr1 = occurences
 -- | bruce force solution
 
 pr2 :: Int -> Int
-pr2 n = sum $ concatMap (filter  (== 1) . splitNumber) [1..n]
-                    
+--pr2 n = sum $ concatMap (filter  (== 1) . splitNumber) [1..n]
+pr2 n = length $ filter (== '1') $ concatMap show [1..n]
+
 splitNumber :: Int -> [Int]
 splitNumber n
   | n < 10   = [n]
@@ -94,15 +101,14 @@ onesWithinMulof10Power pow mul = onesWithin10Power pow * mul + ones mul
 
 -- | 1 occurences in [0, n). Because n is excluded [0,n), if you want 12345, please apply to (12345+1)
 onesWithinAnyNumber :: Int -> Int
-onesWithinAnyNumber n = if head txtNumber == '1'
-    then checkTxtNumber txtNumber + readArray (tail txtNumber)
-    else checkTxtNumber txtNumber
+onesWithinAnyNumber n = checkTxtNumber txtNumber
     where
         txtNumber = show n
         checkTxtNumber [] = 0
         checkTxtNumber ['1'] = 1
-        checkTxtNumber txt = checkFirst (length txt -1) (readOneChar $ head txt)  + checkTxtNumber (tail txt)
-
+        checkTxtNumber txt = if head txt == '1'
+            then checkFirst (length txt -1) (readArray [head txt]) + readArray (tail txt) + checkTxtNumber (tail txt)
+            else checkFirst (length txt -1) (readArray [head txt]) + checkTxtNumber (tail txt)
         checkFirst = onesWithinMulof10Power
         readOneChar c = read [c] :: Int
         readArray c = read c :: Int
