@@ -1,22 +1,30 @@
 module Main where
 
 import System.Environment (getArgs)
+import Data.Maybe (fromMaybe)
+import qualified Data.Map as Map
 
 main :: IO ()
 main = do
     xs <- getArgs
-    let tds = case xs of
-          ("testdata":_) -> testdata
-          ("testdata2":_) -> testdata2
-          _ -> testdata
-    mapM_ (print . runt tds) [pr1,pr2,pr3]
-  where runt tds fn = map fn tds
+    mapM_ (print . runt (getTestdata xs)) [pr1,pr2,pr3]
+  where runt :: TestData -> (Int -> Int) -> [Int]
+        runt tds fn = map fn tds
+        getTestdata :: [String] -> TestData
+        getTestdata [] = testdata
+        getTestdata (x:_) = fromMaybe testdata (Map.lookup x testdataMap)
 
 -- | test data
 
-testdata :: [Int]
+type TestData = [Int]
+testdata :: TestData
 testdata  = [123, 13, 100, 1000, 1111, 12345, 0, -10, 23]
 testdata2 = [97093212, 1948102, 26549192, 5621892, 27043111, 56728181]
+
+testdataMap :: Map.Map String TestData
+testdataMap = Map.fromList [
+  ("testdata", testdata),
+  ("testdata2", testdata2)]
 
 -- | ====================================== Solution One
 -- | from http://www.artofproblemsolving.com/Forum/viewtopic.php?f=337&t=324693
@@ -64,8 +72,9 @@ pr1 = occurences
 -- | ====================================== Solution Two
 -- | bruce force solution
 
+pr22 n = sum $ concatMap (filter  (== 1) . splitNumber) [1..n]
+
 pr2 :: Int -> Int
---pr2 n = sum $ concatMap (filter  (== 1) . splitNumber) [1..n]
 pr2 n = length $ filter (== '1') $ concatMap show [1..n]
 
 splitNumber :: Int -> [Int]
