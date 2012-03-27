@@ -116,7 +116,11 @@ tb4 =  "O_X"
     ++ "OX_"
     ++ "X__"
 
-testdatas = [tb, tb1, tb2, tb3, tb4]
+tb5 =  "OOX"
+    ++ "O_X"
+    ++ "XXO"
+
+testdatas = [tb, tb1, tb2, tb3, tb4, tb5]
 
 main :: IO ()
 main = do
