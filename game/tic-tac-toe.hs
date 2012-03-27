@@ -1,11 +1,11 @@
 module Main where
 
-import Data.List (findIndices)
+import Data.List (findIndices, transpose)
 import Data.Bits
 import Control.Monad (msum)
 
 -- | Play 'X' or 'O'.
---   TODO: shall define new data type `TX | TO`
+--   TODO: shall define new data type `TX | TO` ?
 type Item = Char
                      
 -- | The Board Data Structure
@@ -41,7 +41,8 @@ winnersTmp = [ [0,1,0,0,0,0, 0,1,0,0,0,0, 0,1,0,0,0,0]
              , [0,1,0,0,0,0, 0,0,0,1,0,0, 0,0,0,0,0,1]
              , [0,0,0,0,0,1, 0,0,0,1,0,0, 0,1,0,0,0,0]
              ]
-          
+
+-- | All possible solutions          
 winners :: [SolutionBin]
 winners = map binToDec winnersTmp
 
@@ -54,8 +55,37 @@ isWinner b w
   | b .&. shiftL w 1 == shiftL w 1  = Just 'O'  -- FIXME: duplicated shiftL
   | otherwise                       = Nothing
 
+-- | Find out whether there a winner on current Board
 findWinner :: BoardBinRep -> Maybe Item
 findWinner b = msum $ map (isWinner b) winners
+
+-- | Matrix representation
+type Matrix a = [[a]]
+type BoardMatRep = Matrix Char
+
+-- | Sum every rows
+sumRows :: BoardMatRep -> [String]
+sumRows b = b
+
+-- | Sum every columns
+sumCols :: BoardMatRep -> [String]
+sumCols = sumRows . transpose
+
+-- | Sum every diagonals
+sumDiagonal :: BoardMatRep -> [String]
+sumDiagonal b = map (zipWith (\ x y -> y x) b ) [ [head, head . tail, last]
+                                                 ,[last, head . tail, head] ]
+
+toBoardMatRep :: Board -> BoardMatRep
+toBoardMatRep b = let (x,y)   = splitAt 3 b
+                      (x1,y1) = splitAt 3 y in
+                  [x, x1, y1]
+                        
+findWinnerMatrix :: BoardMatRep -> Char
+findWinnerMatrix b = torep $ filter iswinner $ sumRows b ++ sumCols b ++ sumDiagonal b
+                     where iswinner s = s == "XXX" || s == "OOO"
+                           torep [] = ' '
+                           torep (x:_) = head x
 
 {-
   Test Datas
@@ -85,5 +115,9 @@ tb4 =  "O_X"
 testdatas = [tb, tb1, tb2, tb3, tb4]
 
 main :: IO ()
-main = mapM_ (print . findWinner . toBoardBinRep) testdatas
+main = do
+       print "----------First solution"
+       mapM_ (print . findWinner . toBoardBinRep) testdatas
+       print "----------Second solution"
+       mapM_ (print . findWinnerMatrix . toBoardMatRep) testdatas
 
