@@ -60,6 +60,9 @@ isWinner b w
 findWinner :: BoardBinRep -> Maybe Item
 findWinner b = msum $ map (isWinner b) winners
 
+playBinary :: Board -> Maybe Char
+playBinary = findWinner . toBoardBinRep
+
 -- | Matrix representation
 type Matrix a = [[a]]
 type BoardMatRep = Matrix Char
@@ -91,6 +94,9 @@ findWinnerMatrix b = torep $ filter iswinner $ sumRows b ++ sumCols b ++ sumDiag
                      where iswinner s  = s == "XXX" || s == "OOO"
                            torep []    = Nothing
                            torep (x:_) = Just $ head x
+
+playMatrix :: Board -> Maybe Char
+playMatrix = findWinnerMatrix . toBoardMatRep
 
 {-
   Test Datas
@@ -125,7 +131,7 @@ testdatas = [tb, tb1, tb2, tb3, tb4, tb5]
 main :: IO ()
 main = do
        print "----------First solution"
-       mapM_ (print . findWinner . toBoardBinRep) testdatas
+       mapM_ (print . playBinary) testdatas
        print "----------Second solution"
-       mapM_ (print . findWinnerMatrix . toBoardMatRep) testdatas
+       mapM_ (print . playMatrix) testdatas
 
