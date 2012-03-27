@@ -55,7 +55,8 @@ isWinner b w
   | b .&. shiftL w 1 == shiftL w 1  = Just 'O'  -- FIXME: duplicated shiftL
   | otherwise                       = Nothing
 
--- | Find out whether there a winner on current Board
+-- | Find out whether there a winner on current Board.
+--   1. binary compare current board state with all possible winner states
 findWinner :: BoardBinRep -> Maybe Item
 findWinner b = msum $ map (isWinner b) winners
 
@@ -82,17 +83,19 @@ toBoardMatRep b = let (x,y)   = splitAt 3 b
                   [x, x1, y1]
                         
 -- | Find out if any winner.
-findWinnerMatrix :: BoardMatRep -> Char
+--   1. calculate out 8 scenario in string representation
+--   2. filter out those 8 base on it shall be either all 'X' or all 'O'
+--   3. present the result using Maybe type. 
+findWinnerMatrix :: BoardMatRep -> Maybe Char
 findWinnerMatrix b = torep $ filter iswinner $ sumRows b ++ sumCols b ++ sumDiagonal b
-                     where iswinner s = s == "XXX" || s == "OOO"
-                           torep [] = ' '
-                           torep (x:_) = head x
+                     where iswinner s  = s == "XXX" || s == "OOO"
+                           torep []    = Nothing
+                           torep (x:_) = Just $ head x
 
 {-
   Test Datas
 -}
 
-tb :: Board
 tb =   "X_O"
     ++ "XOO"
     ++ "X__"
