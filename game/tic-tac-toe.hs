@@ -75,12 +75,13 @@ sumCols = sumRows . transpose
 sumDiagonal :: BoardMatRep -> [String]
 sumDiagonal b = map (zipWith (\ x y -> y x) b ) [ [head, head . tail, last]
                                                  ,[last, head . tail, head] ]
-
+-- | Transform to Matrix representation
 toBoardMatRep :: Board -> BoardMatRep
 toBoardMatRep b = let (x,y)   = splitAt 3 b
                       (x1,y1) = splitAt 3 y in
                   [x, x1, y1]
                         
+-- | Find out if any winner.
 findWinnerMatrix :: BoardMatRep -> Char
 findWinnerMatrix b = torep $ filter iswinner $ sumRows b ++ sumCols b ++ sumDiagonal b
                      where iswinner s = s == "XXX" || s == "OOO"
