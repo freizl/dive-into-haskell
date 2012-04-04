@@ -1,28 +1,25 @@
 * BACKLOG
 ** Monad for web application                                          :VIDEO:
+** mtl                                                                  :LIB:
+** tic toe tac game                                                  :gtk2hs:
 ** KnightQuests exercise                                               :LYGH:
    - [ ] Could leverage Control.Monad.Writer
    - [ ] ArrowLoop, ArrowChoice
    - [ ] Kleisli type
-** hangman game                                                         :PIH:
 ** nim game                                                             :PIH:
 ** Advanced FP                                                        :VIDEO:
 ** LambdaHack Game study
    1. [[https://github.com/kosmikus/LambdaHack][Source Code]]
-** Countdown problem study
-** HXT studyc                                                           :LIB:
+** xmonad                                                               :LIB:
 ** hakyll (src and tutorial)                                         :Hakyll:
+** HXT study                                                           :LIB:
 ** The Haskell School of Expression                                    :BOOK:
 ** Yesod OAuth authenticate                                           :Yesod:
    1. [X] failed at getting access token
           need callback at getting auth code
    2. [ ] post the finding
 ** Re-impl weibo following Twitter/G+                                 :Yesod:
-** xmonad                                                               :LIB:
-** mtl                                                                  :LIB:
-** tic toe tac game                                                  :gtk2hs:
 * IN-PROGRESS
-** All about Monad
 ** TODO Post functor Applicative
 * DONE
 ** DONE stockwatcher in haskell
