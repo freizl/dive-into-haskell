@@ -3,9 +3,11 @@
 ** mtl                                                                  :LIB:
 ** tic toe tac game                                                  :gtk2hs:
 ** KnightQuests exercise                                               :LYGH:
+   - Chapter 12
    - [ ] Could leverage Control.Monad.Writer
    - [ ] ArrowLoop, ArrowChoice
    - [ ] Kleisli type
+
 ** nim game                                                             :PIH:
 ** Advanced FP                                                        :VIDEO:
 ** LambdaHack Game study
