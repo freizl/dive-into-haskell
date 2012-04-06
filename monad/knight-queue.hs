@@ -25,17 +25,18 @@ moveKnight (c,r) = filter onBoard
     where onBoard (c,r) = c `elem` [1..8] && r `elem` [1..8]
 
 in3 :: KnightPos -> [KnightPos]
-in3 start = return start >>= moveKnight >>= moveKnight >>= moveKnight
+in3 start = moveKnight start >>= moveKnight >>= moveKnight
 
 canReachIn3 :: KnightPos -> KnightPos -> Bool
 canReachIn3 start end = end `elem` in3 start
 
 type Count = Int
 -- | do not hard code move steps
+--   Any better impl??
 increaseN :: KnightPos -> Count -> [KnightPos]
 increaseN start n = foldM (\ x y -> y x) start (replicate n moveKnight)
 
--- | 
+-- | Understand List Monad
 in3' :: KnightPos -> [[KnightPos]]
 in3' start = do
 	first  <- moveKnight start
@@ -45,5 +46,5 @@ in3' start = do
 
 -- | show all routes when successful
 canReachIn3' :: KnightPos -> KnightPos -> [[KnightPos]]
-canReachIn3' start end =  filter (\x -> end == (last x)) (in3' start)
+canReachIn3' start end =  filter (\x -> end == last x) (in3' start)
 	                       
