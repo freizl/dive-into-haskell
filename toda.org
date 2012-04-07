@@ -14,7 +14,13 @@
           need callback at getting auth code
    2. [ ] post the finding
 ** Re-impl weibo following Twitter/G+                                 :Yesod:
+** nim game                                                             :PIH:
+** morphism
+  - isomorphism
+  - polymorphism
+  - monomorphism
 * IN-PROGRESS
+** TODO Post mtl finding and demo
 ** TODO Distinguish those concepts
    - Polymorphic Components
      - *From Hindley-Milner Types to First-Class Structures* by Mark P. Jones
@@ -29,8 +35,6 @@
      - *Polymorphic Type Inference and Abstract Data Types* by K. Läufer
        and M. Odersky, in TOPLAS, Sep 1994.
    - Universal Quantification / Polymorphism
-** TODO nim game                                                        :PIH:
-** TODO Post mtl finding and demo
 * DONE
 ** DONE KnightQuests exercise                                          :LYGH:
    CLOSED: [2012-04-07 Sat 11:19]
