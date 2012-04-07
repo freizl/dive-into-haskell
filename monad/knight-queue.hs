@@ -36,6 +36,9 @@ type Count = Int
 increaseN :: KnightPos -> Count -> [KnightPos]
 increaseN start n = foldM (\ x y -> y x) start (replicate n moveKnight)
 
+inx :: Int -> KnightPos -> [KnightPos]
+inx start n = foldM (\a _ -> moveKnight a) start [1..n]
+
 -- | Understand List Monad
 in3' :: KnightPos -> [[KnightPos]]
 in3' start = do
