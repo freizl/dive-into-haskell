@@ -1,26 +1,36 @@
 * BACKLOG
-** Monad for web application                                          :VIDEO:
-** mtl                                                                  :LIB:
-** tic toe tac game                                                  :gtk2hs:
-** Advanced FP                                                        :VIDEO:
+** example projects                                                     :LIB:
+   - preclude
+   - mtl / transform
+   - Data.Text
+   - ByteString
+   - xmonad
+   - pandoc
+   - snap
+   - Parsec
+   - QuickCheck
+   - HUnit
+   - HXT study
 ** LambdaHack Game study
    1. [[https://github.com/kosmikus/LambdaHack][Source Code]]
-** xmonad                                                               :LIB:
-** hakyll (src and tutorial)                                         :Hakyll:
-** HXT study                                                           :LIB:
+** morphism                                                            :LANG:
+  - [[http://en.wikipedia.org/wiki/Morphism][Morphism]]
+  - isomorphism
+  - polymorphism
+  - monomorphism
 ** The Haskell School of Expression                                    :BOOK:
 ** Yesod OAuth authenticate                                           :Yesod:
    1. [X] failed at getting access token
           need callback at getting auth code
    2. [ ] post the finding
-** Re-impl weibo following Twitter/G+                                 :Yesod:
-** nim game                                                             :PIH:
-** morphism
-  - isomorphism
-  - polymorphism
-  - monomorphism
+** Tic toe tac game                                                    :GAME:
+** nim game                                                        :GAME:PIH:
+** Advanced FP                                                        :VIDEO:
+** Monad for web application                                          :VIDEO:
+** FRP
 * IN-PROGRESS
-** TODO Distinguish those concepts
+** [#A] hakyll (src and tutorial)                                    :Hakyll:
+** TODO [#B] Distinguish those concepts                                :LANG:
    - Polymorphic Components
      - *From Hindley-Milner Types to First-Class Structures* by Mark P. Jones
    - RankNTypes
@@ -34,7 +44,13 @@
      - *Polymorphic Type Inference and Abstract Data Types* by K. Läufer
        and M. Odersky, in TOPLAS, Sep 1994.
    - Universal Quantification / Polymorphism
+*** links
+    - [[http://johnlato.blogspot.in/2012/03/existential-quantification-pt-1.html][Existential Quantification pt. 1]]
+    - [[http://johnlato.blogspot.in/2012/03/faking-it-with-higher-rank-existential.html][Existential Quantification pt. 2 (Faking it with higher rank)]]
+** [#B] template
 * DONE
+** DONE Post mtl finding and demo
+   CLOSED: [2012-04-09 Mon 20:21]
 ** DONE KnightQuests exercise                                          :LYGH:
    CLOSED: [2012-04-07 Sat 11:19]
    - Chapter 12

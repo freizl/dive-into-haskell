@@ -27,7 +27,7 @@ main = hakyll $ do
         route   $ setExtension ".html"
         compile $ pageCompiler
             >>> arr (renderDateField "date" "%B %e, %Y" "Date unknown")
-            >>> renderTagsField "prettytags" tagIdentifier --(fromCapture "tags/*")
+            >>> renderTagsField "prettytags" (fromCapture "tags/*")
             >>> arr (setField "poststitle" "All posts")
             >>> applyTemplateCompiler "templates/post.html"
             >>> defaultCompiler
@@ -44,7 +44,7 @@ main = hakyll $ do
         requireAll "posts/*" (\_ ps -> readTags ps :: Tags String)
 
     -- Add a tag list compiler for every tag
---    match "tags/*" $ route $ setExtension ".html"
+    --    match "tags/*" $ route $ setExtension ".html"
     match "tags/*" $ do 
       route $ customRoute chineseTagRoute
       
@@ -57,7 +57,7 @@ main = hakyll $ do
       route   $ setExtension "html"
       compile $ pageCompiler >>> defaultCompiler
     
--- Footer
+    -- Footer
     match "footer.markdown" $ compile pageCompiler
    
     -- Templates
@@ -82,7 +82,7 @@ main = hakyll $ do
     renderTagCloud' :: Compiler (Tags String) String
     renderTagCloud' = renderTagCloud tagIdentifier 80 260
 
-    tagIdentifier :: String -> Identifier
+    tagIdentifier :: String -> Identifier (Page String)
     tagIdentifier = fromCapture "tags/*"
 
 -- | Auxiliary compiler: generate a post list from a list of given posts, and
@@ -98,7 +98,7 @@ addPostList = setFieldA "posts" $
 {-- ======================== Chinese Character hack --}
 -- | TODO: glue Route together of (setExtension html)
 --         a little nicer pattern for replace?
-chineseTagRoute :: Identifier -> FilePath
+chineseTagRoute :: Identifier a -> FilePath
 chineseTagRoute = (++".html") . replaceAll "[^a-zA-Z/]+" cnToPinyin . toFilePath
 
 cnToPinyin :: String -> String -- whole Chinese characters transform rather than single
