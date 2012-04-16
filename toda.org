@@ -20,7 +20,6 @@
   - polymorphism
   - monomorphism
 * IN-PROGRESS
-** TODO Post mtl finding and demo
 ** TODO Distinguish those concepts
    - Polymorphic Components
      - *From Hindley-Milner Types to First-Class Structures* by Mark P. Jones
@@ -55,6 +54,8 @@
    CLOSED: [2011-11-20 Sun 15:09]
 ** DONE Post what learn from euler 104
    CLOSED: [2011-12-26 Mon 19:45]
+** DONE Post mtl finding and demo
+   CLOSED: [2012-04-08 Sun 12:09]
 * Questions
 ** String / List
    1. [X] substitue function / re exp
