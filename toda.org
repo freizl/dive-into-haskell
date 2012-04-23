@@ -1,4 +1,6 @@
 * BACKLOG
+** Iteratee IO
+   -  as popularized by Oleg Kiselyov,[[http://okmij.org/ftp/Streams.html][Streams]]
 ** example projects                                                     :LIB:
    - preclude
    - mtl / transform
