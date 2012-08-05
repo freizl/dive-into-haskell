@@ -2,6 +2,7 @@ module Main where
 
 import Data.Char
 import Types
+import Test.QuickCheck
 
 char :: (Char -> Bool) -> ReadS Char
 char f (c:s) | f c = [(c, s)]
@@ -34,3 +35,8 @@ variablemN' n s = foldr f init [1..n]
                  where init = [(V "", s)]
                        f i [(V cs1, s1)] = let [(V c2, s2)] = variablem s1
                                            in [(V (cs1++c2), s2)]
+
+-- | Test via QuickCheck
+-- FIXME: a bug when input is '1a' which has non-alpha.
+-- quickCheck (\ s -> variable2 s == variablem2 s)
+-- quickCheck (\ s -> variable2 s == variablemN 2 s)
