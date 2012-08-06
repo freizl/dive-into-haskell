@@ -4,6 +4,10 @@ import Data.Char
 import Types
 import Test.QuickCheck
 
+main :: IO ()
+main = test
+
+
 char :: (Char -> Bool) -> ReadS Char
 char f (c:s) | f c = [(c, s)]
 char f _           = []
@@ -20,23 +24,24 @@ variablem = map fchar . char isAlpha
             where fchar (c, s) = (V [c], s)
 
 variablem2 :: ReadS Var
-variablem2 s@(s1:s2:_) = let [(V c1, s1)] = variablem s
-                             [(V c2, s2)] = variablem s1
-                         in [(V (c1++c2), s2)]
-variablem2 _ = []
-
+variablem2 s = concatMap f1 (variablem s)
+               where f1 (V c1, s1) = map (f2 c1) (variablem s1)
+                     f2 c1 (V c2, s2) = (V (c1++c2), s2)
+                     
 variablemN :: Int -> ReadS Var
 variablemN n s 
   | length s >= n = variablemN' n s
   | otherwise     = []
 
 variablemN' :: Int -> ReadS Var
-variablemN' n s = foldr f init [1..n]
+variablemN' n s = foldr f1 init [1..n]
                  where init = [(V "", s)]
-                       f i [(V cs1, s1)] = let [(V c2, s2)] = variablem s1
-                                           in [(V (cs1++c2), s2)]
+                       f1 _ [] = []       
+                       f1 _ [(V cs1, s1)] = map (f2 cs1) (variablem s1)
+                       f2 cs1 (V cs2, s2) = (V (cs1++cs2), s2)
 
 -- | Test via QuickCheck
--- FIXME: a bug when input is '1a' which has non-alpha.
--- quickCheck (\ s -> variable2 s == variablem2 s)
--- quickCheck (\ s -> variable2 s == variablemN 2 s)
+prop_variable2 s = variable2 s == variablem2 s
+prop_variableN s = variable2 s == variablemN 2 s
+
+test = mapM_ quickCheck [prop_variable2, prop_variableN]
