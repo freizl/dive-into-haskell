@@ -7,6 +7,7 @@ import Test.QuickCheck
 main :: IO ()
 main = test
 
+{- Exercise 4 -}
 
 char :: (Char -> Bool) -> ReadS Char
 char f (c:s) | f c = [(c, s)]
@@ -40,8 +41,11 @@ variablemN' n s = foldr f1 init [1..n]
                        f1 _ [(V cs1, s1)] = map (f2 cs1) (variablem s1)
                        f2 cs1 (V cs2, s2) = (V (cs1++cs2), s2)
 
--- | Test via QuickCheck
+{- Test via QuickCheck -}
+
+prop_variable s = variable s == variablem s
 prop_variable2 s = variable2 s == variablem2 s
 prop_variableN s = variable2 s == variablemN 2 s
 
-test = mapM_ quickCheck [prop_variable2, prop_variableN]
+test = mapM_ quickCheck 
+       [ prop_variable, prop_variable2, prop_variableN ]
