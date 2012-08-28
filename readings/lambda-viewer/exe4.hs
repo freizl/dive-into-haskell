@@ -27,6 +27,16 @@ variableN n s
                          f _ [] = []
                          f [] _ = []
                          f [(V c1, s1)] [(V c2, s2)] = [(V (c1++c2), s1++s2)]
+
+-- | FIXME: is able to simplified by list comprehension ??
+-- 
+variableN2 n s
+  | length s < n  = []
+  | otherwise     = let x = take n s
+                        y = filter isAlpha x
+                        t = x == y in
+                    if t then f x else []
+                    where f x = [(V x, drop n s)]
                     
 variablem :: ReadS Var
 variablem = map fchar . char isAlpha
@@ -54,7 +64,12 @@ variablemN' n s = foldr f1 init [1..n]
 prop_variable s = variable s == variablem s
 prop_variable2 s = variable2 s == variablem2 s
 prop_variableN s = variable2 s == variableN 2 s
+prop_variableN2 s = variable2 s == variableN2 2 s
 prop_variablemN s = variable2 s == variablemN 2 s
 
 test = mapM_ quickCheck 
-       [ prop_variable, prop_variable2, prop_variableN, prop_variablemN ]
+       [ prop_variable, 
+         prop_variable2, 
+         prop_variableN, 
+         prop_variableN2,
+         prop_variablemN ]
