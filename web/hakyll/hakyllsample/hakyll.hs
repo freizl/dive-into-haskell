@@ -44,9 +44,8 @@ main = hakyll $ do
         requireAll "posts/*" (\_ ps -> readTags ps :: Tags String)
 
     -- Add a tag list compiler for every tag
-    --    match "tags/*" $ route $ setExtension ".html"
-    match "tags/*" $ do 
-      route $ customRoute chineseTagRoute
+    match "tags/*" $ route $ setExtension ".html"
+--    match "tags/*" $ do route $ customRoute chineseTagRoute
       
     metaCompile $ require_ "tags"
         >>> arr tagsMap
