@@ -28,6 +28,7 @@ nil s = [([], s)]
 
 charToVar :: Char -> Var
 charToVar c = V [c]
+
 charToInt :: Char -> Int
 charToInt = digitToInt
 
@@ -37,7 +38,6 @@ charToInt = digitToInt
 mapP :: (a -> b) -> ReadS a -> ReadS b
 mapP f r = map (first f) . r
         -- map (\ (c, s) -> (f c, s)) . r
-
 
 (&&&) :: ReadS a -> ReadS b -> ReadS (a, b)
 f &&& g = \s -> [ ((x, y), s2) 
