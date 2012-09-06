@@ -103,9 +103,8 @@ rationalStr = minusSign
               >>>+ nominator
               >>>+ percentSign
               >>>+ denominator
-  where minusSign = many (char (== '-'))
-        isBack = char (\c -> isDigit c || c == '%')
-        nominator = many1 digits
+  where minusSign   = many (char (== '-'))
+        nominator   = many1 digits
         percentSign = many1 (char (== '%'))
         denominator = many1 digits
 
