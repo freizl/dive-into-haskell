@@ -85,6 +85,9 @@ many1 r = mapP cons (r &&& many r)
 variable :: ReadS Var
 variable = mapP charToVar (char isAlpha)
 
+digit :: ReadS Int
+digit = mapP charToInt (char isDigit)
+
 -- | re-implement of `reads :: ReadS` Int from Prelude.
 --   1. `reads` ignore space at front
 -- 
