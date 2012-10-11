@@ -1,37 +1,39 @@
 * BACKLOG
-** Iteratee IO
+** Iteratee IO                                                       :PAPERS:
    -  as popularized by Oleg Kiselyov,[[http://okmij.org/ftp/Streams.html][Streams]]
+** On Understanding Type                                             :PAPERS:
+** Type related papers                                               :PAPERS:
+   - [[http://www.haskell.org/haskellwiki/Research_papers/Type_systems][On HaskellWiki]]
 ** example projects                                                     :LIB:
+   - xmonad
+   - snap
+   - LambdaHack
+     1. [[https://github.com/kosmikus/LambdaHack][Source Code]]
    - preclude
    - mtl / transform
    - Data.Text
    - ByteString
-   - xmonad
    - pandoc
-   - snap
    - Parsec
    - QuickCheck
    - HUnit
    - HXT study
-** LambdaHack Game study
-   1. [[https://github.com/kosmikus/LambdaHack][Source Code]]
 ** morphism                                                            :LANG:
   - [[http://en.wikipedia.org/wiki/Morphism][Morphism]]
   - isomorphism
   - polymorphism
   - monomorphism
 ** The Haskell School of Expression                                    :BOOK:
+** Tic toe tac game                                                    :GAME:
+** Advanced FP                                                        :VIDEO:
+** nim game                                                        :GAME:PIH:
+** FRP                                                                  :FRP:
 ** Yesod OAuth authenticate                                           :Yesod:
    1. [X] failed at getting access token
           need callback at getting auth code
    2. [ ] post the finding
-** Tic toe tac game                                                    :GAME:
-** nim game                                                        :GAME:PIH:
-** Advanced FP                                                        :VIDEO:
-** Monad for web application                                          :VIDEO:
-** FRP
+** hakyll (src and tutorial)                                         :Hakyll:
 * IN-PROGRESS
-** [#A] hakyll (src and tutorial)                                    :Hakyll:
 ** TODO [#B] Distinguish those concepts                                :LANG:
    - Polymorphic Components
      - *From Hindley-Milner Types to First-Class Structures* by Mark P. Jones
@@ -49,8 +51,9 @@
 *** links
     - [[http://johnlato.blogspot.in/2012/03/existential-quantification-pt-1.html][Existential Quantification pt. 1]]
     - [[http://johnlato.blogspot.in/2012/03/faking-it-with-higher-rank-existential.html][Existential Quantification pt. 2 (Faking it with higher rank)]]
-** [#B] template
 * DONE
+** DONE Monad for web application                                     :VIDEO:
+   CLOSED: [2012-10-11 Thu 20:49]
 ** DONE Post mtl finding and demo
    CLOSED: [2012-04-09 Mon 20:21]
 ** DONE KnightQuests exercise                                          :LYGH:
