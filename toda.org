@@ -4,6 +4,11 @@
 ** On Understanding Type                                             :PAPERS:
 ** Type related papers                                               :PAPERS:
    - [[http://www.haskell.org/haskellwiki/Research_papers/Type_systems][On HaskellWiki]]
+** Interesting Module
+   - Foldable / Traversable / Typeable
+     `newtype MyInt = MyInt Int (Deriving Typeable)`
+     ` 2 :: MyInt`
+   - Lens
 ** example projects                                                     :LIB:
    - xmonad
    - snap
