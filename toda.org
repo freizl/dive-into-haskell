@@ -1,3 +1,8 @@
+* Books
+   - [[http://mmcs.sfedu.ru/~ulysses/CS/Lambda/Hindley,%20Seldin.%20Lambda-calculus%20and%20Combinators.pdf][Lambda-Calculus and combinators]]
+   - [[http://cs.fit.edu/~ryan/library/functional_programming/gjm.lambook88.pdf][introduce to fictional programming through lambda caculus]]
+   - [[http://mathgate.info/cebrown/notes/barendregt.php][The lambda calculus: its syntax and semantics]]
+
 * BACKLOG
 ** Iteratee IO                                                       :PAPERS:
    -  as popularized by Oleg Kiselyov,[[http://okmij.org/ftp/Streams.html][Streams]]
