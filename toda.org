@@ -1,13 +1,12 @@
 * Books
+   - [[Practical.Foundations.for.Programming][http://code.google.com/p/ipaper/downloads/detail?name=Practical.Foundations.for.Programming.pdf&can=2&q=]]
+   - [[Purely Functional Data Structures][http://code.google.com/p/ipaper/downloads/detail?name=Purely_Functional_Data_Structures.pdf&can=2&q=]]
    - [[http://mmcs.sfedu.ru/~ulysses/CS/Lambda/Hindley,%20Seldin.%20Lambda-calculus%20and%20Combinators.pdf][Lambda-Calculus and combinators]]
    - [[http://cs.fit.edu/~ryan/library/functional_programming/gjm.lambook88.pdf][introduce to fictional programming through lambda caculus]]
    - [[http://mathgate.info/cebrown/notes/barendregt.php][The lambda calculus: its syntax and semantics]]
 
-* BACKLOG
-** Iteratee IO                                                       :PAPERS:
-   -  as popularized by Oleg Kiselyov,[[http://okmij.org/ftp/Streams.html][Streams]]
-** On Understanding Type                                             :PAPERS:
-** Pure Functional Data Structure
+* Papers
+** On Understanding Type
 ** Type related papers                                               :PAPERS:
    - [[http://www.haskell.org/haskellwiki/Research_papers/Type_systems][On HaskellWiki]]
    - 13 Type classes
@@ -15,6 +14,18 @@
    - 21 Arbitrary-rank polymorphism
    - 22 Phantom types
    - 27 Qualified types
+** Iteratee IO                                                       :PAPERS:
+   -  as popularized by Oleg Kiselyov,[[http://okmij.org/ftp/Streams.html][Streams]]
+
+** Test
+   - QuickCheck: a lightweight tool for random testing of Haskell programs   
+
+** Others
+   - Giving Haskell a promotion
+   - Template meta-programming for Haskell
+
+* BACKLOG
+** Pure Functional Data Structure
 ** Interesting Module
    - Foldable / Traversable / Typeable
      `newtype MyInt = MyInt Int (Deriving Typeable)`
