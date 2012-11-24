@@ -2,8 +2,15 @@
 ** Iteratee IO                                                       :PAPERS:
    -  as popularized by Oleg Kiselyov,[[http://okmij.org/ftp/Streams.html][Streams]]
 ** On Understanding Type                                             :PAPERS:
+** Pure Functional Data Structure
 ** Type related papers                                               :PAPERS:
    - [[http://www.haskell.org/haskellwiki/Research_papers/Type_systems][On HaskellWiki]]
+   - 13 Type classes
+   - 18 GADT
+   - 21 Arbitrary-rank polymorphism
+   - 22 Phantom types
+   - 27 Qualified types
+
 ** example projects                                                     :LIB:
    - xmonad
    - snap
