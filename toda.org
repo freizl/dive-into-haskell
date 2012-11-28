@@ -1,20 +1,34 @@
 * Books
-   - [[Practical.Foundations.for.Programming][http://code.google.com/p/ipaper/downloads/detail?name=Practical.Foundations.for.Programming.pdf&can=2&q=]]
-   - [[Purely Functional Data Structures][http://code.google.com/p/ipaper/downloads/detail?name=Purely_Functional_Data_Structures.pdf&can=2&q=]]
+** Haskell
+  - The Haskell School of Expression
+  - Introduction to Functional Programming using Haskell
+  - The Haskell School of Expression: Learning Functional Programming through Multimedia
+  - Haskell: The Craft of Functional Programming
+
+** FP
+   - The Fun of Programming
+   - [[http://code.google.com/p/ipaper/downloads/detail?name=Purely_Functional_Data_Structures.pdf&can=2&q=][Purely Functional Data Structures]]
+   - [[http://code.google.com/p/ipaper/downloads/detail?name=Practical.Foundations.for.Programming.pdf&can=2&q=][Practical.Foundations.for.Programming]]
+   - The Haskell Road to Logic, Maths and Programming
+   - Pearls of Functional Algorithm Design
+   - Algorithms: A Functional Programming Approach
+   - [[http://www.cs.kent.ac.uk/people/staff/sjt/TTFP/][Type Theory and Functional Programming]]
+
+** Lambda
    - [[http://mmcs.sfedu.ru/~ulysses/CS/Lambda/Hindley,%20Seldin.%20Lambda-calculus%20and%20Combinators.pdf][Lambda-Calculus and combinators]]
    - [[http://cs.fit.edu/~ryan/library/functional_programming/gjm.lambook88.pdf][introduce to fictional programming through lambda caculus]]
    - [[http://mathgate.info/cebrown/notes/barendregt.php][The lambda calculus: its syntax and semantics]]
-
+   
 * Papers
 ** On Understanding Type
-** Type related papers                                               :PAPERS:
+** Type related papers
    - [[http://www.haskell.org/haskellwiki/Research_papers/Type_systems][On HaskellWiki]]
    - 13 Type classes
    - 18 GADT
    - 21 Arbitrary-rank polymorphism
    - 22 Phantom types
    - 27 Qualified types
-** Iteratee IO                                                       :PAPERS:
+** Iteratee IO
    -  as popularized by Oleg Kiselyov,[[http://okmij.org/ftp/Streams.html][Streams]]
 
 ** Test
@@ -25,7 +39,6 @@
    - Template meta-programming for Haskell
 
 * BACKLOG
-** Pure Functional Data Structure
 ** Interesting Module
    - Foldable / Traversable / Typeable
      `newtype MyInt = MyInt Int (Deriving Typeable)`
@@ -50,7 +63,6 @@
   - isomorphism
   - polymorphism
   - monomorphism
-** The Haskell School of Expression                                    :BOOK:
 ** Tic toe tac game                                                    :GAME:
 ** Advanced FP                                                        :VIDEO:
 ** nim game                                                        :GAME:PIH:
