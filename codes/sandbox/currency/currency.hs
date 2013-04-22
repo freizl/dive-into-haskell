@@ -1,7 +1,7 @@
 module Main where
 
 import Data.List.Split (splitOn)
-import Data.List (nub, sortBy)
+import Data.List
 import Test.QuickCheck
 
 ratesStr :: String
@@ -38,6 +38,9 @@ allRates = map readCR $
 
 allCurrency :: [Currency]
 allCurrency = nub [ x | (CR x _ _) <- allRates ]
+
+convert :: Float -> Currency -> Currency -> Float
+convert number a b = number * (getRatio $ getRate (a, b))
 
 -- | verify interaction 3
 --   e.g. EUR -> USD -> GBP V.S. EUR -> GBP
@@ -93,6 +96,37 @@ prop_perm3 = length perm3 == 120
 
 prop_perm4 :: Bool
 prop_perm4 = length perm4 == 360
+
+-- | diff about convert to a currency and convert back
+-- EUR -> USD -> EUR
+comb2 :: [[Currency]]
+comb2 = filter ((== 2) . length) $ subsequences allCurrency
+
+reverseConvert a b = let x = getRate (a, b)
+                         y = getRate (b, a)
+                     in
+                     ([a, b], getRatio x * getRatio y)
+
+-- (["CAD","CHF"],1.001)
+-- (["CAD","SEK"],1.0159999)
+-- (["EUR","CAD"],1.002525)
+-- (["EUR","CHF"],0.99630004)
+-- (["EUR","GBP"],1.0001318)
+-- (["EUR","SEK"],1.0044839)
+-- (["EUR","USD"],1.004696)
+-- (["GBP","CAD"],1.0036479)
+-- (["GBP","CHF"],0.99763995)
+-- (["GBP","SEK"],0.98197)
+-- (["GBP","USD"],1.01013)
+-- (["SEK","CHF"],0.97859997)
+-- (["USD","CAD"],0.9991)
+-- (["USD","CHF"],0.9951001)
+-- (["USD","SEK"],0.97800004)
+
+main2 :: IO ()
+main2 = mapM_ print $
+        sort $
+        map (\ [a, b] -> reverseConvert a b) comb2
 
 -- | main
 main = interN 3
