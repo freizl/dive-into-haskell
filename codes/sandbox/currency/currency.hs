@@ -12,7 +12,20 @@ ratesStr = "EURUSD:1.3048;EURGBP:0.8527;EURCAD:1.3367;EURSEK:8.3707;EURCHF:1.215
            ++ "SEKEUR:0.12;SEKGBP:0.10;SEKUSD:0.15;SEKCAD:0.16;SEKCHF:0.14;"
            ++ "CHFEUR:0.82;CHFGBP:0.70;CHFUSD:1.07;CHFCAD:1.10;CHFSEK:6.99;"
 
-type Currency = String
+-- type Currency = String
+data Currency = EUR | USD | GBP | CAD | SEK | CHF
+              deriving (Show, Eq)
+
+-- | TODO: instance of `Read` class
+--
+readCur :: String -> Currency
+readCur "EUR" = EUR
+readCur "GBP" = GBP
+readCur "USD" = USD
+readCur "CAD" = CAD
+readCur "SEK" = SEK
+readCur "CHF" = CHF
+
 type FromCurrency = Currency
 type ToCurrency = Currency
 type Ratio = Float
@@ -25,8 +38,8 @@ getRatio (CR _ _ r) = r
 
 -- | Maybe instance of `Read`
 readCR :: String -> CR
-readCR str = let from = take 3 str
-                 to = take 3 (drop 3 str)
+readCR str = let from = readCur (take 3 str)
+                 to = readCur (take 3 (drop 3 str))
                  ratio = drop 7 str
              in
              CR from to (read ratio)
