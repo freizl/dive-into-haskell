@@ -4,6 +4,7 @@
   - Introduction to Functional Programming using Haskell
   - The Haskell School of Expression: Learning Functional Programming through Multimedia
   - Haskell: The Craft of Functional Programming
+  - [[http://www.haskell.org/tutorial/][A Gentle Introduction to Haskell, Version 98]]
 
 ** FP
    - The Fun of Programming
