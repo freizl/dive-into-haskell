@@ -63,7 +63,8 @@ findPath2 :: Maze -> Point -> ([Point], [Point])
 findPath2 m p =
   let (result, accessed) = findPath' m p [] in
   case result of
-    [] -> error "Opsssss! No Path Found..." -- ([], accessed)
+    -- [] -> error "Opsssss! No Path Found..."
+    [] -> ([], accessed)
     _ -> (result, accessed `diffP` result)
 
 -- | Record all not accessiable nodes
@@ -98,11 +99,13 @@ findPath' m p ns
 -- | Find route in a maze and generate new Maze base on found route.
 --   Will error out while no route found.
 --
-playMaze :: Maze -> Maze
+playMaze :: Maze
+            -> Either Maze Maze     -- ^ A Maze has a successful route or not
 playMaze m = let (paths, accesses) = findPath m
                  (rows, cols) = mazeSize m
-                 nodes = [ [genNode (r, c) paths accesses | c <- [1..cols] ] | r <- [1..rows] ] in
-             mkMaze nodes
+                 nodes = [ [genNode (r, c) paths accesses | c <- [1..cols] ] | r <- [1..rows] ]
+                 mz = mkMaze nodes in
+             if null paths then Right mz else Left mz
              where genNode p path access
                      | isGoal m p      = GOAL       -- ^ Keep the GOAL position
                      | p `elem` path   = PATH
@@ -145,8 +148,9 @@ play :: Maze -> IO ()
 play m = do
   putStrLn "Start play maze:"
   printMaze m
-  putStrLn "Get Relust:"
-  printMaze $ playMaze m
+  case playMaze m of
+    Right rm -> putStrLn "Uh oh, I could not find the treasure :-(" >> printMaze rm
+    Left rm ->  putStrLn "Get Relust:" >> printMaze rm
 
 main :: IO ()
 main = play m1
