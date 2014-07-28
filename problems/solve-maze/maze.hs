@@ -1,3 +1,5 @@
+-- | Solution idea got from: https://www.cs.bu.edu/teaching/alg/maze/
+--
 module Main where
 
 import Control.Monad
