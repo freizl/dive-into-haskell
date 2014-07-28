@@ -2,11 +2,8 @@
 --
 module Main where
 
-import Control.Monad
 import Data.Monoid
 import Data.Array
-import Data.List
-import Control.Monad.State
 
 newtype Maze = Maze { unMaze :: Array Int MRow }
 type MRow = Array Int Node
