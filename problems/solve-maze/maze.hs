@@ -4,14 +4,13 @@ module Main where
 
 import System.Environment
 import Data.Monoid
-import Data.Array
 
 --------------------------------------------------------------------------------
 -- Types
 --------------------------------------------------------------------------------
 
-newtype Maze = Maze { unMaze :: Array Int MRow }
-type MRow = Array Int Node
+newtype Maze = Maze { unMaze :: [MRow] }
+type MRow = [Node]
 data Node = PASS | BLOCK | PATH | NOACCESS | GOAL
             deriving (Eq, Enum)
 
@@ -56,19 +55,16 @@ east  (r, c) = (r, c+1)
 west  (r, c) = (r, c-1)
 
 mazeSize :: Maze -> (Int, Int)
-mazeSize (Maze ass) = let (_, rows) = bounds ass
-                          (_, cols) = bounds (ass ! 1) in
+mazeSize (Maze ass) = let rows = length ass
+                          cols = length (ass !! 1) in
                       (rows, cols)
 
 mazeNode :: Maze -> Point -> Node
-mazeNode m (r, c) = unMaze m ! r ! c
+mazeNode m (r, c) = unMaze m !! (r-1) !! (c-1)
 
 
 mkMaze :: [[Node]] -> Maze
-mkMaze xss = let ln = length xss
-                 ix = (1, ln)
-                 axss = listArray ix [ listArray (1, length xs) xs | xs <- xss ] in
-             Maze axss
+mkMaze = Maze
 
 
 findPath :: Maze -> ([Point], [Point])
@@ -78,7 +74,6 @@ findPath2 :: Maze -> Point -> ([Point], [Point])
 findPath2 m p =
   let (result, accessed) = findPath' m p [] in
   case result of
-    -- [] -> error "Opsssss! No Path Found..."
     [] -> ([], accessed)
     _ -> (result, accessed `diffP` result)
 
@@ -129,8 +124,37 @@ playMaze m = let (paths, accesses) = findPath m
 
 
 --------------------------------------------------------------------------------
+
+printMaze :: Maze -> IO ()
+printMaze (Maze rows) = let rowElems = map (unwords . map show) rows in
+                        mapM_ print rowElems
+
+play :: Maze -> IO ()
+play m = do
+  putStrLn "Start play maze:"
+  printMaze m
+  rm <- case playMaze m of
+    Right r -> putStrLn "Uh oh, I could not find the treasure :-(" >> return r
+    Left l ->  putStrLn "Get Relust:" >> return l
+  printMaze rm
+
+readMaze :: String        -- ^ Map file name
+            -> IO Maze
+readMaze f = do
+  contents <- readFile f
+  return $ mkMaze $ map (map toNode) $ lines contents
+
+main :: IO ()
+main = do
+  args <- getArgs
+  case args of
+    (f:_) -> readMaze f >>= play
+    []    -> play m2
+
+--------------------------------------------------------------------------------
 -- Sample Maze
 --------------------------------------------------------------------------------
+
 mazeElems :: [[Node]]
 mazeElems = [ [PASS, PASS, PASS, BLOCK, PASS, PASS, BLOCK, BLOCK, BLOCK, PASS, PASS, BLOCK, PASS]
             , [PASS, BLOCK, PASS, PASS, PASS, BLOCK, PASS, PASS, PASS, PASS, BLOCK, BLOCK, PASS]
@@ -156,32 +180,3 @@ m3 = mkMaze [ [ PASS, PASS, BLOCK]
             , [ BLOCK, BLOCK, BLOCK]
             , [ BLOCK, PASS, GOAL]
             ]
-
---------------------------------------------------------------------------------
-
-printMaze :: Maze -> IO ()
-printMaze (Maze axss) = let rows = elems axss
-                            rowElems = map (unwords . map show . elems) rows in
-                        mapM_ print rowElems
-
-play :: Maze -> IO ()
-play m = do
-  putStrLn "Start play maze:"
-  printMaze m
-  rm <- case playMaze m of
-    Right r -> putStrLn "Uh oh, I could not find the treasure :-(" >> return r
-    Left l ->  putStrLn "Get Relust:" >> return l
-  printMaze rm
-
-readMaze :: String        -- ^ Map file name
-            -> IO Maze
-readMaze f = do
-  contents <- readFile f
-  return $ mkMaze $ map (map toNode) $ lines contents
-
-main :: IO ()
-main = do
-  args <- getArgs
-  case args of
-    (f:_) -> readMaze f >>= play
-    []    -> play m2
