@@ -16,6 +16,7 @@ data Node = PASS | BLOCK | PATH | NOACCESS | GOAL
 
 type Row = Int
 type Column = Int
+type MSize = (Row, Column)
 type Point = (Row, Column)
 
 instance Show Node where
@@ -54,7 +55,7 @@ south (r, c) = (r+1, c)
 east  (r, c) = (r, c+1)
 west  (r, c) = (r, c-1)
 
-mazeSize :: Maze -> (Int, Int)
+mazeSize :: Maze -> MSize
 mazeSize (Maze ass) = let rows = length ass
                           cols = length (ass !! 1) in
                       (rows, cols)
@@ -138,7 +139,7 @@ play m = do
     Left l ->  putStrLn "Get Relust:" >> return l
   printMaze rm
 
-readMaze :: String        -- ^ Map file name
+readMaze :: FilePath        -- ^ Map file name
             -> IO Maze
 readMaze f = do
   contents <- readFile f
