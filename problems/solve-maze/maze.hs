@@ -2,8 +2,16 @@
 --
 module Main where
 
+import System.IO
+import System.Environment
 import Data.Monoid
 import Data.Array
+import Text.Read
+import qualified Text.Read.Lex as L
+
+--------------------------------------------------------------------------------
+-- Types
+--------------------------------------------------------------------------------
 
 newtype Maze = Maze { unMaze :: Array Int MRow }
 type MRow = Array Int Node
@@ -21,6 +29,16 @@ instance Show Node where
   show NOACCESS = "!"
   show GOAL     = "@"
 
+
+-- | Failed to leverage Read class
+--
+toNode :: Char -> Node
+toNode '-' = PASS
+toNode '#' = BLOCK
+toNode '@'   = GOAL
+toNode _   = NOACCESS
+
+--------------------------------------------------------------------------------
 
 isOutside :: Maze     -- ^ Bounded index
            -> Point   -- ^ A certain position
@@ -113,6 +131,9 @@ playMaze m = let (paths, accesses) = findPath m
                      | otherwise       = mazeNode m p
 
 
+--------------------------------------------------------------------------------
+-- Sample Maze
+--------------------------------------------------------------------------------
 mazeElems :: [[Node]]
 mazeElems = [ [PASS, PASS, PASS, BLOCK, PASS, PASS, BLOCK, BLOCK, BLOCK, PASS, PASS, BLOCK, PASS]
             , [PASS, BLOCK, PASS, PASS, PASS, BLOCK, PASS, PASS, PASS, PASS, BLOCK, BLOCK, PASS]
@@ -139,6 +160,8 @@ m3 = mkMaze [ [ PASS, PASS, BLOCK]
             , [ BLOCK, PASS, GOAL]
             ]
 
+--------------------------------------------------------------------------------
+
 printMaze :: Maze -> IO ()
 printMaze (Maze axss) = let rows = elems axss
                             rowElems = map (unwords . map show . elems) rows in
@@ -152,5 +175,16 @@ play m = do
     Right rm -> putStrLn "Uh oh, I could not find the treasure :-(" >> printMaze rm
     Left rm ->  putStrLn "Get Relust:" >> printMaze rm
 
+readMaze :: String        -- ^ Map file name
+            -> IO Maze
+readMaze f = do
+  contents <- fmap lines (readFile f)
+  let m = mkMaze (map (map toNode) contents)
+  return m
+
 main :: IO ()
-main = play m1
+main = do
+  args <- getArgs
+  case args of
+    (f:_) -> readMaze f >>= play
+    []    -> play m2
