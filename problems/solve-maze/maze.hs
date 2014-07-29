@@ -2,12 +2,9 @@
 --
 module Main where
 
-import System.IO
 import System.Environment
 import Data.Monoid
 import Data.Array
-import Text.Read
-import qualified Text.Read.Lex as L
 
 --------------------------------------------------------------------------------
 -- Types
