@@ -168,16 +168,16 @@ play :: Maze -> IO ()
 play m = do
   putStrLn "Start play maze:"
   printMaze m
-  case playMaze m of
-    Right rm -> putStrLn "Uh oh, I could not find the treasure :-(" >> printMaze rm
-    Left rm ->  putStrLn "Get Relust:" >> printMaze rm
+  rm <- case playMaze m of
+    Right r -> putStrLn "Uh oh, I could not find the treasure :-(" >> return r
+    Left l ->  putStrLn "Get Relust:" >> return l
+  printMaze rm
 
 readMaze :: String        -- ^ Map file name
             -> IO Maze
 readMaze f = do
-  contents <- fmap lines (readFile f)
-  let m = mkMaze (map (map toNode) contents)
-  return m
+  contents <- readFile f
+  return $ mkMaze $ map (map toNode) $ lines contents
 
 main :: IO ()
 main = do
