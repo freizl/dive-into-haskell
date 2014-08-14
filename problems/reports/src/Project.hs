@@ -11,6 +11,8 @@ import qualified Data.Text as T
 import qualified Data.Text.IO as T
 import Text.Printf
 
+-- How to sorting sales
+--
 sCID :: Sales -> Sales -> Ordering
 sCID = comparing scust
 
@@ -19,7 +21,7 @@ type OrderID = Text
 
 data Customer = Customer { cid      :: CustomerID
                          , cname    :: Text
-                         , cage     :: Text
+                         , cage     :: Int
                          , cphone   :: Text
                          , caddress :: Text
                          } deriving (Show, Eq)
@@ -39,7 +41,7 @@ initCustDB = do
   ls <- readDBFile "CustDB.txt"
   let cs = map init' ls
   return $ Map.fromList cs
-  where init' (i:n:a:p:d:_) = (fromText i, Customer (fromText i) n a p d)
+  where init' (i:n:a:p:d:_) = (fromText i, Customer (fromText i) n (fromText a) p d)
 
 initOrderDB :: IO OrderDB
 initOrderDB = do
