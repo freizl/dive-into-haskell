@@ -65,7 +65,7 @@ initSalesDB = do
 --
 readDBFile :: FilePath -> IO [[T.Text]]
 readDBFile fp = fmap convert' (T.readFile fp)
-                where convert' = map (T.splitOn "|" . T.strip) . T.lines
+                where convert' = map (T.splitOn "|") . filter (not . T.null) . map T.strip . T.lines
 
 fromText :: Read a => Text -> a
 fromText = read . T.unpack
