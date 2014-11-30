@@ -5,3 +5,4 @@ log
 tmp
 *.prof
 *.log
+.DS_Store
