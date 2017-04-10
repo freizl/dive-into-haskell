@@ -1,0 +1,201 @@
+<svg width="100%" height="100%" version="1.1"
+xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<filter id="negative">
+<feColorMatrix type="matrix"
+values="-1 0  0  0  0  0 -1  0  0  0  0  0 -1  0  0  1  1  1  0  0" />
+</filter>
+
+  <image x="0" y="0" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="0" y="0" width="50" height="50" xlink:href="images/rook.png" filter="url(#negative)"/>
+
+  <image x="50" y="0" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="50" y="0" width="50" height="50" xlink:href="images/knight.png" filter="url(#negative)"/>
+
+  <image x="100" y="0" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="100" y="0" width="50" height="50" xlink:href="images/bishop.png" filter="url(#negative)"/>
+
+  <image x="150" y="0" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="150" y="0" width="50" height="50" xlink:href="images/queen.png" filter="url(#negative)"/>
+
+  <image x="200" y="0" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="200" y="0" width="50" height="50" xlink:href="images/king.png" filter="url(#negative)"/>
+
+  <image x="250" y="0" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="250" y="0" width="50" height="50" xlink:href="images/bishop.png" filter="url(#negative)"/>
+
+  <image x="300" y="0" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="300" y="0" width="50" height="50" xlink:href="images/knight.png" filter="url(#negative)"/>
+
+  <image x="350" y="0" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="350" y="0" width="50" height="50" xlink:href="images/rook.png" filter="url(#negative)"/>
+
+  <image x="0" y="50" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="0" y="50" width="50" height="50" xlink:href="images/pawn.png" filter="url(#negative)"/>
+
+  <image x="50" y="50" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="50" y="50" width="50" height="50" xlink:href="images/pawn.png" filter="url(#negative)"/>
+
+  <image x="100" y="50" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="100" y="50" width="50" height="50" xlink:href="images/pawn.png" filter="url(#negative)"/>
+
+  <image x="150" y="50" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="150" y="50" width="50" height="50" xlink:href="images/pawn.png" filter="url(#negative)"/>
+
+  <image x="200" y="50" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="200" y="50" width="50" height="50" xlink:href="images/pawn.png" filter="url(#negative)"/>
+
+  <image x="250" y="50" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="250" y="50" width="50" height="50" xlink:href="images/pawn.png" filter="url(#negative)"/>
+
+  <image x="300" y="50" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="300" y="50" width="50" height="50" xlink:href="images/pawn.png" filter="url(#negative)"/>
+
+  <image x="350" y="50" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="350" y="50" width="50" height="50" xlink:href="images/pawn.png" filter="url(#negative)"/>
+
+  <image x="0" y="100" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="50" y="100" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="100" y="100" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="150" y="100" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="200" y="100" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="250" y="100" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="300" y="100" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="350" y="100" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="0" y="150" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="50" y="150" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="100" y="150" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="150" y="150" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="200" y="150" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="250" y="150" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="300" y="150" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="350" y="150" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="0" y="200" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="50" y="200" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="100" y="200" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="150" y="200" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="200" y="200" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="250" y="200" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="300" y="200" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="350" y="200" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="0" y="250" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="50" y="250" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="100" y="250" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="150" y="250" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="200" y="250" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="250" y="250" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="300" y="250" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="350" y="250" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="0" y="300" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="0" y="300" width="50" height="50" xlink:href="images/pawn.png"/>
+
+  <image x="50" y="300" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="50" y="300" width="50" height="50" xlink:href="images/pawn.png"/>
+
+  <image x="100" y="300" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="100" y="300" width="50" height="50" xlink:href="images/pawn.png"/>
+
+  <image x="150" y="300" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="150" y="300" width="50" height="50" xlink:href="images/pawn.png"/>
+
+  <image x="200" y="300" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="200" y="300" width="50" height="50" xlink:href="images/pawn.png"/>
+
+  <image x="250" y="300" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="250" y="300" width="50" height="50" xlink:href="images/pawn.png"/>
+
+  <image x="300" y="300" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="300" y="300" width="50" height="50" xlink:href="images/pawn.png"/>
+
+  <image x="350" y="300" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="350" y="300" width="50" height="50" xlink:href="images/pawn.png"/>
+
+  <image x="0" y="350" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="0" y="350" width="50" height="50" xlink:href="images/rook.png"/>
+
+  <image x="50" y="350" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="50" y="350" width="50" height="50" xlink:href="images/knight.png"/>
+
+  <image x="100" y="350" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="100" y="350" width="50" height="50" xlink:href="images/bishop.png"/>
+
+  <image x="150" y="350" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="150" y="350" width="50" height="50" xlink:href="images/queen.png"/>
+
+  <image x="200" y="350" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="200" y="350" width="50" height="50" xlink:href="images/king.png"/>
+
+  <image x="250" y="350" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="250" y="350" width="50" height="50" xlink:href="images/bishop.png"/>
+
+  <image x="300" y="350" width="50" height="50" xlink:href="images/black.jpg"/>
+
+  <image x="300" y="350" width="50" height="50" xlink:href="images/knight.png"/>
+
+  <image x="350" y="350" width="50" height="50" xlink:href="images/white.jpg"/>
+
+  <image x="350" y="350" width="50" height="50" xlink:href="images/rook.png"/>
+
+</svg>
+
