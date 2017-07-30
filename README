@@ -1,4 +1,11 @@
 sample code while diving into haskell
 
 ## Ineresting Links
+
 - <https://secure.plaimi.net/~alexander/haskell.html>
+
+- [WHAT I WISH I KNEW WHEN LEARNING HASKELL](http://dev.stephendiehl.com/hask/)
+
+- http://nikita-volkov.github.io/profiling-cabal-projects/
+- [Don Stewart on Core](http://stackoverflow.com/a/6121495)
+- [Simon Peyton Jones on Core](https://youtu.be/uR_VzYxvbxg)
