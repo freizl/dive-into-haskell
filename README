@@ -9,3 +9,5 @@ sample code while diving into haskell
 - http://nikita-volkov.github.io/profiling-cabal-projects/
 - [Don Stewart on Core](http://stackoverflow.com/a/6121495)
 - [Simon Peyton Jones on Core](https://youtu.be/uR_VzYxvbxg)
+
+- https://github.com/takenobu-hs/haskell-ghc-illustrated
