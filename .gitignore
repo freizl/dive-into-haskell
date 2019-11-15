@@ -9,3 +9,5 @@ tmp
 .stack-work
 Main
 main
+dist-newstyle
+.ghc.env*
