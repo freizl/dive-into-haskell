@@ -1,4 +1,1 @@
 Hacking in Haskell
-
-## Links
-
