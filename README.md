@@ -1,0 +1,4 @@
+Hacking in Haskell
+
+## Links
+

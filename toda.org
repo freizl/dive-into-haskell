@@ -39,6 +39,11 @@
    - Giving Haskell a promotion
    - Template meta-programming for Haskell
 
+* Links
+- https://www.haskell.org/documentation/
+- http://dev.stephendiehl.com/hask/
+- http://nikita-volkov.github.io/profiling-cabal-projects/
+
 * BACKLOG
 ** Interesting Module
    - Foldable / Traversable / Typeable
