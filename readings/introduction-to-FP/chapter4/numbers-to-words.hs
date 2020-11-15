@@ -10,7 +10,7 @@ teens = [ "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen
 tens = [ "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" ]
 
 convert2 :: Int -> String
-convert2 n = combine2 (digits2 n)
+convert2 = combine2 . digits2
 
 digits2 :: Int -> (Int, Int)
 digits2 n = (n `div` 10, n `mod` 10)
@@ -36,11 +36,13 @@ combine6 (i, j) = convert3 i ++ " thousand" ++ links j ++ convert3 j
                           | m < 100 = " and "
                           | otherwise = " "
 
-simpleTest :: IO ()
-simpleTest = mapM_ (print . convert6) [308000, 369027, 369401]
+main :: IO ()
+main = mapM_ (print . convert6) [308000, 369027, 369401]
 
 ------------------------------
 -- Exercise
 ------------------------------
 
 --   ?? what is a full-stop character
+-- fullstop :: String -> String
+-- fullstop = (++ "\x2E")

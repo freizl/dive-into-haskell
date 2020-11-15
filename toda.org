@@ -79,7 +79,7 @@
    2. [ ] post the finding
 ** hakyll (src and tutorial)                                         :Hakyll:
 * IN-PROGRESS
-** TODO [#B] Distinguish those concepts                                :LANG:
+** TODO Distinguish those concepts :LANG:
    - Polymorphic Components
      - *From Hindley-Milner Types to First-Class Structures* by Mark P. Jones
    - RankNTypes
@@ -96,6 +96,10 @@
 *** links
     - [[http://johnlato.blogspot.in/2012/03/existential-quantification-pt-1.html][Existential Quantification pt. 1]]
     - [[http://johnlato.blogspot.in/2012/03/faking-it-with-higher-rank-existential.html][Existential Quantification pt. 2 (Faking it with higher rank)]]
+** TODO [#A] Understand Haskell number hierarchy
+** TODO [#A] Refresh concepts for
+1. Monad Transform
+2. ~ExceptT~
 * DONE
 ** DONE Monad for web application                                     :VIDEO:
    CLOSED: [2012-10-11 Thu 20:49]
