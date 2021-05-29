@@ -1,0 +1,3 @@
+#+TITLE: Haskell Book
+
+- [[https://haskellbook.com][Haskell book official site]]

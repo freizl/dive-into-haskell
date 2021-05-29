@@ -1,0 +1,24 @@
+#+TITLE: chapter 2
+
+* Reading notes
+1. WHNF: weak head normal form
+   - ~(\f -> (1, 2 + f)) 2~ reduces to ~(1, 2 + 2)~
+   - how can we tell? see [[Follow up][Follow up]]
+2. Associativity and precedence
+   - ~infixl~: infix, left associativity
+   - ~infixr~: infix, right associativity
+   - precedence scale ~0-9~, higher is applied first.
+3. Difference between ~mod~ and ~rem~
+   - same when parameter are both positive or negative
+   - and difference appears otherwise, e.g.
+     #+begin_src haskell
+     mod (3-12) 7 -- 5
+     rem (3-12) 7 -- -2
+     #+end_src
+
+   - ~mod~ is /modulus/ arithmetic
+
+* Follow up [0/1]
+1. [ ] Can we tell if an expression reduce to WHNF in GHCi?
+   - ~sprint~? (see [[file:~/freizl/dive-into-haskell/videos/Haskell-for-Imperative-Programmers/31-weak-head-normal-form.org][weak head normal form]])
+   - doesn't work as the video shows is ~ghc-8.10~
