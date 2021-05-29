@@ -1,3 +1,0 @@
-#+TITLE: The Essence of the Iterator Pattern - Jeremy Gibbons
-#+ROAM_KEYS: http://www.cs.ox.ac.uk/jeremy.gibbons/publications/iterator.pdf
-#+roam_tags: iterator

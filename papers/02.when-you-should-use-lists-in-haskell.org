@@ -1,3 +1,0 @@
-#+title: When You Should Use Lists in Haskell - Johannes Waldmann
-#+roam_keys: https://arxiv.org/pdf/1808.08329.pdf
-#+roam_tags: data.foldable list

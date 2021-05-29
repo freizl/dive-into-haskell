@@ -1,9 +1,0 @@
-* Lazyness
-  - argument will not be evaluated until necessary
-  - in other words, create ~thunk~
-  - ~seq~ force evaluates first argument (done by compiler)
-    #+begin_src haskell
-      seq :: a -> b -> b
-      seq a b = b
-    #+end_src
-  - similar idea for ~$!~ v.s. ~$~

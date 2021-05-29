@@ -1,3 +1,0 @@
-#+title: Applicative programming with effects
-#+roam_keys: https://www.staff.city.ac.uk/~ross/papers/Applicative.pdf
-#+roam_tags: applicative functional-pearl
