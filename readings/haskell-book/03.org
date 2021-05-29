@@ -4,5 +4,5 @@
 - ~concat:: Foldable t => t [a] -> [a]~
 - ~Data.Foldable~, ~Data.Traversable~
 * Follow up resources
-1. [[file:~/freizl/dive-into-haskell/papers/01.the-essence-of-the-iterator-pattern.org][The Essence of the Iterator Pattern]]
-2. [[file:~/freizl/dive-into-haskell/papers/02.when-you-should-use-lists-in-haskell.org][When You Should Use Lists in Haskell]]
+1. [[https://www.cs.ox.ac.uk/jeremy.gibbons/publications/iterator.pdf][The Essence of the Iterator Pattern]]
+2. [[https://arxiv.org/pdf/1808.08329.pdf][When You Should Use Lists in Haskell]]

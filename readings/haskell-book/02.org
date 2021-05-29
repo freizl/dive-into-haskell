@@ -20,5 +20,5 @@
 
 * Follow up [0/1]
 1. [ ] Can we tell if an expression reduce to WHNF in GHCi?
-   - ~sprint~? (see [[file:~/freizl/dive-into-haskell/videos/Haskell-for-Imperative-Programmers/31-weak-head-normal-form.org][weak head normal form]])
+   - ~sprint~? (see [[https://github.com/freizl/my-notes/blob/main/3.01.haskell-for-imperative-programmers.org#31-whnf][weak head normal form]])
    - doesn't work as the video shows is ~ghc-8.10~
