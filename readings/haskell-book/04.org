@@ -1,0 +1,11 @@
+#+TITLE: Chapter 04
+
+* Reading notes
+** Number types
+1. Integral
+   - Int: fixed-precision integer
+   - Integer: arbitrarily large or small integers
+   - Word: fixed-precision positive integer
+2. Fractional
+
+* Follow up resources
