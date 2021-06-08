@@ -1,4 +1,32 @@
-#+TITLE: Chapter 04
+#+TITLE: Chapter 05 Types
 
 * Reading notes
+1. ~(->)~ is data type
+   - Specifically ~(->)~ is type constructor (thinking of ~Maybe~)
+   #+begin_src haskell
+   -- :i (->)
+   type (->) :: * -> * -> *
+   data (->) a b
+   infixr -1
+   #+end_src
+   - It implements a few type classes
+2. How to declare type and implementation in GHCi?
+   #+begin_src
+   > f :: Int -> Int; f x = x + 2
+   #+end_src
+3. Polymorphism
+   - Constrained (ad-hoc) poliymorphism (type class constrain in Haskell)
+     #+begin_src haskell
+     negate :: Num a => a -> a
+     #+end_src
+   - Parametric polymorphism
+     #+begin_src haskell
+     id :: a -> a
+     length :: [a] -> Int
+     #+end_src
+   - /compiler will infer a maximally polymorphic type/
+
 * Follow up resources
+
+1. Luis Damas and Robin Milner. [[https://web.cs.wpi.edu/~cs4536/c12/milner-damas_principal_types.pdf][Principal type-schemes for functional programs]].
+2. Christopher Strachey. [[http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.332.3161&rep=rep1&type=pdf][Fundamental Concepts in Programming Languages]]. The best-known origin of the parametric/ad-hoc polymorphism distinction.

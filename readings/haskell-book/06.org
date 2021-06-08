@@ -1,4 +1,4 @@
-#+TITLE: Chapter 04
+#+TITLE: Chapter 06 Type Classes
 
 * Reading notes
 * Follow up resources

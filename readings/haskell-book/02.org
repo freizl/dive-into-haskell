@@ -1,4 +1,4 @@
-#+TITLE: chapter 2
+#+TITLE: chapter 2 Hello, Haskell
 
 * Reading notes
 1. WHNF: weak head normal form

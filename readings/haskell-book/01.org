@@ -1,4 +1,4 @@
-#+TITLE: Chapter 1
+#+TITLE: Chapter 1 All You Need is Lambda
 
 * Reading notes
 - Function is a mapping of _a set of inputs_ to _a set of outputs_, a.k.a Domain ➙ CoDomain.

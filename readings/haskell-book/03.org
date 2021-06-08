@@ -1,4 +1,4 @@
-#+TITLE: Chapter 03
+#+TITLE: Chapter 03 Strings
 
 * Reading notes
 - ~concat:: Foldable t => t [a] -> [a]~
