@@ -1,4 +1,24 @@
 #+TITLE: Chapter 06 Type Classes
 
 * Reading notes
+1. Type-defaulting type classes
+   - polymorphism must be resolved to concrete type
+   - type class will *default* to a concrete type, e.g.
+     #+begin_src haskell
+default Num Integer
+default Real Integer
+default Enum Integer
+default Integral Integer
+default Fractional Double
+default RealFrac Double
+default Floating Double
+default RealFloat Double
+     #+end_src
+2. ~read~ is *partial function* given it doesn't return a proper value for all possible inputs. We should avoid writes or using such functions in Haskell.
+   #+begin_example
+    Prelude> read "BLAH" :: Integer
+    Exception: Prelude.read: no parse
+   #+end_example
+
 * Follow up resources
+- Haskell 2010 Report
