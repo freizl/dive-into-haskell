@@ -1,0 +1,12 @@
+#+TITLE: Chapter 10 Folding Lists
+
+* Reading notes
+1. list ranges
+   - ~[1..10]~
+   - looks like syntax sugar of using functions from ~Enum~ type class
+2. Spines and non-strict evaluation
+   - /spine/ - connective structure that ties the collection of values
+   - ~sprint~ - print variables and see what has been evaluated. ~_~ means isn't evaluated.
+3. Spines are evaluated independently of values
+
+* Follow up resources
