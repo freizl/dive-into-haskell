@@ -1,4 +1,16 @@
 #+TITLE: Chapter 09 Lists
 
 * Reading notes
+1. list ranges
+   - ~[1..10]~
+   - looks like syntax sugar of using functions from ~Enum~ type class
+2. Spines and non-strict evaluation
+   - /spine/ - connective structure that ties the collection of values
+   - ~sprint~ - print variables and see what has been evaluated. ~_~ means isn't evaluated.
+3. Spines are evaluated independently of values
+4. NF implies WHNF
+   - NF :: Normal Form, expression is fully evaluated
+   - WHNF :: Weak Head Normal Form, expression is only evaluated to reach a data constructor
+
 * Follow up resources
+1. Haskell Wiki. Ninety-Nine Haskell problems
