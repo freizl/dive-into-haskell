@@ -1,5 +1,27 @@
 #+TITLE: Chapter 10 Folding Lists
 
 * Reading notes
+1. Folds is a general concept called *catamorphisms*
+2. Fold can reduce the /spine/ structure
+3. When ~foldr~ applies to List, it replaces the ~cons~ constructors with the function and reduces the list.
+4. When it comes to reduce the list, it could from left to right depending on the ~f~, hence ~foldr~ *may* work with infinite list.
+   #+begin_src haskell
+foldr f z [] = z
+foldr f z (x:xs) = f x (foldr f z xs)
 
+myAny f xs = foldr (\x b -> f x || b) False xs
+test1 = myAny even [1..]
+   #+end_src
+   #+begin_example
+myEven even [1..]
+= foldr (\x b -> even x || b) False [1..]   -- substitute f and xs
+= (\x b -> evnn x || b) 1 (foldr (\x b -> even x || b) False [2..])
+= (\x b -> evnn x || b) 1 ((\x b -> evnn x || b) 2 (foldr (\x b -> even x || b) False [3..]))
+   #+end_example
+
+5. ~scanl~ and ~scanr~ is good for viewing intermediate stage of ~foldl~ and ~foldr~.
+6. Both ~foldl~ and ~foldr~ traverse the spine in *same direction*. The difference is the *associativity of the evaluation (a.k.a substitution).*
+   - if association matters, how ~foldr~ could possibly work with infinite list?
+   - if the ~f~ is strict on both arguments, then association matters. Otherwise, not.
+   - take the ~myEven~ example above, 2nd argument of ~f~ may not need evaluation.
 * Follow up resources

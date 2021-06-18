@@ -5,7 +5,7 @@
 1. Integral
    - Int: fixed-precision integer
    - Integer: arbitrarily large or small integers
-   - Word: fixed-precision positive integer
+   - Word: fixed-precision *positive* integer
 2. Fractional
    - Float
    - Double

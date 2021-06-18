@@ -3,7 +3,7 @@ cabal-version:       >=1.10
 -- init'.  For further documentation, see
 -- http://haskell.org/cabal/users-guide/
 
-name:                haskell-book
+name:                haskell-book-chapter-07
 version:             0.1.0.0
 -- synopsis:
 -- description:
