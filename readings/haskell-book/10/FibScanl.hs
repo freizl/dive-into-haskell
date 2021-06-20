@@ -4,14 +4,25 @@ module FibScanl where
 
 import Test.QuickCheck
 
-{- TODO: analysis how does this work?
+{-
+scanl :: (a -> b -> a) -> a -> [b] -> [a]
+scanl f q ls =
+  q : (case ls of
+         [] ->[]
+         x:xs -> scanl f (f q x) xs)
+-}
 
-  fibs = [1]
-  fibs = 1: scanl + (+ 1 1) (scanl + 1 fibs)
+{-
+  analysis how does this work (expands scanl at each step)
+  amazed how it possibly work?!
+fibs : 1 : scanl + 1 [1,??]  --> ?? becomes [1,??]
+fibs = 1 : 1 : scanl + (+ 1 1) [1,??] --> ?? becomes [2,??]
+fibs = 1 : 1 : 2 : scanl + (+ 2 1) [2,??]
+fibs = 1 : 1 : 2 : 3 : scanl + (+ 3 2) [3,??]
+fibs = 1 : 1 : 2 : 3 : 5 : scanl + (+ 5 3) [5,??]
 -}
 fibs :: [Integer]
 fibs = 1 : scanl (+) 1 fibs
-
 
 fibs20 = take 20 fibs
 
