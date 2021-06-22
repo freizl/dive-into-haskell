@@ -7,8 +7,15 @@ import Test.QuickCheck
 
 main :: IO ()
 main = do
-  (quickCheck . withMaxSuccess 2000) prop_seekritFunc
-  (quickCheck . withMaxSuccess 2000) prop_or
+  (quickCheck . withMaxSuccess 10000) prop_seekritFunc
+  (quickCheck . withMaxSuccess 10000) prop_or
+  (quickCheck . withMaxSuccess 10000) prop_any
+  (quickCheck . withMaxSuccess 10000) prop_elem
+  (quickCheck . withMaxSuccess 10000) prop_elem2
+  (quickCheck . withMaxSuccess 10000) prop_reverse
+  (quickCheck . withMaxSuccess 10000) prop_map
+  (quickCheck . withMaxSuccess 10000) prop_filter
+  (quickCheck . withMaxSuccess 10000) prop_squish
 
 seekritFunc :: String -> Int
 seekritFunc x =
@@ -31,3 +38,40 @@ myOr = foldr (||) False
 
 prop_or :: [Bool] -> Bool
 prop_or xs = myOr xs == or xs
+
+myAny f = foldr (\a b -> f a || b) False
+
+prop_any :: [Integer] -> Bool
+prop_any xs = myAny even xs == any even xs
+
+myElem :: Eq a => a -> [a] -> Bool
+myElem x = foldr (\a b -> a == x || b) False
+
+prop_elem :: Integer -> [Integer] -> Bool
+prop_elem x xs = myElem x xs == elem x xs
+
+prop_elem2 :: Char -> [Char] -> Bool
+prop_elem2 x xs = myElem x xs == elem x xs
+
+myReverse :: [a] -> [a]
+myReverse = foldr (\a b -> b ++ [a]) []
+
+prop_reverse :: [Integer] -> Bool
+prop_reverse xs = myReverse xs == reverse xs
+
+myMap :: (a -> b) -> [a] -> [b]
+myMap f = foldr (\a b -> f a : b) []
+prop_map :: [Integer] -> Bool
+prop_map xs =
+  let f = (+ 2)
+   in myMap f xs == map f xs
+
+myFilter :: (a -> Bool) -> [a] -> [a]
+myFilter f = foldr (\a b -> if f a then a:b else b) []
+prop_filter :: [Integer] -> Bool
+prop_filter xs = myFilter even xs == filter even xs
+
+squish :: [[a]] -> [a]
+squish = foldr (++) []
+prop_squish :: [[Integer]] -> Bool
+prop_squish xss = squish xss == concat xss
