@@ -1,4 +1,44 @@
-#+TITLE: Chapter 04
+#+TITLE: Chapter 11 Algebraic Datatypes
 
 * Reading notes
+1. Data constructor arities
+   - nullary :: take zero arguments
+   - unary :: take 1 arguments
+   - binary :: take 2 arguments?
+   - products :: take 1+ arguments
+2. What makes those datatypes algebraic?
+   - /sum/ v.s. /product/
+   - can be explained in terms of /cardinality/.
+     #+begin_quote
+     The cardinality of a datatype is the number of possible values it defines
+     #+end_quote
+   - nullary data constructor has cardinality 1
+   - unary data constructor has same cardinality as the parameter
+   - Sum type: cardinality is sum from cardinality of either inhabitant.
+   - Product type: cardinality is result of multiplication
+     #+begin_src haskell
+     -- cardinality is 4 = 2 * 256
+     data TwoB = MkTB Bool Int8
+     #+end_src
+   - Why need to understand cardinality
+     #+begin_quote
+     The reason it’s important to understand cardinality is that the cardinality of a datatype roughly equates to how difficult it is to reason about.
+     #+end_quote
+     #+begin_src haskell
+      convert Yes = True
+        No = True
+        Both = True
+
+        Yes = False
+        No = True
+        Both = True
+
+        No = False
+        Both = True
+        Both = False
+     #+end_src
+   - Functional type is exponential
+     + ~f :: Bool -> Bool~, has ~2^2~ different implementations
+
+
 * Follow up resources
