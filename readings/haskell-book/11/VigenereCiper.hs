@@ -25,32 +25,34 @@ genLetterPair s str = go str ciphers
 cipher :: Seed -> Message -> Message
 cipher s m = map cl (genLetterPair s m)
 
+-- | TODO: `isLower '\353' return true. Why??`
 cl ::
   -- | ( message char, seed char )
   (Char, Char) ->
   Char
 cl (a, b)
-  | isUpper a = chr $ ord 'A' + (ord a - ord 'A' + ord b - ord 'A') `mod` 26
-  | isLower a = chr $ ord 'a' + (ord a - ord 'a' + ord b - ord 'a') `mod` 26
+  | ord a >= ord 'A' && ord a <= ord 'Z' = chr $ ord 'A' + (ord a - ord 'A' + ord b - ord 'A') `mod` 26
+  | ord a >= ord 'a' && ord a <= ord 'z' = chr $ ord 'a' + (ord a - ord 'a' + ord b - ord 'a') `mod` 26
   | otherwise = a
 
 decipher :: Seed -> Message -> Message
 decipher s m = map dl (genLetterPair s m)
 
-dl :: (Char, Char) -- ^ (message char, seed char)
-  -> Char
+dl ::
+  -- | (message char, seed char)
+  (Char, Char) ->
+  Char
 dl (a, b)
-  | isUpper a = chr $ ord 'A' + (ord a - ord 'A' - (ord b - ord 'A')) `mod` 26
-  | isLower a = chr $ ord 'a' + (ord a - ord 'a' - (ord b - ord 'a')) `mod` 26
+  | ord a >= ord 'A' && ord a <= ord 'Z' = chr $ ord 'A' + (ord a - ord 'A' - (ord b - ord 'A')) `mod` 26
+  | ord a >= ord 'a' && ord a <= ord 'z' = chr $ ord 'a' + (ord a - ord 'a' - (ord b - ord 'a')) `mod` 26
   | otherwise = a
 
 main :: IO ()
-main = quickCheck prop_cipher
+main = (quickCheck . withMaxSuccess 10000) prop_cipher
 
--- | TODO : input seed shall all be letters
---   probably has to declare data type and implement type class Arbitrary
---
-prop_cipher :: String -- ^ Seed
-  -> String -- ^ Message
-  -> Bool
-prop_cipher s m = decipher s (cipher s m) == m
+genSeed :: Gen String
+genSeed = listOf1 $ elements ['A' .. 'Z']
+
+prop_cipher :: Property
+prop_cipher =
+  forAll genSeed (\s -> forAll arbitrary (\m -> decipher s (cipher s m) == m))

@@ -1,4 +1,5 @@
-#+TITLE: Chapter 04
+#+TITLE: Chapter 12 Signaling Adversity
 
 * Reading notes
+- ~Maybe~, ~Either~
 * Follow up resources

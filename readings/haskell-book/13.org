@@ -1,4 +1,5 @@
-#+TITLE: Chapter 04
+#+TITLE: Chapter 13 Building projects
 
 * Reading notes
 * Follow up resources
+- [[https://cabal.readthedocs.io/][Cabal user guide]]

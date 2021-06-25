@@ -1,4 +1,7 @@
-#+TITLE: Chapter 04
+#+TITLE: Chapter 14 Testing
 
 * Reading notes
+
 * Follow up resources
+- Koen Claessen and John Hughes. /QuickCheck: A Lightweight Tool for Random Testing of Haskell Programs/
+- Pedro Vasconcelos. /Verifying a Simple Compiler Using Property- based Random Testing/
