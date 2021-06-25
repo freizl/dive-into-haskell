@@ -1,4 +1,20 @@
-#+TITLE: Chapter 04
+#+TITLE: Chapter 15 Monoid, Semigroup
 
-* Reading notes
+* Reading notes [1/2]
+1. monoid
+   - associativity, binary operation (~mappend~)
+   - identity ~mempty~
+2. [ ] why ~Monoid~ has super class ~Semigroup~, which has ~<>~ that same to ~mappend~?
+   - actually ~mappend~ defaults to ~<>~ in ~Monoid~ type class
+   - some data type is ~Semigroup~ but cannot be ~Monoid~, e.g. ~NonEmptyList~
+3. [X] why no monoid instance for ~Integer~?
+   - both addition and multiplication make sense hence no clear way to choose
+   - hence there are ~Sum~ and ~Product~ type in ~Data.Monoid~
+4. Fix orphan instance
+   - ~newtype~ it
+5. ~Semigroup~, weaker than ~Monoid~
+6. ~Magma~, weaker than ~Semigroup~
+
+
 * Follow up resources
+1. [[https://simple.wikipedia.org/wiki/Algebraic_structure][Algebraic structure]]
