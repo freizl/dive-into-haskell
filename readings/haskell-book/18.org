@@ -1,4 +1,5 @@
-#+TITLE: Chapter 04
+#+TITLE: Chapter 18 Monad
 
 * Reading notes
 * Follow up resources
+1. Stephen Diehl. Monads Made Difficult. http://www.stephendiehl.com/posts/monads.html

@@ -1,4 +1,6 @@
-#+TITLE: Chapter 04
+#+TITLE: Chapter 16 Functor
 
 * Reading notes
 * Follow up resources
+1. Mark P. Jones. [[http://www.cs.tufts.edu/~nr/cs257/archive/mark-jones/fpca93.pdf][A system of constructor classes: overloading and implicit higher-order polymorphism]].
+2. Gabriel Gonzalez. [[https://www.haskellforall.com/2012/09/the-functor-design-pattern.html][The functor design pattern]]

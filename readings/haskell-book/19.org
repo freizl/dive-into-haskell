@@ -1,4 +1,16 @@
-#+TITLE: Chapter 04
+#+TITLE: Chapter Applying structure
 
 * Reading notes
+1. Monoid of functions
+   #+begin_src haskell
+   instance Monoid b => Monoid (a->b) where
+     -- follow the type
+     -- since the b has monoid instance
+     -- the implementation is probably concat `b` internally
+     -- but on the surface, result of `<>` is still function
+     -- because `<>` take 2 `a` and returns `a`
+     f <> g = \x -> f x <> g x
+                 -- ^ b    ^ b
+
+   #+end_src
 * Follow up resources

@@ -1,4 +1,9 @@
-#+TITLE: Chapter 04
+#+TITLE: Chapter 17 Applicative
 
 * Reading notes
 * Follow up resources
+1. Tony Morris and Nick Partridge. Validation library. http://hackage.haskell.org/package/validation
+2. Conor McBride and Ross Paterson. Applicative programming with effects. http://staff.city.ac.uk/~ross/papers/Applicative.html
+3. Jeremy Gibbons and Bruno C. d. S. Oliveira. The Essence of the Iterator Pattern. https://www.cs.ox.ac.uk/jeremy.gibbons/publications/iterator.pdf
+4. Ross Paterson. Constructing Applicative Functors. http://staff.city.ac.uk/~ross/papers/Constructors.html
+5. Sam Lindley, Philip Wadler, and Jeremy Yallop. Idioms are oblivious, arrows are meticulous, monads are promiscuous. Note that idiom means “applicative functor” and is a useful search term for published work on this pattern. https://homepages.inf.ed.ac.uk/slindley/papers/idioms-arrows-monads.pdf
