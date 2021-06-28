@@ -11,6 +11,6 @@
      -- because `<>` take 2 `a` and returns `a`
      f <> g = \x -> f x <> g x
                  -- ^ b    ^ b
-
    #+end_src
 * Follow up resources
+1. Bryan O’Sullivan. The case of the mysterious explosion in space. [[http://www.serpentine.com/blog/2012/09/12/the-case-of-the-mysterious-explosion-in-space/][Explains how GHC handles string literals]].

@@ -1,4 +1,30 @@
-#+TITLE: Chapter 04
+#+TITLE: Chapter 20 Foldable
 
 * Reading notes
+1. ~Foldable~ type class are very abstract (duo to combining with monoid)
+   #+begin_src haskell
+class Foldable (t :: * -> *) where
+  fold :: Monoid m => t m -> m
+  foldMap :: Monoid m => (a -> m) -> t a -> m
+   #+end_src
+2. Why following expression evaluates to ~1~?
+   #+begin_src haskell
+-- fmap length :: (Functor f, Foldable t) => f (t a) -> f Int
+fmap length Just [1, 2, 3]     -- 1
+= fmap length (\a -> Just a) [1,2,3]
+= fmap length ((->) a (Just a)) [1,2,3]
+          --  f (t a) ==> ((->) a) (Just a)
+  -- substitue fmap with (->) function implementation, which is ~(.)~
+  -- (. length (\a -> Just a) ) [1, 2, 3]  -- infix for (.)
+  -- (length . Just) [1, 2, 3]
+  -- 1
+
+-- simplified version
+fmap length Just [1, 2, 3]
+= (length . Just) [1, 2, 3]
+= length (Just [1,2,3]) -- length :: Foldable t => t a -> Int
+= 1
+
+fmap length ( Just [1, 2, 3] ) -- Just 3
+   #+end_src
 * Follow up resources
