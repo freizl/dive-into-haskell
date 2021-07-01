@@ -1,4 +1,5 @@
-#+TITLE: Chapter 04
+#+TITLE: Chapter 25 Composing Types
 
 * Reading notes
 * Follow up resources
+- [[http://web.cecs.pdx.edu/~mpj/pubs/RR-1004.pdf][Composing monads]] (cannot write monad instance of ~Compose~ type?)

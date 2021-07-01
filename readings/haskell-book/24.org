@@ -1,4 +1,16 @@
-#+TITLE: Chapter 04
+#+TITLE: Chapter 24 Parser Combinators
 
 * Reading notes
+1. Parsing libraries
+   - trifecta
+   - parserc
+   - attoparsec
+   - megaparsec
+2. Character and token parsers
+   - didn't understand what exactly mean by /tokenize/
+3. [[https://hackage.haskell.org/package/raw-strings-qq][raw-strings-qq]] seems handy!
+
+* TODO finish Chapter exercises
+
 * Follow up resources
+- many good follow up readings
