@@ -1,4 +1,9 @@
-#+TITLE: Chapter 04
+#+TITLE: Chapter 26 Monad Transformers
 
 * Reading notes
+- for all those libraries
+  - transformers
+    + ~MonadIO~: lift IO to ~Monad T~ type
+  - mtl
+  - ~MonadTrans~ type class
 * Follow up resources
