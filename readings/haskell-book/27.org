@@ -1,4 +1,16 @@
-#+TITLE: Chapter 04
+#+TITLE: Chapter 27 Non-strictness
 
 * Reading notes
+1. ~seq~ force evaluation up to WHNF. e.g. (which expression works and which doesn't)
+   #+begin_example
+   dc = (,) undefined undefined
+   noDc = undefined
+   lam = \_ -> undefined
+   dc `seq` 1
+   noDc `seq` 1
+   lam `seq` 1
+   #+end_example
+2. simpler Core language gives us a clearer idea of when precisely something will be evaluated.
+   - In Core, a case expression always evaluates what it cases on.
 * Follow up resources
+1. [[https://gitlab.haskell.org/ghc/ghc/-/wikis/commentary/compiler/core-syn-type][GHC Core Syntax Type]]
