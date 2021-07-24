@@ -12,5 +12,22 @@
    #+end_example
 2. simpler Core language gives us a clearer idea of when precisely something will be evaluated.
    - In Core, a case expression always evaluates what it cases on.
+   - case expression evaluate the contents to WHNF
+3. ~Debug.trace~
+   - insert ~putStrLn~ without ~IO~ type.
+   - never use in production
+4. Dump core and ~Debug.trace~ are ways to troubleshoot evaluation ordering and sharing.
+5. The ~forever~ function looks a little mysterious
+   #+begin_src haskell
+-- | my reads are
+-- eval a
+-- then eval a',
+--   which happens to be (eval a and eval a' again)
+
+forever :: (Monad m) => m a -> m b
+forever a = let a' = a >> a' in a'
+   #+end_src
 * Follow up resources
 1. [[https://gitlab.haskell.org/ghc/ghc/-/wikis/commentary/compiler/core-syn-type][GHC Core Syntax Type]]
+2. [[https://ghc.haskell.org/trac/ghc/wiki/Commentary/Rts/Storage/HeapObjects][GHC Heap Objects (thunk deep diving)]]
+3. [[https://takenobu-hs.github.io/downloads/haskell_lazy_evaluation.pdf][Lazy evaluation illustrated for Haskell divers]]

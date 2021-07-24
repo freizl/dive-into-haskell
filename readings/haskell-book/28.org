@@ -1,4 +1,40 @@
-#+TITLE: Chapter 04
+#+TITLE: Chapter 28 basic libraries
 
 * Reading notes
+1. Benchmark - criterion
+2. Performance Profiling
+3. Constant Applicative Forms (CAF)
+   - change to point-free creates CAF. confused.
+     #+begin_quote
+Point-free, top-level declarations will be CAFs, but pointful ones will not
+     #+end_quote
+
+     #+begin_src haskell
+-- | not a CAF
+incdInts :: [Integer] -> [Integer]
+incdInts x = map (+ 1) x
+
+incdIntsCAF :: [Integer] -> [Integer]
+incdIntsCAF = map (+ 1)
+
+
+main :: IO ()
+main = do
+  print (incdInts [1 ..] !! 1000)
+  print (incdIntsCAF [1 ..] !! 1000)
+     #+end_src
+4. Map
+5. Set
+6. Sequence
+   - effectively [[http://www.staff.city.ac.uk/~ross/papers/FingerTree.html][Finger Trees]]
+   - append cheaply on front and back
+7. Vector
+   - efficient Array
+   - fast slicing
+   - update vector may not have great performance depend on use cases
+   - mutable update is super fast
+8. [[https://hackage.haskell.org/package/base-4.15.0.0/docs/Control-Monad-ST.html][ST Monad]]
+   - worth to take a closer look
+9. String types
+* TODO exercise - Queue
 * Follow up resources
