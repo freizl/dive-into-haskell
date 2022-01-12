@@ -28,3 +28,4 @@ fmap length Just [1, 2, 3]
 fmap length ( Just [1, 2, 3] ) -- Just 3
    #+end_src
 * Follow up resources
+1. [[https://blog.jakuba.net/2014-07-30-foldable-and-traversable/][Jakub Arnold. Foldable and Traversable.]]

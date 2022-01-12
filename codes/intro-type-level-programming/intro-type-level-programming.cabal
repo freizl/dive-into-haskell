@@ -1,0 +1,35 @@
+cabal-version:      2.4
+name:               intro-type-level-programming
+version:            0.1.0.0
+
+-- A short (one-line) description of the package.
+-- synopsis:
+
+-- A longer description of the package.
+-- description:
+
+-- A URL where users can report bugs.
+-- bug-reports:
+
+-- The license under which the package is released.
+-- license:
+author:             Haisheng Wu
+maintainer:         haisheng.wu@okta.com
+
+-- A copyright notice.
+-- copyright:
+-- category:
+extra-source-files: CHANGELOG.md
+
+executable intro-type-level-programming
+    main-is:          Main.hs
+
+    -- Modules included in this executable, other than Main.
+    other-modules: Color
+
+    -- LANGUAGE extensions used by modules in this package.
+    -- other-extensions:
+    build-depends:    base ^>=4.14.3.0
+                    , containers
+    hs-source-dirs:   app
+    default-language: Haskell2010
