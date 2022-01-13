@@ -35,3 +35,6 @@ data SomeColor = forall color. IsColor color => SomeColor color
 
 instance Show SomeColor where
   show (SomeColor c) = show (toRGB c)
+
+instance IsColor SomeColor where
+  toRGB (SomeColor c) = toRGB c

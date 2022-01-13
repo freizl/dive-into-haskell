@@ -1,0 +1,19 @@
+#+TITLE: Introduction to type level programming
+
+* Notes
+- Exercise of [[https://rebeccaskinner.net/posts/2021-08-25-introduction-to-type-level-programming.html][this blog post]]
+- Kind of a Type.
+  #+begin_src haskell
+:kind! Maybe
+Maybe :: Type -> Type
+  #+end_src
+
+- Is the mental model like /Maybe/ is type level /function/ that takes a type(kind) and return a type(kind)?
+- e.g. at value level, ~1~ has type ~Int~, at type level, ~1~ has kind ~Nat~
+
+* Command
+
+#+begin_src sh
+cabal v2-clean
+cabal --jobs=2 v2-build all
+#+end_src
