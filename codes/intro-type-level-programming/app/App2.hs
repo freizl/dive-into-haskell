@@ -15,7 +15,7 @@
 module Main where
 
 import qualified Data.Map.Strict as Map
-import GHC.TypeLits
+import GHC.TypeLits -- GHC primitives type-level Kinds (Nat, Symbol, Char)
 import Data.Proxy
 import Data.Kind
 
