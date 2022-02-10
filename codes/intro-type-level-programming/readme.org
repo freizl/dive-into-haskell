@@ -9,7 +9,10 @@ Maybe :: Type -> Type
   #+end_src
 
 - Is the mental model like /Maybe/ is type level /function/ that takes a type(kind) and return a type(kind)?
-- e.g. at value level, ~1~ has type ~Int~, at type level, ~1~ has kind ~Nat~
+- e.g. at value level, ~1~ is a value and has type ~Int~, at type level, ~1~ is a type and has kind ~Nat~
+
+- [[https://hackage.haskell.org/package/base-4.16.0.0/docs/GHC-TypeLits.html][GHC.TypeLits]]
+  + built type level string (symbol), number, list
 
 * Command
 

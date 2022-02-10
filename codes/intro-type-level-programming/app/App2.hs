@@ -31,19 +31,20 @@ newtype ThemeInstance ( theme :: Theme ) = ThemeInstance
 
 
 class HasColor (color :: Symbol) (theme :: Theme)
--- instance (color ~ current) => HasColor color (current : rest)
 -- | Base case
--- equivalent to above
---
 instance HasColor color (color : rest)
+-- | equivalent to above
+-- instance (color ~ current) => HasColor color (current : rest)
+
 -- | Recursive case
--- > If the tail of the theme list has the color you are looking for,
--- > then the entire list has the color you are looking for
+-- If the tail of the theme list has the color you are looking for,
+-- then the entire list has the color you are looking for
 --
 -- Why OVERLAPPABLE?
 -- 'color' and 'color\'' don’t have to be the same, but they might be.
 -- Therefore both ~HasColor~ instance could match in some cases.
 -- Hence we have to tell compile which instance to choose.
+--
 instance {-# OVERLAPPABLE #-}
   HasColor color rest => HasColor color (color' : rest)
 
@@ -55,9 +56,6 @@ lookupColor :: forall colorName theme.
 lookupColor (ThemeInstance colors) =
   let targetName = symbolVal (Proxy @colorName)
   in toRGB (colors Map.! targetName)
-
-testFunc :: HasColor color theme => ()
-testFunc = ()
 
 type DemoTheme = '["red", "blue", "green"]
 
@@ -118,7 +116,16 @@ polybarColorScheme theme =
 
 main :: IO ()
 main = do
+  -- compile but runtime error because at type level `DemoTheme` has `green` but not value level.
+  print $ lookupColor @"green" myThemeWithPitfall
+  -- does not compile but shall not have runtime error because at type level `DemoTheme` does not have `green`
+  -- print $ lookupColor @"foreground" myThemeWithPitfall
+
   -- compilation error
   -- return $ testFunc @"red" @'["blue"]
   return $ testFunc @"red" @'["blue", "red"]
+
   print (polybarColorScheme myTheme)
+
+  where testFunc :: HasColor color theme => ()
+        testFunc = ()
