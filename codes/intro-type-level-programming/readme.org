@@ -13,6 +13,13 @@ Maybe :: Type -> Type
 
 - [[https://hackage.haskell.org/package/base-4.16.0.0/docs/GHC-TypeLits.html][GHC.TypeLits]]
   + built type level string (symbol), number, list
+- But what exactly is a type-level function?
+  #+begin_quote
+  A plain haskell function is a function from a value to a value.
+  We can think of a typeclass as a function from a type to a value (generally a function from a type to one or more value-level functions values).
+  We can even think of GADTs as a function from a value (the type constructor) to a type.
+  The last piece of our puzzle then, are Type Families, which we can think of as functions from types to other types.
+  #+end_quote
 
 * Command
 
