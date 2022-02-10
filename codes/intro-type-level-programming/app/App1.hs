@@ -40,7 +40,7 @@ polybarColorScheme =
 
 polybarColorScheme1 :: ThemeInstance1 -> Maybe PolybarColorScheme
 polybarColorScheme1 (ThemeInstance1 theme) = PolybarColorScheme
-  <$> Map.lookup "foreground" theme
+  <$> Map.lookup "red" theme
   <*> Map.lookup "foreground" theme
 
 data PolybarColorScheme2 = PolybarColorScheme2
@@ -52,9 +52,13 @@ data PolybarColorScheme2 = PolybarColorScheme2
 polybarColorScheme2 :: ThemeInstance2 -> Maybe PolybarColorScheme2
 polybarColorScheme2 (ThemeInstance2 theme) = PolybarColorScheme2
   <$> Map.lookup "foreground" theme
-  <*> Map.lookup "foreground" theme
+  <*> Map.lookup "green" theme
 
 
+-- | program compile and works as expected (both print Nothing as unable to lookup color from the map)
+-- the intent is not generate Nothing but some value.
+-- In order to fix it, need type level programming to capture at compile time
 main :: IO ()
 main = do
-  print polybarColorScheme
+  print (polybarColorScheme1 myTheme1)
+  print (polybarColorScheme2 myTheme2)
