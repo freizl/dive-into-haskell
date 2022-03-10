@@ -80,22 +80,23 @@
 ** hakyll (src and tutorial)                                         :Hakyll:
 * IN-PROGRESS
 ** TODO Distinguish those concepts :LANG:
-   - Polymorphic Components
-     - *From Hindley-Milner Types to First-Class Structures* by Mark P. Jones
-   - RankNTypes
-     - *Arbitrary-rank polymorphism* in the GHC User's Guide.
-     - *Practical type inference for arbitrary-rank types*, Simon Peyton Jones, Mark Shields,etc.
-     - *Boxy types: type inference for higher-rank types and impredicativity*, Simon Peyton Jones, ICFP 2006.
-     - *Semantics of Types and Classes* in the Haskell 98 Report
-   - Existential Quantification
-     - Subsumed by GADT. ( *Simple unification-based type inference
-       for GADTs* by Simon Peyton Jones )
-     - *Polymorphic Type Inference and Abstract Data Types* by K. Läufer
-       and M. Odersky, in TOPLAS, Sep 1994.
-   - Universal Quantification / Polymorphism
+- Polymorphic Components
+  - *From Hindley-Milner Types to First-Class Structures* by Mark P. Jones
+- RankNTypes
+  - *Arbitrary-rank polymorphism* in the GHC User's Guide.
+  - *Practical type inference for arbitrary-rank types*, Simon Peyton Jones, Mark Shields,etc.
+  - *Boxy types: type inference for higher-rank types and impredicativity*, Simon Peyton Jones, ICFP 2006.
+  - *Semantics of Types and Classes* in the Haskell 98 Report
+- Existential Quantification
+  - Subsumed by GADT. ( *Simple unification-based type inference
+    for GADTs* by Simon Peyton Jones )
+  - *Polymorphic Type Inference and Abstract Data Types* by K. Läufer
+    and M. Odersky, in TOPLAS, Sep 1994.
+- Universal Quantification / Polymorphism
+
 *** links
-    - [[http://johnlato.blogspot.in/2012/03/existential-quantification-pt-1.html][Existential Quantification pt. 1]]
-    - [[http://johnlato.blogspot.in/2012/03/faking-it-with-higher-rank-existential.html][Existential Quantification pt. 2 (Faking it with higher rank)]]
+- [[http://johnlato.blogspot.in/2012/03/existential-quantification-pt-1.html][Existential Quantification pt. 1]]
+- [[http://johnlato.blogspot.in/2012/03/faking-it-with-higher-rank-existential.html][Existential Quantification pt. 2 (Faking it with higher rank)]]
 * DONE
 ** DONE Monad for web application                                     :VIDEO:
    CLOSED: [2012-10-11 Thu 20:49]
