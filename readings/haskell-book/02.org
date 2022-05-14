@@ -15,10 +15,9 @@
      mod (3-12) 7 -- 5
      rem (3-12) 7 -- -2
      #+end_src
-
    - ~mod~ is /modulus/ arithmetic
 
 * Follow up [0/1]
 1. [ ] Can we tell if an expression reduce to WHNF in GHCi?
-   - ~sprint~? (see [[https://github.com/freizl/my-notes/blob/main/3.01.haskell-for-imperative-programmers.org#31-whnf][weak head normal form]])
+   - ~sprint~? (see [[https://github.com/freizl/my-notes/blob/main/src/20-roam-notes/20210818221216-haskell_for_imperative_programmers.org#31-whnf][weak head normal form]])
    - doesn't work as the video shows is ~ghc-8.10~

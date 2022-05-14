@@ -9,7 +9,7 @@ class Foldable (t :: * -> *) where
    #+end_src
 2. Why following expression evaluates to ~1~?
    #+begin_src haskell
--- fmap length :: (Functor f, Foldable t) => f (t a) -> f Int
+----------------- fmap length :: (Functor f, Foldable t) => f (t a) -> f Int
 fmap length Just [1, 2, 3]     -- 1
 = fmap length (\a -> Just a) [1,2,3]
 = fmap length ((->) a (Just a)) [1,2,3]
@@ -19,13 +19,43 @@ fmap length Just [1, 2, 3]     -- 1
   -- (length . Just) [1, 2, 3]
   -- 1
 
--- simplified version
+------------------ simplified version
 fmap length Just [1, 2, 3]
 = (length . Just) [1, 2, 3]
 = length (Just [1,2,3]) -- length :: Foldable t => t a -> Int
 = 1
 
 fmap length ( Just [1, 2, 3] ) -- Just 3
+   #+end_src
+   #+begin_src haskell
+
+
+------------ Yet Another try
+
+-- fmap :: Functor f => (a -> b) -> f a -> f b
+-- length :: Foldable t => t a -> Int
+-- Just :: a -> Maybe a
+
+fmap length Just
+(t a -> Int) -> f (t a) -> f b
+ ^ length       ^ Just
+(t a -> Int) -> f (t a) -> f Int
+ ^ length       ^ Just
+
+f (t a) -> f Int
+-- so what is f here?
+Just :: a -> Maybe a
+     :: (->) a (Maybe a)
+     :: ((->) a) (Maybe a)
+     ::  f       (t a)
+
+f (t a) -> f Int
+           :: (-> a) Int
+           :: (a -> Int)
+
+-- apply Just (take [1,2,3] and generate Maybe [1,2,3])
+-- then apply length to (Maybe [1,2,3])
+
    #+end_src
 * Follow up resources
 1. [[https://blog.jakuba.net/2014-07-30-foldable-and-traversable/][Jakub Arnold. Foldable and Traversable.]]

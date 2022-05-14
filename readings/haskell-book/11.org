@@ -2,10 +2,10 @@
 
 * Reading notes
 1. Data constructor arities
-   - nullary :: take zero arguments
-   - unary :: take 1 arguments
+   - nullary :: take zero arguments. e.g. ~data Foo = Foo~
+   - unary :: take 1 arguments. e.g. ~data Foo = Foo Int~
    - binary :: take 2 arguments?
-   - products :: take 1+ arguments
+   - products :: take 1+ arguments. e.g. ~data Foo = Foo Bool Int~
 2. What makes those datatypes algebraic?
    - /sum/ v.s. /product/
    - can be explained in terms of /cardinality/.
@@ -15,9 +15,10 @@
    - nullary data constructor has cardinality 1
    - unary data constructor has same cardinality as the parameter
    - Sum type: cardinality is sum from cardinality of either inhabitant.
+     + ~e.g. data Bool = True | False~
    - Product type: cardinality is result of multiplication
      #+begin_src haskell
-     -- cardinality is 4 = 2 * 256
+     -- cardinality is 2 * 256 (2^8)
      data TwoB = MkTB Bool Int8
      #+end_src
    - Why need to understand cardinality
@@ -39,6 +40,5 @@
      #+end_src
    - Functional type is exponential
      + ~f :: Bool -> Bool~, has ~2^2~ different implementations
-
 
 * Follow up resources

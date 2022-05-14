@@ -27,6 +27,7 @@
 forever :: (Monad m) => m a -> m b
 forever a = let a' = a >> a' in a'
    #+end_src
+
 * Follow up resources
 1. [[https://gitlab.haskell.org/ghc/ghc/-/wikis/commentary/compiler/core-syn-type][GHC Core Syntax Type]]
 2. [[https://ghc.haskell.org/trac/ghc/wiki/Commentary/Rts/Storage/HeapObjects][GHC Heap Objects (thunk deep diving)]]

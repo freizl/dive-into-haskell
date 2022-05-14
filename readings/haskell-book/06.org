@@ -22,5 +22,5 @@ default RealFloat Double
 
 * Follow up resources
 1. Haskell 2010 Report
-2. Philip Wadler and Stephen Blott. How to make ad-hoc polymor- phism less ad hoc.
+2. Philip Wadler and Stephen Blott. [[https://dl.acm.org/doi/pdf/10.1145/75277.75283][How to make ad-hoc polymorphism less ad hoc]].
 3. Cordelia V. Hall, Kevin Hammond, Simon L. Peyton Jones, and Philip L. Wadler. [[http://ropas.snu.ac.kr/lib/dock/HaHaJoWa1996.pdf][Type Classes in Haskell]].
