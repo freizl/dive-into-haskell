@@ -41,8 +41,9 @@ p +++ q = p `mplus` q
 
 -- Derived primitives
 sat   :: (Char -> Bool) -> Parser Char
-sat p =  do x <- item
-            if p x then return x else failure             
+sat p =  do
+  x <- item
+  if p x then return x else failure
              
 digit :: Parser Char
 digit = sat isDigit
@@ -65,10 +66,11 @@ hasString (x:xs) = do hasChar x
                       hasString xs
                       return (x:xs)
                       
---- Confusing stuffs??
+-- zero+ items
 many :: Parser a -> Parser [a]
 many p = many1 p +++ return []
 
+-- 1+ items
 many1 :: Parser a -> Parser [a]
 many1 p = do v <- p
              vs <- many p
