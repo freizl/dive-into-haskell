@@ -28,7 +28,7 @@ application is the lynchpin of the lambda calculus.
 - /converge/ v.s. /diverge/
   + terms /converge/ to beta normal form
   + terms never terminates or ends, hence /diverge/
-  + *omega diverge* :: ~(λx.xx)(λx.xx)~
+  + *omega diverge*: ~(λx.xx)(λx.xx)~
 * Chapter exercises
 1. Combinators
    - ~λx.xxx~
