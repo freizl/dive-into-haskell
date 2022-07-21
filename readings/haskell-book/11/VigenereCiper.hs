@@ -25,7 +25,12 @@ genLetterPair s str = go str ciphers
 cipher :: Seed -> Message -> Message
 cipher s m = map cl (genLetterPair s m)
 
--- | TODO: `isLower '\353' return true. Why??`
+-- | `isLower '\353' return true. Why??`
+-- `\353` is decimal and is `\x161` in hex,
+-- which represents a latin character (unicode)
+-- see more details at https://www.compart.com/en/unicode/U+0161
+-- So apparently, `isLower` works not only for alpha char but also unicode char
+--
 cl ::
   -- | ( message char, seed char )
   (Char, Char) ->

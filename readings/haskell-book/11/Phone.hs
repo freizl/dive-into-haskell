@@ -45,7 +45,7 @@ convo =
     "Just making sure rofl ur turn"
   ]
 
--- | assuming the defalt phone definition
+-- | assuming the default phone definition
 -- 'a' => [('2', 1)]
 -- 'A' => [('*', 1), ('2', 1)]
 reverseTaps :: DaPhone -> Char -> [(Digit, Presses)]
