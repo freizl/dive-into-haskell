@@ -3,15 +3,20 @@
 * Reading notes
 ** Number types
 1. Integral
-   - Int: fixed-precision integer
+   - Int: fixed-precision integer (~Data.Int~)
    - Integer: arbitrarily large or small integers
-   - Word: fixed-precision *positive* integer
+   - Word: fixed-precision *positive* integer (~Data.Word~)
 2. Fractional
    - Float
    - Double
    - Rational
-   - Fixed
-   - Scientific
+   - Fixed (~Data.Fixed~)
+   - [[https://hackage.haskell.org/package/scientific][scientific]]
+3. Use methods from ~Bounded~ type class to tell the range of each type.
+   #+begin_src haskell
+minBound :: Int8
+minBound :: Word8
+   #+end_src
 ** Bool
 ** Tuple
 ** List

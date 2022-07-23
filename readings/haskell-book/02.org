@@ -17,7 +17,17 @@
      #+end_src
    - ~mod~ is /modulus/ arithmetic
 
-* Follow up [0/1]
-1. [ ] Can we tell if an expression reduce to WHNF in GHCi?
+* Follow up [1/1]
+1. [X] Can we tell if an expression reduce to WHNF in GHCi?
    - ~sprint~? (see [[https://github.com/freizl/my-notes/blob/main/src/20-roam-notes/20210818221216-haskell_for_imperative_programmers.org#31-whnf][weak head normal form]])
    - doesn't work as the video shows is ~ghc-8.10~
+   - <2022-07-22 Fri> it wasn't completely didn't work
+     #+begin_example
+ghci> let x = 1 + 2 :: Int ## assign the type Int
+ghci> :sprint x
+x = _
+ghci> seq x ()
+()
+ghci> :sprint x
+x = 3
+     #+end_example

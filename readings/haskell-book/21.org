@@ -2,5 +2,5 @@
 
 * Reading notes
 * Follow up resources
-1. Jeremy Gibbons and Bruno C. d. S. Oliveira. /The Essence of the Iterator Pattern/.
+1. Jeremy Gibbons and Bruno C. d. S. Oliveira. [[https://www.cs.ox.ac.uk/jeremy.gibbons/publications/iterator.pdf][The Essence of the Iterator Pattern]].
 2. Conor McBride and Ross Paterson. /Applicative programming with effects/.
