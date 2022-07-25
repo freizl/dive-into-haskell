@@ -27,6 +27,6 @@
    - /compiler will infer a maximally polymorphic type/
 
 * Follow up resources
-0. [[http://people.csail.mit.edu/dnj/teaching/6898/papers/wadler88.pdf][How to make ad-hoc polymorphism less ad hoc]]
-1. Luis Damas and Robin Milner. [[https://web.cs.wpi.edu/~cs4536/c12/milner-damas_principal_types.pdf][Principal type-schemes for functional programs]].
-2. Christopher Strachey. [[http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.332.3161&rep=rep1&type=pdf][Fundamental Concepts in Programming Languages]]. The best-known origin of the parametric/ad-hoc polymorphism distinction.
+1. [[http://people.csail.mit.edu/dnj/teaching/6898/papers/wadler88.pdf][How to make ad-hoc polymorphism less ad hoc]]
+2. Luis Damas and Robin Milner. [[https://web.cs.wpi.edu/~cs4536/c12/milner-damas_principal_types.pdf][Principal type-schemes for functional programs]].
+3. Christopher Strachey. [[http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.332.3161&rep=rep1&type=pdf][Fundamental Concepts in Programming Languages]]. The best-known origin of the parametric/ad-hoc polymorphism distinction.
