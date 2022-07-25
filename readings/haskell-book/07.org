@@ -2,3 +2,4 @@
 
 * Reading notes
 * Follow up resources
+- TODO: copy interesting links here
