@@ -19,7 +19,10 @@ myEven even [1..]
 = (\x b -> evnn x || b) 1 ((\x b -> evnn x || b) 2 (foldr (\x b -> even x || b) False [3..]))
    #+end_example
 
-5. ~scanl~ and ~scanr~ is good for viewing intermediate stage of ~foldl~ and ~foldr~.
+5. ~scanl~ and ~scanr~
+   - is good for viewing intermediate stage of ~foldl~ and ~foldr~
+   - hence a good way to visualize the difference between ~foldl~ and ~foldr~
+
 6. Both ~foldl~ and ~foldr~ traverse the spine in *same direction*. The difference is the *associativity of the evaluation (a.k.a substitution).*
    - if association matters, how ~foldr~ could possibly work with infinite list?
    - if the ~f~ is strict on both arguments, then association matters. Otherwise, not.
@@ -28,3 +31,4 @@ myEven even [1..]
 * Follow up resources
 1. Antoni Diller. [[http://www.cantab.net/users/antoni.diller/haskell/haskell.html][Introduction to Haskell]]. Unit 6.
 2. Graham Hutton. [[http://www.cs.nott.ac.uk/~gmh/fold.pdf][A tutorial on the universality and expressiveness of fold]].
+3. [[https://chrisdone.com/posts/twitter-problem-loeb/][Twitter problem loeb - situation when to use scans function]]

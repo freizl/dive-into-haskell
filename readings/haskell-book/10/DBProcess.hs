@@ -14,6 +14,7 @@ unDbDate :: DatabaseItem -> Maybe UTCTime
 unDbDate (DbDate tm) = Just tm
 unDbDate _ = Nothing
 
+unDbNumber :: DatabaseItem -> Maybe Integer
 unDbNumber (DbNumber num) = Just num
 unDbNumber _ = Nothing
 
@@ -24,6 +25,7 @@ theDatabase =
           (fromGregorian 1911 5 1)
           (secondsToDiffTime 34123)
       ),
+    DbNumber 101,
     DbNumber 9001,
     DbString "Hello, world!",
     DbDate
@@ -41,7 +43,6 @@ isDbNumber :: DatabaseItem -> Bool
 isDbNumber (DbNumber _) = True
 isDbNumber _ = False
 
-
 filterDbDate :: [DatabaseItem] -> [UTCTime]
 filterDbDate = map (\(DbDate t) -> t) . filter isDbDate
 
@@ -51,6 +52,14 @@ filterDbDate2 = foldr ((\a b -> if isJust a then fromJust a : b else b) . unDbDa
 filterDbNumber :: [DatabaseItem] -> [Integer]
 filterDbNumber = map (\(DbNumber int) -> int) . filter isDbNumber
 
+mostRecent :: [DatabaseItem] -> UTCTime
+mostRecent = maximum . filterDbDate
 
 sumDb :: [DatabaseItem] -> Integer
 sumDb = foldr ((\a b -> if isJust a then fromJust a + b else b) . unDbNumber) 0
+sumDB2 = sum . filterDbNumber
+
+avgDb :: [DatabaseItem] -> Double
+avgDb xs = let nums = map fromIntegral (filterDbNumber xs)
+               size = fromIntegral (length nums)
+           in (sum nums) / size

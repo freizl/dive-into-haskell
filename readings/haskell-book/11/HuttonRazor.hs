@@ -14,6 +14,7 @@ printExpr (Lit i) = show i
 printExpr (Add e1 e2) = printExpr e1 ++ " + " ++ printExpr e2
 
 
+main :: IO ()
 main = do
   let e1 = Add (Lit 9001) (Lit 1)
   let e2 = Add e1 (Lit 20001)

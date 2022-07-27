@@ -34,28 +34,25 @@ seekritFunc2 x = if s2 == 0 then 0 else int2Float s1 / int2Float s2
 prop_seekritFunc :: String -> Bool
 prop_seekritFunc str = seekritFunc str == floor (seekritFunc2 str)
 
+myOr :: [Bool] -> Bool
 myOr = foldr (||) False
-
 prop_or :: [Bool] -> Bool
 prop_or xs = myOr xs == or xs
 
+myAny :: (a -> Bool) -> [a] -> Bool
 myAny f = foldr (\a b -> f a || b) False
-
 prop_any :: [Integer] -> Bool
 prop_any xs = myAny even xs == any even xs
 
 myElem :: Eq a => a -> [a] -> Bool
 myElem x = foldr (\a b -> a == x || b) False
-
 prop_elem :: Integer -> [Integer] -> Bool
 prop_elem x xs = myElem x xs == elem x xs
-
 prop_elem2 :: Char -> [Char] -> Bool
 prop_elem2 x xs = myElem x xs == elem x xs
 
 myReverse :: [a] -> [a]
 myReverse = foldr (\a b -> b ++ [a]) []
-
 prop_reverse :: [Integer] -> Bool
 prop_reverse xs = myReverse xs == reverse xs
 

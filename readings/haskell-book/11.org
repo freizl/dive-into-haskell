@@ -15,10 +15,10 @@
    - nullary data constructor has cardinality 1
    - unary data constructor has same cardinality as the parameter
    - Sum type: cardinality is sum from cardinality of either inhabitant.
-     + ~e.g. data Bool = True | False~
+     + ~e.g. data Bool = True | False~, has 2
    - Product type: cardinality is result of multiplication
      #+begin_src haskell
-     -- cardinality is 2 * 256 (2^8)
+     -- cardinality is 2 * 256 (2^8 of Int8)
      data TwoB = MkTB Bool Int8
      #+end_src
    - Why need to understand cardinality
@@ -26,7 +26,10 @@
      The reason it’s important to understand cardinality is that the cardinality of a datatype roughly equates to how difficult it is to reason about.
      #+end_quote
      #+begin_src haskell
-      convert Yes = True
+data Quantum = Yes | No | Both
+
+convert :: Quantum -> Bool
+convert Yes = True
         No = True
         Both = True
 
@@ -34,11 +37,34 @@
         No = True
         Both = True
 
+        Yes = True
         No = False
         Both = True
+
+        Yes = True
+        No = True
+        Both = False
+
+        Yes = False
+        No = False
+        Both = True
+
+        Yes = True
+        No = False
+        Both = False
+
+        Yes = False
+        No = True
+        Both = False
+
+        Yes = False
+        No = False
         Both = False
      #+end_src
    - Functional type is exponential
-     + ~f :: Bool -> Bool~, has ~2^2~ different implementations
+     #+begin_example
+f :: Bool -> Bool -- 2^2
+f :: a -> b -- b^a
+     #+end_example
 
 * Follow up resources

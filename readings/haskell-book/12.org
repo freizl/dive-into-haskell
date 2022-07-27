@@ -1,5 +1,5 @@
 #+TITLE: Chapter 12 Signaling Adversity
 
 * Reading notes
-- ~Maybe~, ~Either~
+- situation when to use ~Maybe~, ~Either~
 * Follow up resources
