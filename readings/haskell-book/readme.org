@@ -1,3 +1,11 @@
 #+TITLE: Haskell Book
 
+* Reference
 - [[https://haskellbook.com][Haskell book official site]]
+
+* Quotes
+
+#+begin_quote
+The most depressing thing about life as a programmer, I think, is if you’re faced with a chunk of code that either someone else wrote or, worse still, you wrote yourself but no longer dare to modify. That’s depressing.
+- Simon Peyton Jones
+#+end_quote

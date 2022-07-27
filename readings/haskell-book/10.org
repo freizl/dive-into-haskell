@@ -24,4 +24,7 @@ myEven even [1..]
    - if association matters, how ~foldr~ could possibly work with infinite list?
    - if the ~f~ is strict on both arguments, then association matters. Otherwise, not.
    - take the ~myEven~ example above, 2nd argument of ~f~ may not need evaluation.
+
 * Follow up resources
+1. Antoni Diller. [[http://www.cantab.net/users/antoni.diller/haskell/haskell.html][Introduction to Haskell]]. Unit 6.
+2. Graham Hutton. [[http://www.cs.nott.ac.uk/~gmh/fold.pdf][A tutorial on the universality and expressiveness of fold]].

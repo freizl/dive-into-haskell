@@ -4,13 +4,33 @@
 1. list ranges
    - ~[1..10]~
    - looks like syntax sugar of using functions from ~Enum~ type class
-2. Spines and non-strict evaluation
+2. List comprehensions
+   #+begin_src haskell
+[ x+1 | x <- [1..10] ]
+[ x | x <- [1..10], x `rem` 2 == 0, x `rem` 3 == 0 ]
+   #+end_src
+3. Spines and non-strict evaluation
    - /spine/ - connective structure that ties the collection of values
    - ~sprint~ - print variables and see what has been evaluated. ~_~ means isn't evaluated.
-3. Spines are evaluated independently of values
-4. NF implies WHNF
+4. Spines are evaluated independently of values
+5. NF implies WHNF
    - NF :: Normal Form, expression is fully evaluated
    - WHNF :: Weak Head Normal Form, expression is only evaluated to reach a data constructor
+6. Truth of being lazy
+   - Always being lazy until something trigger evaluation.
+   - E.g. at exercises below, ~take 1~ bring a value that will be evaluated in GHCi.
+     #+begin_src haskell
+     take 1 [undefined]
+     #+end_src
+   - It will not be a problem if just assign to a variable.
+     #+begin_src haskell
+     x = take 1 [undefined]
+     #+end_src
+7. What would be imagined representation of following (given the spine analogy)?
+   #+begin_src haskell
+filter even [1, 3, undefined]
+   #+end_src
+   - see more details at this [[https://github.com/freizl/my-notes/blob/main/src/20-roam-notes/20220726163751-filter_on_infinite_list.org][org roam note]]
 
 * Follow up resources
 1. Haskell Wiki. Ninety-Nine Haskell problems
