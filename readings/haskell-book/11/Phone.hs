@@ -64,37 +64,48 @@ cellPhonesDead :: DaPhone -> String -> [(Digit, Presses)]
 cellPhonesDead dp = concatMap (reverseTaps dp)
 
 -- | How many times of digits need to be pressed for each message?
+--
 fingerTaps :: [(Digit, Presses)] -> Presses
 fingerTaps = foldr (\x init -> snd x + init) 0
 
-mostPopularPresses :: String -> (Digit, Presses)
-mostPopularPresses str =
-  let allPresses = cellPhonesDead phone str
-      grouped = groupBy (\a b -> fst a == fst b) (sort allPresses)
-      pressPerDigit = map (\xs -> (fst $ head xs, fingerTaps xs)) grouped
-      pl = maximumBy (\a b -> snd a `compare` snd b) pressPerDigit
-   in pl
-  
-mostPopularLetter :: String -> Char
-mostPopularLetter = fst . mostPopularPresses
+mostPopularPress :: String -> Presses
+mostPopularPress str =
+  let popLetter = mostPopularLetter str
+      taps = reverseTaps phone popLetter
+   in fingerTaps taps
+
+mostPopularWithCount :: (Eq a, Ord a)
+  => [a] -> (a, Int)
+mostPopularWithCount xs =
+  maximumBy (\a b -> snd a `compare` snd b) $
+    map (\ys -> (head ys, length ys)) $
+      group $
+        sort xs
+
+mostPopularLetter :: [Char] -> Char
+mostPopularLetter = fst . mostPopularWithCount . filter isLetter
 
 -- | What is the most popular letter overall?
+--
 coolestLtr :: [String] -> Char
-coolestLtr xs = let ps = map mostPopularPresses xs
-                    maxPress = maximumBy (\a b -> snd a `compare` snd b) ps
-                in fst maxPress
+coolestLtr = mostPopularLetter . concat
 
 -- | What is the overall most popular word?
--- TODO: how to determine the 'word'?
 --
 coolestWord :: [String] -> String
-coolestWord = undefined
+coolestWord = fst . mostPopularWithCount . concatMap words
 
 ----------------------------------------
 
 main :: IO ()
-main = defaultMain unitTests
+main = do
+  print $ coolestLtr convo
+  print $ coolestWord convo
 
+mainTest :: IO ()
+mainTest = defaultMain unitTests
+
+unitTests :: TestTree
 unitTests =
   testGroup
     "reverseTaps"
