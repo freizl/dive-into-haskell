@@ -9,3 +9,12 @@ That line of code is so that putStr isn’t buffered (deferred) and prints immed
 
 * Follow up resources
 - [[https://cabal.readthedocs.io/][Cabal user guide]]
+- Understand what is ~hSetBuffering stdout NoBuffering~?
+  + [[https://mercurytechnologies.slack.com/archives/C01CWMC2VL3/p1659049473639319][slack conversation]]
+  + https://man7.org/linux/man-pages/man3/setbuf.3.html
+  + https://www.reddit.com/r/unix/comments/6gxduc/how_is_gnu_yes_so_fast/
+  + quote
+    #+begin_quote
+file buffering is a libc (system C library) thing: what NoBuffering means is that every write call will generate a write(2) system call into the kernel.
+But system calls are expensive, and it's often much easier to write application code that calls the libc write wrapper fwrite a whole load of times with tiny payloads. So what they did is collect together those calls into a buffer before calling into the kernel with larger pieces of data.
+    #+end_quote

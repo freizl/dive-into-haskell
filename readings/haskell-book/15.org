@@ -1,19 +1,49 @@
 #+TITLE: Chapter 15 Monoid, Semigroup
 
-* Reading notes [2/2]
-1. monoid
+* Reading notes [0/0]
+1. *Algebras*
+   - it is all about abstraction.
+   - /an algebra/ refers to some operations and the set they operate over.
+   - when we care less about the actual value of variables, but general rules of their use.
+   - /Laws make up what algebras are./
+2. Monoid
    - associativity, binary operation (~mappend~)
    - identity ~mempty~
-2. [X] why ~Monoid~ has super class ~Semigroup~, which has ~<>~ that same to ~mappend~?
+   - laws
+     #+begin_src haskell
+-- left identity
+mappend mempty x = x
+
+-- right identity
+mappend x mempty = x
+
+-- associativity
+x `mappend` (y `mappend` z) = (x `mappend` y) `mappend` z
+     #+end_src
+3. Semigroup
+   - laws
+     a. associativity
+4. why ~Monoid~ has super class ~Semigroup~, which has ~<>~ that same to ~mappend~?
    - actually ~mappend~ defaults to ~<>~ in ~Monoid~ type class
    - some data type is ~Semigroup~ but cannot be ~Monoid~, e.g. ~NonEmptyList~
-3. [X] why no monoid instance for ~Integer~?
+5. why no Monoid instance for ~Integer~?
    - both addition and multiplication make sense hence no clear way to choose
    - hence there are ~Sum~ and ~Product~ type in ~Data.Monoid~
-4. Fix orphan instance
+6. Fix orphan instance
    - ~newtype~ it
-5. ~Semigroup~, weaker than ~Monoid~
-6. ~Magma~, weaker than ~Semigroup~
+7. ~Semigroup~, weaker than ~Monoid~
+8. ~Magma~, weaker than ~Semigroup~
+   - ~Data.Magma~
+      #+begin_src haskell
+   class Magma a where
+     (<>) :: a -> a -> a
+      #+end_src
+   - ~Data.Semigroup~
+      #+begin_src haskell
+   class Semigroup a where
+     (<>) :: a -> a -> a
+      #+end_src
+   - Magma doesn't require associativity?
 
 * Follow up resources
 1. [[https://simple.wikipedia.org/wiki/Algebraic_structure][Algebraic structure]]
