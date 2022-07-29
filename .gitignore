@@ -11,3 +11,5 @@ Main
 main
 dist-newstyle
 .ghc.env*
+
+readings/haskell-book/13/hangman-hw/data/dict.txt
