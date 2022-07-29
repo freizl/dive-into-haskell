@@ -4,4 +4,4 @@
 
 * Follow up resources
 - Koen Claessen and John Hughes. /QuickCheck: A Lightweight Tool for Random Testing of Haskell Programs/
-- Pedro Vasconcelos. /Verifying a Simple Compiler Using Property- based Random Testing/
+- Pedro Vasconcelos. /Verifying a Simple Compiler Using Property based Random Testing/

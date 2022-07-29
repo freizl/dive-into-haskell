@@ -10,14 +10,21 @@ foolGen1 = elements [Fulse, Frue]
 
 foolGen2 :: [(Int, Gen Fool)]
 foolGen2 =
-  [ (2, elements [Fulse]),
-    (1, elements [Frue])
+  [ (9, return Fulse),
+    (1, return Frue)
   ]
+
+foolGen3 :: Gen Fool
+foolGen3 = oneof [return Fulse, return Frue]
 
 instance Arbitrary Fool where
   -- arbitrary = foolGen
+  --
+  -- frequency :: [(Int, Gen a)] -> Gen a
+  -- Chooses one of the given generators, with a weighted random distribution. The input list must be non-empty.
   arbitrary = frequency foolGen2
 
 main :: IO ()
 main = do
-  sample (arbitrary :: Gen Fool)
+  xs <- sample' (arbitrary :: Gen Fool)
+  print xs

@@ -1,6 +1,6 @@
 -- | 
 
-module NumberToWords where
+module WordNumber where
 
 import Data.List (intersperse)
 

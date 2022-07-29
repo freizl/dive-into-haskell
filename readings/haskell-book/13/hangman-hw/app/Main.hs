@@ -1,5 +1,6 @@
 module Main where
 
+import Test.QuickCheck
 import Control.Monad (forever)
 import Data.Char (toLower)
 import Data.List (intersperse, nub)
@@ -55,6 +56,10 @@ type DiscoveredChar = Maybe Char
 type GuessedChar = Char
 
 data Puzzle = Puzzle EnglishWord [DiscoveredChar] [GuessedChar]
+  deriving (Eq)
+
+unPuzzle :: Puzzle -> EnglishWord
+unPuzzle (Puzzle w _ _) = w
 
 instance Show Puzzle where
   show (Puzzle _ discovered guessed) =
@@ -132,3 +137,36 @@ main = do
   word <- genRandowWord
   print word
   runGame $ freshPuzzle word
+
+{- ================== -}
+{- Test -}
+{- ================== -}
+
+genPuzzle :: Gen Puzzle
+genPuzzle = do
+  size <- choose (minWordLength, maxWordLength)
+  word <- vector size :: Gen [ Char ]
+  return (freshPuzzle word)
+
+genPuzzleWithCharNotMatch :: Gen (Puzzle, Char)
+genPuzzleWithCharNotMatch = do
+  word <- genPuzzle
+  char <- elements (unPuzzle word)
+  return (word, char)
+
+genPuzzleWithCharMatch :: Gen (Puzzle, Char)
+genPuzzleWithCharMatch = undefined
+
+
+-- FIXME: what is best way to test this?
+-- need re-implement part of logic from @fillInCharacter@ method
+-- in order to verify the result puzzle.
+prop_fillInCharNotMatch :: Property
+prop_fillInCharNotMatch =
+  forAll genPuzzleWithCharNotMatch (\(p, c) -> fillInCharacter p c == p)
+prop_fillInCharMatch :: Property
+prop_fillInCharMatch = forAll genPuzzleWithCharMatch (\(p, c) -> fillInCharacter p c == p)
+
+testMain :: IO ()
+testMain = do
+  quickCheck prop_fillInCharNotMatch
