@@ -10,6 +10,8 @@ main = do
   sayHello name
   dogs
 
+sayHello :: [Char] -> IO ()
 sayHello name = putStrLn ("Hi " ++ name ++ "!")
 
+dogs :: IO ()
 dogs = return ()

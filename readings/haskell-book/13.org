@@ -1,5 +1,11 @@
 #+TITLE: Chapter 13 Building projects
 
 * Reading notes
+- ~XNoImplicitPrelude~
+- Any good reference to understand buffering?
+  #+begin_quote
+That line of code is so that putStr isn’t buffered (deferred) and prints immediately
+  #+end_quote
+
 * Follow up resources
 - [[https://cabal.readthedocs.io/][Cabal user guide]]
