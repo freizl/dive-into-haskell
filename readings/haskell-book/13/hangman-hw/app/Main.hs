@@ -2,14 +2,17 @@ module Main where
 
 import Control.Monad (forever)
 import Data.Char (toLower)
-import Data.List (intersperse)
+import Data.List (intersperse, nub)
 import Data.Maybe (fromMaybe, isJust)
 import System.Exit (exitSuccess)
 import System.IO (BufferMode (NoBuffering), hSetBuffering, stdout)
 import System.Random (randomRIO)
 
-type EnglishWord = String
 -- newtype EnglishWord = EnglishWord String
+-- newtype WordList = WordList [String]
+--
+type EnglishWord = String
+
 type WordList = [EnglishWord]
 
 allWords :: IO WordList
@@ -43,7 +46,9 @@ randomWord ws = do
 genRandowWord :: IO EnglishWord
 genRandowWord = genGameWords >>= randomWord
 
--- TODO: why Maybe??
+-- | why Maybe?
+-- in order to tell whether a particular position has been guessed correctly.
+-- see @freshPuzzle@ for how it is initialized.
 type DiscoveredChar = Maybe Char
 
 type GuessedChar = Char
@@ -54,13 +59,17 @@ instance Show Puzzle where
   show (Puzzle _ discovered guessed) =
     (intersperse ' ' $ fmap renderPuzzleChar discovered)
       ++ " Guessed so far: "
-      ++ guessed
+      ++ (intersperse ',' guessed)
 
 renderPuzzleChar :: Maybe Char -> Char
 renderPuzzleChar = fromMaybe '_'
 
 freshPuzzle :: String -> Puzzle
-freshPuzzle w = Puzzle w (take (length w) (repeat Nothing)) []
+freshPuzzle w =
+  Puzzle
+    (fmap toLower w)
+    (take (length w) (repeat Nothing))
+    []
 
 charInWord :: Puzzle -> Char -> Bool
 charInWord (Puzzle word _ _) c = c `elem` word
@@ -70,14 +79,12 @@ alreadyGuessed (Puzzle _ _ guessed) c = c `elem` guessed
 
 fillInCharacter :: Puzzle -> Char -> Puzzle
 fillInCharacter (Puzzle word filledInSoFar guessed) c =
-  let zipper wordChar guessChar = if wordChar == c then Just wordChar else Nothing
+  let zipper wordChar guessChar = if wordChar == c then Just wordChar else guessChar
       newFilledInSoFar = zipWith zipper word filledInSoFar
-  in
-    Puzzle word newFilledInSoFar (c : guessed)
+   in Puzzle word newFilledInSoFar (guessed ++ [c])
 
 handleGuess :: Puzzle -> Char -> IO Puzzle
 handleGuess puzzle guess = do
-  putStrLn $ "Your guess was: " ++ [guess]
   case (charInWord puzzle guess, alreadyGuessed puzzle guess) of
     (_, True) -> do
       putStrLn "You already guessed that character, pick something else!"
@@ -90,13 +97,14 @@ handleGuess puzzle guess = do
       return (fillInCharacter puzzle guess)
 
 gameOver :: Puzzle -> IO ()
-gameOver (Puzzle wordToGuess _ guessed) =
-  if (length guessed) > maxGuessChance
-    then do
-      putStrLn "You lose!"
-      putStrLn $ "The word was: " ++ wordToGuess
-      exitSuccess
-    else return ()
+gameOver (Puzzle wordToGuess filledSoFar guessed) =
+  let validGuessCount = length $ nub $ filter isJust filledSoFar
+      invalidGuessCount = length guessed - validGuessCount
+   in if invalidGuessCount >= maxGuessChance
+        then do
+          putStrLn "You lose!"
+          exitSuccess
+        else return ()
 
 gameWin :: Puzzle -> IO ()
 gameWin (Puzzle wordToGuess filledInSoFar _) =
@@ -108,10 +116,9 @@ gameWin (Puzzle wordToGuess filledInSoFar _) =
 
 runGame :: Puzzle -> IO ()
 runGame puzzle = forever $ do
-  gameOver puzzle
   gameWin puzzle
-  putStrLn $
-    "Current puzzle is: " ++ show puzzle
+  gameOver puzzle
+  putStrLn $ "Current puzzle is: " ++ show puzzle
   putStr "Guess a letter: "
   guess <- getLine
   case guess of
@@ -122,4 +129,5 @@ main :: IO ()
 main = do
   hSetBuffering stdout NoBuffering
   word <- genRandowWord
-  runGame $ freshPuzzle (fmap toLower word)
+  print word
+  runGame $ freshPuzzle word
