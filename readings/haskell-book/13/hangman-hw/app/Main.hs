@@ -17,6 +17,7 @@ type WordList = [EnglishWord]
 
 allWords :: IO WordList
 allWords = do
+  -- cp /usr/share/dict/words ./data/dict.txt
   dict <- readFile "data/dict.txt"
   return (lines dict)
 
