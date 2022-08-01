@@ -103,7 +103,8 @@ main = do
   print $ coolestWord convo
 
 mainTest :: IO ()
-mainTest = defaultMain unitTests
+mainTest = do
+  defaultMain unitTests
 
 unitTests :: TestTree
 unitTests =

@@ -1,0 +1,5 @@
+#+title: Ghci
+
+#+begin_src haskell
+:set -XTypeApplications
+#+end_src

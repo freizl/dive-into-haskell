@@ -1,6 +1,29 @@
 #+TITLE: Chapter 16 Functor
 
 * Reading notes
+1. ~TypeApplications~ language extension
+   #+begin_src haskell
+:t fmap @Maybe
+(a -> b) -> Maybe a -> Maybe b
+   #+end_src
+2. functor law
+   - ~fmap id = id~
+   - ~fmap (f . g) = fmap f . fmap g~
+3. natural transformations
+   #+begin_src haskell
+{-# LANGUAGE RankNTypes #-}
+type Nat f g = forall a. f a -> g a
+   #+end_src
+4. Functors are unique
+   #+begin_quote
+Functor instances will be unique for a given datatype.
+We saw that this isn’t true for Monoid—we use newtypes to preserve the unique pairing
+of a Monoid instance to a type.
+But Functor instances will be unique for a datatype,
+in part because of parametricity, in part because arguments to type constructors
+are applied in order of definition
+   #+end_quote
+
 * Follow up resources
 1. Mark P. Jones. [[http://www.cs.tufts.edu/~nr/cs257/archive/mark-jones/fpca93.pdf][A system of constructor classes: overloading and implicit higher-order polymorphism]].
 2. Gabriel Gonzalez. [[https://www.haskellforall.com/2012/09/the-functor-design-pattern.html][The functor design pattern]]
