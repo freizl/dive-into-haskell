@@ -31,6 +31,10 @@
 filter even [1, 3, undefined]
    #+end_src
    - see more details at this [[https://github.com/freizl/my-notes/blob/main/src/20-roam-notes/20220726163751-filter_on_infinite_list.org][org roam note]]
+8. p317, don't understand this exercise. apply ~length~?
+   - /Apply another function to that list comprehension to determine how many tuples inhabit your output list/
+9. p321, a list is NF seems incorrect. I got different result from ghci.
+   - do we consider to build erratum page?
 
 * Follow up resources
 1. Haskell Wiki. Ninety-Nine Haskell problems

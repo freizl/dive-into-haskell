@@ -186,3 +186,41 @@ main = do
   quickBatch (applicative (undefined :: Four [Char] [Int] [Char] (Char, Char, Int)))
   putStrLn "\n== Four' a b =="
   quickBatch (applicative (undefined :: Four' [Int] (Char, Char, Int)))
+
+{-
+
+Notes of Paper <Applicative programming with effects>
+-}
+iffy :: Applicative f => f Bool -> f a -> f a -> f a
+iffy fc fa fb = cond <$> fc <*> fa <*> fb
+  where
+    cond c a b = if c then a else b
+
+newtype Comp f g a = Comp {unComp :: f (g a)}
+  deriving (Show, Eq)
+
+instance (Functor f, Functor g) => Functor (Comp f g) where
+  fmap h (Comp fga) = Comp (fmap (fmap h) fga)
+
+instance (Applicative f, Applicative g) => Applicative (Comp f g) where
+  pure x = Comp (pure (pure x))
+
+  {- how to understand the implementation
+
+  -- (<*>) :: Applicative f => f (a -> b) -> f a -> f b
+  -- Comp f g (a -> b) <*> Comp f g a
+  -- (\gf ga -> gf <*> ga) <$> f (g (a->b)) <*> f (g a)
+  -}
+  -- (Comp fs) <*> (Comp xs) = Comp $ (\gf ga -> gf <*> ga) <$> fs <*> xs
+  (Comp fs) <*> (Comp xs) = Comp ((<*>) <$> fs <*> xs)
+
+instance (Applicative f, Applicative g, Eq a, Eq (f (g a))) => EqProp (Comp f g a) where
+  (=-=) = eq
+
+-- How to write Arbitrary instance??
+--
+instance (Arbitrary1 f, Arbitrary1 g, Arbitrary a) => Arbitrary (Comp f g a) where
+  arbitrary = Comp <$> liftArbitrary (liftArbitrary arbitrary)
+
+testCompApplicative = do
+  quickBatch (applicative (undefined :: Comp Maybe [] (Char, Int, Bool)))

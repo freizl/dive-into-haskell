@@ -42,6 +42,8 @@ instance Monoid a => Applicative (Constant a) where
 
 5. another bug found by checker in ~17/List.hs~. Unable to figure out the root cause.
 
+6. Go for paper /Applicative programming with effects/
+
 * Follow up resources
 1. Tony Morris and Nick Partridge. [[http://hackage.haskell.org/package/validation][Validation library]].
 2. Conor McBride and Ross Paterson. [[http://staff.city.ac.uk/~ross/papers/Applicative.html][Applicative programming with effects]].

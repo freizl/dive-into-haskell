@@ -1,6 +1,8 @@
 #+TITLE: Chapter 14 Testing
 
 * Reading notes
+1. chapter 14 (really dummy questions)
+   - 566
 
 * Follow up resources
 - Koen Claessen and John Hughes. /QuickCheck: A Lightweight Tool for Random Testing of Haskell Programs/

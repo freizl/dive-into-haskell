@@ -66,5 +66,7 @@ convert Yes = True
 f :: Bool -> Bool -- 2^2
 f :: a -> b -- b^a
      #+end_example
+3. chapter 11, ~coolestWord~, how to determine word?
+   - it is not related to previous functions. just counting which /word/ appears most.
 
 * Follow up resources
