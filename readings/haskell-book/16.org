@@ -23,6 +23,15 @@ But Functor instances will be unique for a datatype,
 in part because of parametricity, in part because arguments to type constructors
 are applied in order of definition
    #+end_quote
+5. take ways
+   1. mostly it boils down to how to apply the ~f~ to the right value that has type ~a~
+   2. when type parameter is higher kind, it likely going to need more constrain.
+      #+begin_src haskell
+data IgnoreOne f g a b = IgnoringSomething (f a) (g b)
+
+instance (Functor g) => Functor (IgnoreOne f g a) where
+  fmap h (IgnoringSomething fa gb) = IgnoringSomething fa (fmap h gb)
+      #+end_src
 
 * Follow up resources
 1. Mark P. Jones. [[http://www.cs.tufts.edu/~nr/cs257/archive/mark-jones/fpca93.pdf][A system of constructor classes: overloading and implicit higher-order polymorphism]].

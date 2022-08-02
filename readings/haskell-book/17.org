@@ -1,9 +1,51 @@
 #+TITLE: Chapter 17 Applicative
 
 * Reading notes
+1. The type class (algebra) doesn't really tell anything interesting.
+   Given it's similar to Functor. wouldn't most cases be covered by ~fmap~?
+   #+begin_src haskell
+class Functor f => Applicative fwhere
+      pure :: a -> f a
+      (<*>) :: f (a -> b) -> f a -> f b
+   #+end_src
+2. /Applicative involves monoids and functor/, /applicatives are monoidal functors/
+   - (p680) This is explanation later which I don't know if I fully understand or agree with.
+      #+begin_src haskell
+   mappend ::   f         -> f     -> f
+   $       ::   (a -> b)  -> a     -> b
+   (<*>)   :: f (a -> b)  -> f a   -> f b
+      #+end_src
+   - Why monoid instead semigroup given the example only need ~mappend~?
+     #+begin_quote
+we’re bolting a Monoid onto a Functor to be able to deal with functions embedded in additional structure
+     #+end_quote
+3. ~checker~ library does capture bug. (shall be ~g b22~ in following example)
+   #+begin_src haskell
+instance (Monoid a) => Applicative (Three' a) where
+  pure b = Three' mempty b b
+  Three' a1 f g <*> Three' a2 b21 b22 = Three' (a1 <> a2) (f b21) (f b22)
+   #+end_src
+
+4. another bug when implement applicative for ~Constant a b~.
+   #+begin_src haskell
+instance Monoid a => Applicative (Constant a) where
+  pure _ = Constant mempty
+  -- Wrong implementation at first try
+  (Constant _) <*> (Constant x) = Constant x
+  -- (<*>) :: f (a -> b) -> f a -> f b
+  -- (<*>) :: Constant x (a -> b) -> Constant x a -> Constant x b
+  -- The `b` in Constant type (Constant a b) is phantom type.
+  -- Thus the `Constant x (a -> b)` pattern match to `Constant x`.
+  -- Hence it really shall be like below
+  -- (Constant x) <*> (Constant y) = Constant (x <> y)
+   #+end_src
+
+5. another bug found by checker in ~17/List.hs~. Unable to figure out the root cause.
+
 * Follow up resources
-1. Tony Morris and Nick Partridge. Validation library. http://hackage.haskell.org/package/validation
-2. Conor McBride and Ross Paterson. Applicative programming with effects. http://staff.city.ac.uk/~ross/papers/Applicative.html
-3. Jeremy Gibbons and Bruno C. d. S. Oliveira. The Essence of the Iterator Pattern. https://www.cs.ox.ac.uk/jeremy.gibbons/publications/iterator.pdf
-4. Ross Paterson. Constructing Applicative Functors. http://staff.city.ac.uk/~ross/papers/Constructors.html
-5. Sam Lindley, Philip Wadler, and Jeremy Yallop. Idioms are oblivious, arrows are meticulous, monads are promiscuous. Note that idiom means “applicative functor” and is a useful search term for published work on this pattern. https://homepages.inf.ed.ac.uk/slindley/papers/idioms-arrows-monads.pdf
+1. Tony Morris and Nick Partridge. [[http://hackage.haskell.org/package/validation][Validation library]].
+2. Conor McBride and Ross Paterson. [[http://staff.city.ac.uk/~ross/papers/Applicative.html][Applicative programming with effects]].
+   - Looks like ~Applicative~ was introduced in this paper.
+3. Jeremy Gibbons and Bruno C. d. S. Oliveira. [[https://www.cs.ox.ac.uk/jeremy.gibbons/publications/iterator.pdf][The Essence of the Iterator Pattern]].
+4. Ross Paterson. [[http://staff.city.ac.uk/~ross/papers/Constructors.html][Constructing Applicative Functors]].
+5. Sam Lindley, Philip Wadler, and Jeremy Yallop. [[https://homepages.inf.ed.ac.uk/slindley/papers/idioms-arrows-monads.pdf][Idioms are oblivious, arrows are meticulous, monads are promiscuous]]. Note that idiom means “applicative functor” and is a useful search term for published work on this pattern.
