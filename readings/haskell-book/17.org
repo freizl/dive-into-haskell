@@ -19,6 +19,7 @@ class Functor f => Applicative fwhere
      #+begin_quote
 we’re bolting a Monoid onto a Functor to be able to deal with functions embedded in additional structure
      #+end_quote
+
 3. ~checker~ library does capture bug. (shall be ~g b22~ in following example)
    #+begin_src haskell
 instance (Monoid a) => Applicative (Three' a) where
@@ -42,7 +43,9 @@ instance Monoid a => Applicative (Constant a) where
 
 5. another bug found by checker in ~17/List.hs~. Unable to figure out the root cause.
 
-6. Go for paper /Applicative programming with effects/
+6. Go for paper <Applicative programming with effects>
+
+7. Maybe look into <Constructing Applicative Functors>
 
 * Follow up resources
 1. Tony Morris and Nick Partridge. [[http://hackage.haskell.org/package/validation][Validation library]].
