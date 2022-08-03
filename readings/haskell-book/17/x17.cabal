@@ -29,7 +29,7 @@ executable x17
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
-    build-depends:    base ^>=4.16.0.0
+    build-depends:    base ^>=4.14.0.0
                     , QuickCheck
                     , checkers
     hs-source-dirs:   .

@@ -28,7 +28,7 @@ executable hangman-hw
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
     build-depends:    QuickCheck >= 2.14.2
-                    , base ^>=4.16.0.0
+                    , base ^>=4.14.0.0
                     , random
                     , split
     hs-source-dirs:   app
