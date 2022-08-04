@@ -1,9 +1,90 @@
 #+TITLE: Chapter 26 Monad Transformers
 
 * Reading notes
-- for all those libraries
-  - transformers
-    + ~MonadIO~: lift IO to ~Monad T~ type
-  - mtl
-  - ~MonadTrans~ type class
+1. for all those libraries
+   + transformers
+     - ~MonadIO~: lift IO to ~Monad T~ type
+   + mtl v.s. transformers library
+   + ~MonadTrans~ type class
+
+2. State v.s. Reader
+
+   #+begin_src haskell
+
+ newtype StateT s m a = StateT { runStateT :: s -> m (a,s) }
+
+ withStateT :: (s -> s) -> StateT s m a -> StateT s m a
+ withStateT f m = StateT $ runStateT m . f
+
+ newtype ReaderT r m a = ReaderT { runReaderT :: r -> m a }
+
+ -- why it is `r' -> r` instead of `r -> r'`
+ withReaderT
+     :: (r' -> r)        -- ^ The function to modify the environment.
+     -> ReaderT r m a    -- ^ Computation to run in the modified environment.
+     -> ReaderT r' m a
+ withReaderT f m = ReaderT $ runReaderT m . f
+
+   #+end_src
+
+3. ~WriterT~
+   #+begin_quote
+Writer can accumulate unevaluated thunks, causing memory leaks.
+It’s also inappropriate for logging long-running or ongoing programs due to the fact
+that you can’t retrieve any of the logged values until the computation is complete
+   #+end_quote
+
+4. Constructor this monad takes time to figure it out
+   #+begin_src haskell
+embedded :: MaybeT (ExceptT String (ReaderT () IO)) Int
+embedded = MaybeT $ ExceptT $ ReaderT $ const $ return (Right (Just 1))
+   #+end_src
+
+5. ~MonadTrans~ (transformer package)
+   #+begin_src haskell
+-- lift a monad into a Monad Transformer (:k t == * -> * -> *)
+-- This is general pattern/thought in terms of how to lift
+-- Monad Transformer XyzT oftent defines as
+-- XyzT (m xxx), in other words, there is monad computation inside.
+-- hence the implementation is often how to
+-- translate (m a) to (m xxx)
+--
+class MonadTrans t where
+  lift :: (Monad m) => m a -> t m a
+   #+end_src
+
+6. ~MonadIO~ lift ~IO~ straight to outermost monad.
+   - definition
+      #+begin_src haskell
+   class (Monad m) => MonadIO m where
+     liftIO :: IO a -> m a
+      #+end_src
+
+   - For one layer monad transformer, the effect would be same with ~lift~.
+     The difference becomes obvious when multiple layers.
+
+     #+begin_src haskell
+lift :: m a -> t m a
+liftIO :: IO a -> m a
+
+type Foo a = StateT String IO a
+lift :: IO a -> (StateT String) IO a
+liftIO :: IO a -> (StateT String IO) a
+
+type Bar a = StateT String (ReaderT Int IO) a
+-- lift once
+lift :: IO a -> ReaderT Int IO a
+-- lift twice
+lift :: (ReaderT Int IO) a -> StateT String (ReaderT Int IO) a
+
+-- both are possible given `ReaderT Int IO` and `StateT String (ReaderT Int IO)` are both Monad.
+liftIO :: IO a -> (ReaderT Int IO) a
+liftIO :: IO a -> StateT String (ReaderT Int IO) a
+
+x = liftIO (putStrLn "hello") :: ReaderT Int IO ()
+y = liftIO (putStrLn "hello") :: StateT String (ReaderT Int IO) ()
+
+     #+end_src
+
 * Follow up resources
+1. [[http://www.haskellforall.com/2014/02/streaming-logging.html][Streaming Logging]] by Gabriel Gonzalez.

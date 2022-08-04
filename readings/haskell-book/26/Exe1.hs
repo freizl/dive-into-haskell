@@ -24,11 +24,16 @@ sPrintIncAccum = StateT $ \s -> do
 
 main :: IO ()
 main = do
+  putStrLn "== hspec test =="
   hspec testSpec
+  putStrLn "== rPrintAndInc 1 =="
   runReaderT rPrintAndInc 1
+  putStrLn "== rPrintAndInc [1..10] =="
   xs <- traverse (runReaderT rPrintAndInc) [1..10]
   print xs
+  putStrLn "== rPrintAndAccum 10 =="
   runStateT sPrintIncAccum 10
+  putStrLn "== rPrintAndAccum [1..5] =="
   ys <- mapM (runStateT sPrintIncAccum) [1..5]
   print ys
 

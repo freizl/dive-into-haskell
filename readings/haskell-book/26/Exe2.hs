@@ -5,14 +5,19 @@ module Exe2 where
 import Control.Monad.Trans.Maybe
 import Control.Monad
 
+{-
+  newtype MaybeT m a = MaybeT { runMaybeT :: m (Maybe a) }
+-}
+
 isValid :: String -> Bool
 isValid v = '!' `elem` v
 
 maybeExcite :: MaybeT IO String
 maybeExcite = MaybeT $ do
   v <- getLine
-  guard $ isValid v
-  return (Just v)
+  return $ if isValid v then Just v else Nothing
+  -- guard $ isValid v
+  -- return (Just v)
 
 doExcite :: IO ()
 doExcite = do
@@ -23,4 +28,5 @@ doExcite = do
     Just e ->
       putStrLn ("Good, was very excite: " ++ e)
 
+main :: IO ()
 main = doExcite
