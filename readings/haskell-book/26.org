@@ -4,7 +4,16 @@
 1. for all those libraries
    + transformers
      - ~MonadIO~: lift IO to ~Monad T~ type
-   + mtl v.s. transformers library
+   + [[https://hackage.haskell.org/package/mtl][mtl]] v.s. transformers library
+     - mtl add more general type class like ~MonadState~, ~MonadReader~
+     - for instance
+       #+begin_src haskell
+get :: Monad m => StateT s m s
+-- v.s. --
+class Monad m => MonadState s m | m -> s where
+  get :: m s
+       #+end_src
+
    + ~MonadTrans~ type class
 
 2. State v.s. Reader
