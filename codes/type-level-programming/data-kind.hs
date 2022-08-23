@@ -4,24 +4,27 @@
 module Main where
 
 type Address = String
+
 data ConnectionStatus = Open | Closed deriving (Show)
+
 data Connection (s :: ConnectionStatus) = MkConnection
-  { status :: ConnectionStatus
-  , address :: Address
-  } deriving (Show)
+  { status :: ConnectionStatus,
+    address :: Address
+  }
+  deriving (Show)
 
 {-
 -}
-newConnection     :: Address           -> Connection Closed
-newConnection addr = MkConnection { status = Closed, address = addr }
+newConnection :: Address -> Connection Closed
+newConnection addr = MkConnection {status = Closed, address = addr}
 
-openConnection    :: Connection Closed -> Connection Open
+openConnection :: Connection Closed -> Connection Open
 openConnection = undefined
 
-closeConnection   :: Connection Open   -> Connection Closed
+closeConnection :: Connection Open -> Connection Closed
 closeConnection = undefined
 
-connectionAddress :: Connection s      -> Address
+connectionAddress :: Connection s -> Address
 connectionAddress = undefined
 
 {-
@@ -32,7 +35,7 @@ Is there way to use the `s` in data constructor?
 -}
 -- c1 :: Connection Open
 c1 :: Connection Closed
-c1 = MkConnection { status = Open, address = "1.1.1.1"}
+c1 = MkConnection {status = Open, address = "1.1.1.1"}
 
 main :: IO ()
 main = print c1
