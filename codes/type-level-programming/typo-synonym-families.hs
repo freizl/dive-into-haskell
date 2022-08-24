@@ -1,6 +1,7 @@
 {-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE PolyKinds #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoStarIsType #-}
 
 module Main where
 
@@ -77,7 +78,9 @@ newtype UnescapingChar = UnescapingChar {unescapingChar :: Char}
 --
 type family ToUnescapingTF (a :: k) :: k where
   ToUnescapingTF Char = UnescapingChar
-  ToUnescapingTF (t b :: k) = (ToUnescapingTF t) (ToUnescapingTF b)
+  -- cast to @:: k@ seems not required
+  -- ToUnescapingTF (t b :: k) = (ToUnescapingTF t) (ToUnescapingTF b)
+  ToUnescapingTF (t b) = (ToUnescapingTF t) (ToUnescapingTF b)
   ToUnescapingTF a = a
 
 -- >>> :kind! ToUnescapingTF Int
