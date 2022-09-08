@@ -103,23 +103,7 @@ setAt1 a Third Third b = b {bbr = a}
 --   pure one
 -- @
 won1 :: Board1 (Maybe Bool) -> Maybe Bool
-won1 (Board1 {..}) =
-  let checkLines =
-        [ [btl, bt, btr],
-          [bml, bm, bmr],
-          [bbl, bb, bbr],
-          [btl, bml, bbl],
-          [bt, bm, bb],
-          [btr, bmr, bbr],
-          [btl, bm, bbr],
-          [btr, bm, bbl]
-        ]
-      hasJustTrue = or [all (== Just True) line | line <- checkLines]
-      hasJustFalse = or [all (== Just False) line | line <- checkLines]
-   in case (hasJustTrue, hasJustFalse) of
-        (True, False) -> Just True
-        (False, True) -> Just False
-        _ -> Nothing
+won1 board = won (\x y -> getAt1 x y board)
 
 getTriple :: Three -> Triple a -> a
 getTriple First = t1
@@ -150,11 +134,13 @@ setAt3 a x y (Board3 b) =
       else b x' y'
 
 won3 :: Board3 (Maybe Bool) -> Maybe Bool
-won3 (Board3 f) =
-  -- (Row, Column)
+won3 (Board3 f) = won f
+
+won :: (Three -> Three -> Maybe Bool) -> Maybe Bool
+won getValueAt =
   let checkLines =
         map
-          (map (uncurry f))
+          (map (uncurry getValueAt))
           [ [(First, First), (First, Second), (First, Third)],
             [(Second, First), (Second, Second), (Second, Third)],
             [(Third, First), (Third, Second), (Third, Third)],
@@ -167,7 +153,7 @@ won3 (Board3 f) =
       go xs b = case findWinner xs of
         Just x -> Just x
         Nothing -> b
-   in foldr go Nothing checkLines
+ in foldr go Nothing checkLines
 
 -- | Is there built method to use??
 findWinner :: [Maybe Bool] -> Maybe Bool
