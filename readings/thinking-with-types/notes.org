@@ -1,6 +1,4 @@
 #+title: thinking with types
-#+roam_tags: haskell type-programming
-#+roam_key: https://github.com/isovector/thinking-with-types
 
 * Chapter 0
 - typed function ~printf~ (in [[id:e0925dd0-0dd1-4961-9398-f31a07aa5272][Chapter 9]])
