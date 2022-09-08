@@ -2,119 +2,139 @@
 
 * Chapter 0
 - typed function ~printf~ (in [[id:e0925dd0-0dd1-4961-9398-f31a07aa5272][Chapter 9]])
-* Chapter 1 Algebra data type
-- cardinality:
-  #+BEGIN_QUOTE
-  the number of inhabitants it has, ignoring bottoms.
-  #+END_QUOTE
-  - or can we say /number of data constructor/? not really.
-    #+BEGIN_SRC
-    card{Maybe a} = 1 + card{a}
-    where 1 comes from Nothing
-    #+END_SRC
-  - *inhabitants*
-- isomorphic: types have same cardinality always be ~iso~
-- cardinality of function
-  #+BEGIN_SRC
-    card{a -> b} = card{b}^card{a}
-  #+END_SRC
-  #+BEGIN_QUOTE
-  In fact, even the notion of differentiation in calculus has meaning in the domain of types.
-  Conor McBride's paper The Derivative of a Regular Type is its Type of One-Hole Contexts.
-  #+END_QUOTE
-- The Curry--Howard Isomorphism
-  - TODO: import that table
-- proof that ~(a^b)^c = a^(b*c)~
-  #+BEGIN_SRC haskell
-  fn1 = b -> c -> a
-  fn2 = (b, c) -> a
-  curry = fn2 -> fn1
-  uncurry = fn1 -> fn2
-  #+END_SRC
-- proof that ~a^b * a^c = a^(b+c)~
-  #+BEGIN_SRC haskell
-  data1 = (b -> a, c -> a)
-  fn1 :: Either b c -> a
-  to :: (b->a, c->a) -> (Either b c -> a)
-  to (f, g) (Left b)  = f b
-  to (f, g) (Right c) = g c
-  from :: (Either b c -> a) -> (b->a, c->a)
-  from fx = (f, g)
-            where f b = fx (Left b)
-                  g c = fx (Right c)
-  #+END_SRC
-- proof that ~(a*b)^c = a^c * b^c~
-  #+BEGIN_SRC haskell
-  fn1 :: c -> (a, b)
-  data1 = (c -> a, c -> b)
-  to :: (c -> (a, b)) -> (c->a, c->b)
-  to fx = (fst . fx, snd . fx)
-  from :: (c->a, c->b) -> (c -> (a, b))
-  from (f, g) c = (f c, g c)
-  #+END_SRC
-- ~ghc.generics~, canonical forms
-  - [ ] did not understand
-  - more on [[id:b7df2fab-22ab-4af9-a6f9-8c830699fde8][Chapter 13]]
-* Chapter 2 Terms, Types, Kinds
-- Kind
-  #+BEGIN_SRC haskell
-  :k Maybe
-  Maybe :: * -> *
-  :k (->)
-  (->) :: * -> * -> *
-  :k Either
-  Either :: * -> * -> *
-  #+END_SRC
 
-- ~*~ is slated for deprecation
-- type class returns ~Constraint~ at type level
-  #+BEGIN_SRC haskell
-  Show :: * -> Constraint
-  Functor :: (* -> *) -> Constraint
-  Monad :: (* ->*) -> Constraint
-  #+END_SRC
-- *esoteric* language extensions
-- ~DataKinds~ extension
-  #+BEGIN_SRC haskell
-  {-# LANGUAGE DataKinds     #-}
-  data Bool = True | False
-  {-
-    type constructor Bool,  kind *
-    data constructor True,  type Bool
-    data constructor False, type Bool
-    a new kind: Bool
-    promoted data constructor 'True,  kind Bool
-    promoted data constructor 'False, kind Bool
-  -}
-  #+END_SRC
-- promoted data constructors exist in the same name-space as type constructors
-- all built data constructor can be promoted by ~DataKinds~
-  - need to understand deep on the motivation, benefits, use cases.
-  - seems pretty tricky when dealing with promoted data con of List, Tuple
-- closed type family
-  - functions at the type level
-  - ~TypeFamilies~
-  - Can read as /define a type function Or that../ ?
-    #+BEGIN_SRC haskell
-    type family Or (x :: Bool) (y :: Bool) :: Bool where
-    Or 'True  y = 'True
-    Or 'False y = y
-    #+END_SRC
-  - type families must be *saturated*. no currying.
-    - work around by *first class families* in [[id:b1d99df8-7efd-4211-95e9-ee721da577c5][Chapter 10]]
+* Chapter 1 Algebra data type
+1. cardinality:
+   - quotes
+   #+BEGIN_QUOTE
+   the number of inhabitants it has, ignoring bottoms.
+   #+END_QUOTE
+   - or can we say /number of data constructor/? not really.
+     #+BEGIN_SRC
+     card{Maybe a} = 1 + card{a}
+     where 1 comes from Nothing
+     #+END_SRC
+   - *inhabitants*
+2. isomorphic: types have same cardinality always be ~iso~
+3. cardinality of function
+   #+BEGIN_SRC
+     card{a -> b} = card{b}^card{a}
+   #+END_SRC
+   #+BEGIN_QUOTE
+   In fact, even the notion of differentiation in calculus has meaning in the domain of types.
+   Conor McBride's paper The Derivative of a Regular Type is its Type of One-Hole Contexts.
+   #+END_QUOTE
+4. TicTacToe example
+   - I see the beauty of ~Board3~ is to chain bunch of if-else instead of manually crafting those if-else
+   - See ~getAt1~ and ~setAt1~, they are basically bunch of if-else expressions (more obvious if use if-else instead of pattern matching)
+   - And ~setAt3~ avoids all those verbosity.
+5. The Curry--Howard Isomorphism
+
+   | **Algebra** | **Logic**    | **Types**     |
+   |-------------+--------------+---------------|
+   | a + b       | a \vee b     | Either a b    |
+   | a \times b  | a \wedge b   | (a, b)        |
+   | b^a         | a \implies b | a -> b        |
+   | a = b       | a \iff b     | *isomorphism* |
+   | 0           | \bottom      | Void          |
+   | 1           | \top         | ()            |
+
+6. proof that ~(a^b)^c = a^(b*c)~
+   #+BEGIN_SRC haskell
+fn1 = c -> b -> a
+-- fn2 and fn3 shall be identical
+fn2 = (b, c) -> a
+fn3 = (c, b) -> a
+curry = fn2 -> fn1
+uncurry = fn1 -> fn2
+   #+END_SRC
+7. proof that ~a^b * a^c = a^(b+c)~
+   #+BEGIN_SRC haskell
+data1 = (b -> a, c -> a)
+fn1 :: Either b c -> a
+to :: (b->a, c->a) -> (Either b c -> a)
+to (f, g) (Left b)  = f b
+to (f, g) (Right c) = g c
+from :: (Either b c -> a) -> (b->a, c->a)
+from fx = (f, g)
+          where f b = fx (Left b)
+                g c = fx (Right c)
+   #+END_SRC
+8. proof that ~(a*b)^c = a^c * b^c~
+   #+BEGIN_SRC haskell
+fn1 :: c -> (a, b)
+data1 = (c -> a, c -> b)
+to :: (c -> (a, b)) -> (c->a, c->b)
+to fx = (fst . fx, snd . fx)
+from :: (c->a, c->b) -> (c -> (a, b))
+from (f, g) c = (f c, g c)
+   #+END_SRC
+9. ~ghc.generics~, canonical forms
+   - did not understand
+   - more on [[id:b7df2fab-22ab-4af9-a6f9-8c830699fde8][Chapter 13]]
+
+* Chapter 2 Terms, Types, Kinds
+1. Kind
+   #+BEGIN_SRC haskell
+   :k Maybe
+   Maybe :: * -> *
+   :k (->)
+   (->) :: * -> * -> *
+   :k Either
+   Either :: * -> * -> *
+   #+END_SRC
+
+2. ~*~ is slated for deprecation
+3. type class returns ~Constraint~ at type level
+   #+BEGIN_SRC haskell
+   Show :: * -> Constraint
+   Functor :: (* -> *) -> Constraint
+   Monad :: (* ->*) -> Constraint
+   #+END_SRC
+4. *esoteric* language extensions
+5. ~DataKinds~ extension
+   #+BEGIN_SRC haskell
+   {-# LANGUAGE DataKinds     #-}
+   data Bool = True | False
+   {-
+     type constructor Bool,  kind *
+     data constructor True,  type Bool
+     data constructor False, type Bool
+     a new kind: Bool
+     promoted data constructor 'True,  kind Bool
+     promoted data constructor 'False, kind Bool
+   -}
+   #+END_SRC
+6. promoted data constructors exist in the same name-space as type constructors
+7. all built data constructor can be promoted by ~DataKinds~
+   - need to understand deep on the motivation, benefits, use cases.
+   - seems pretty tricky when dealing with promoted data con of List, Tuple
+8. closed type family
+   - functions at the type level
+   - ~TypeFamilies~
+   - Can read as /define a type function Or that../ ?
+     #+BEGIN_SRC haskell
+     type family Or (x :: Bool) (y :: Bool) :: Bool where
+     Or 'True  y = 'True
+     Or 'False y = y
+     #+END_SRC
+   - type families must be *saturated*. no currying.
+     - work around by *first class families* in [[id:b1d99df8-7efd-4211-95e9-ee721da577c5][Chapter 10]]
+
 * Chapter 3 Variance
-- covariant
-  - ~BiFunctor~
-- contravariant
-  - [[https://hackage.haskell.org/package/contravariant][hackage contravariant]]
-  - ~CoFunctor~
-  - ~ProFunctor~
-  - ~contramap :: (a -> b) -> f b -> f a~
-  - what hack / usefulness is this?
-- invariant
-  - [[https://hackage.haskell.org/package/invariant][hackage invariant]]
-  - /invariant type allows you to map from a to b iff a and b are iso/
-- [ ] Don't understand nor the Positive and Negative of types.
+1. covariant
+   - ~BiFunctor~
+2. contravariant
+   - [[https://hackage.haskell.org/package/contravariant][hackage contravariant]]
+   - ~CoFunctor~
+   - ~ProFunctor~
+   - ~contramap :: (a -> b) -> f b -> f a~
+   - what hack / usefulness is this?
+3. invariant
+   - [[https://hackage.haskell.org/package/invariant][hackage invariant]]
+   - /invariant type allows you to map from a to b iff a and b are iso/
+4. [ ] Don't understand nor the Positive and Negative of types.
+
 * Chapter 4 Working with types
 1. ~ScopeTypeVariables~
    + works with explicit ~forall~ quantifier
@@ -123,12 +143,14 @@
    + directly apply types to expressions
    + ~fmap @Maybe :: (a->b) -> Maybe a -> Maybe b~
    + ~:t fmap @_ @Int @Bool :: Functor w => (Int->Bool) -> w Int -> w Bool~
+
 * Chapter 5 Contstraints and GADTs
 1. type class Constraints :: left side of fat arrow ~=>~
 2. type equalities: the ~a ~ Int~ in ~five :: (a ~ Int) => a~
 3. GADT is syntactic sugar over type equalities.
 4. heterogeneous list :: a list that can store values of different types
 5. [ ] need to dig deeper into heterogeneous list implementation
+
 * Chapter 6 Rank-N Types
 1. can not compile
    #+BEGIN_SRC haskell
@@ -144,6 +166,7 @@ applyToFive f = f 5
 8. call it ~rank-n~ when above rank-1
 9. why higher-rank types? functions which takes /callbacks/.
 10. CPS, ~Cont~ data type v.s. nested callback
+
 * Chapter 7 Existential Types
 1. ~data Any = forall a. Any a~
 2. can also be represented using GADT
@@ -175,20 +198,28 @@ The kind of constraints, like Show a
    #+END_QUOTE
 
 * Chapter 8 Roles
-- ~newtype~ is zero cost
-- ~coerce :: Coercible a b => a -> b~
-  + as long as ~a~ and ~b~ have same runtime representation.
-- type has been assigned to role, and there are 3 roles
-  + nominal
-  + representational
-  + phantom
+1. ~newtype~ is zero cost
+2. ~coerce :: Coercible a b => a -> b~
+   + as long as ~a~ and ~b~ have same runtime representation.
+3. type has been assigned to role, and there are 3 roles
+   + nominal
+   + representational
+   + phantom
+
 * Chapter 9 Associated Type Families
+
 * Chapter 10
+
 * Chapter 11
+
 * Chapter 12
+
 * Chapter 13
+
 * Chapter 14
+
 * Chapter 15
+
 * Questions [0/2]
-- [ ] what is ~Data.Proxy~?
-- [ ] check ~bifunctor~, ~profunctor~ from <The Monad Book>
+1. [ ] what is ~Data.Proxy~?
+2. [ ] check ~bifunctor~, ~profunctor~ from <The Monad Book>
