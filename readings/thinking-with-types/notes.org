@@ -29,15 +29,19 @@
    - See ~getAt1~ and ~setAt1~, they are basically bunch of if-else expressions (more obvious if use if-else instead of pattern matching)
    - And ~setAt3~ avoids all those verbosity.
 5. The Curry--Howard Isomorphism
+:NOTES:
+- use [[https://en.wikipedia.org/wiki/List_of_logic_symbols][this table]] to find out what symbol in org mode.
+- unable to find ~\top~
+:END:
 
-   | **Algebra** | **Logic**    | **Types**     |
-   |-------------+--------------+---------------|
+   | **Algebra** | **Logic** | **Types**     |
+   |-------------+-----------+---------------|
    | a + b       | a \vee b     | Either a b    |
-   | a \times b  | a \wedge b   | (a, b)        |
-   | b^a         | a \implies b | a -> b        |
-   | a = b       | a \iff b     | *isomorphism* |
-   | 0           | \bottom      | Void          |
-   | 1           | \top         | ()            |
+   | a \times b       | a \wedge b     | (a, b)        |
+   | b^a         | a \Rightarrow b     | a -> b        |
+   | a = b       | a \Leftrightarrow b     | *isomorphism* |
+   | 0           | \perp         | Void          |
+   | 1           | \top      | ()            |
 
 6. proof that ~(a^b)^c = a^(b*c)~
    #+BEGIN_SRC haskell
