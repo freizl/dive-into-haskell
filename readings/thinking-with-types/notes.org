@@ -1,7 +1,7 @@
 #+title: thinking with types
 
 * Chapter 0
-- typed function ~printf~ (in [[id:e0925dd0-0dd1-4961-9398-f31a07aa5272][Chapter 9]])
+- typed function ~printf~ (in [[Chapter 9 Associated Type Families][Chapter 9]])
 
 * Chapter 1 Algebra data type
 1. cardinality:
@@ -24,7 +24,7 @@
    In fact, even the notion of differentiation in calculus has meaning in the domain of types.
    Conor McBride's paper The Derivative of a Regular Type is its Type of One-Hole Contexts.
    #+END_QUOTE
-4. TicTacToe example
+4. [[file:TicTacToe.hs][TicTacToe example]]
    - I see the beauty of ~Board3~ is to chain bunch of if-else instead of manually crafting those if-else
    - See ~getAt1~ and ~setAt1~, they are basically bunch of if-else expressions (more obvious if use if-else instead of pattern matching)
    - And ~setAt3~ avoids all those verbosity.
@@ -87,43 +87,61 @@ from (f, g) c = (f c, g c)
    :k Either
    Either :: * -> * -> *
    #+END_SRC
-
 2. ~*~ is slated for deprecation
+   #+begin_src haskell
+ghci> :set -XNoStarIsType
+ghci> :k Maybe
+Maybe :: Type -> Type
+   #+end_src
 3. type class returns ~Constraint~ at type level
    #+BEGIN_SRC haskell
-   Show :: * -> Constraint
-   Functor :: (* -> *) -> Constraint
-   Monad :: (* ->*) -> Constraint
+   Show :: Type -> Constraint
+   Functor :: (Type -> Type) -> Constraint
+   Monad :: (Type -> Type) -> Constraint
    #+END_SRC
 4. *esoteric* language extensions
 5. ~DataKinds~ extension
-   #+BEGIN_SRC haskell
+   - example
+     #+BEGIN_SRC haskell
    {-# LANGUAGE DataKinds     #-}
    data Bool = True | False
    {-
-     type constructor Bool,  kind *
+     type constructor Bool,  kind Type
      data constructor True,  type Bool
      data constructor False, type Bool
      a new kind: Bool
      promoted data constructor 'True,  kind Bool
      promoted data constructor 'False, kind Bool
    -}
-   #+END_SRC
+     #+END_SRC
+   - [[file:HelloDataKinds.hs][another example]]
 6. promoted data constructors exist in the same name-space as type constructors
 7. all built data constructor can be promoted by ~DataKinds~
    - need to understand deep on the motivation, benefits, use cases.
    - seems pretty tricky when dealing with promoted data con of List, Tuple
-8. closed type family
-   - functions at the type level
-   - ~TypeFamilies~
-   - Can read as /define a type function Or that../ ?
-     #+BEGIN_SRC haskell
-     type family Or (x :: Bool) (y :: Bool) :: Bool where
-     Or 'True  y = 'True
-     Or 'False y = y
-     #+END_SRC
-   - type families must be *saturated*. no currying.
-     - work around by *first class families* in [[id:b1d99df8-7efd-4211-95e9-ee721da577c5][Chapter 10]]
+8. Example ~War/Age~
+   - I wish it's run-able and have some bug in the code for reader to fix
+   - For now, I can only see the leverage of phantom type
+9. List of Bool at type level
+    #+begin_src haskell
+:k [Bool]
+Type
+:k '[Bool]
+[Type]
+-- can we have type level [Bool]? yes
+  :k '[ 'True ]
+  #+end_src
+10. closed type family
+    - functions at the type level
+    - ~TypeFamilies~
+    - Can read as /define a type function Or that../ ?
+      #+BEGIN_SRC haskell
+      type family Or (x :: Bool) (y :: Bool) :: Bool where
+      Or 'True  y = 'True
+      Or 'False y = y
+      #+END_SRC
+    - type families must be *saturated*. no currying.
+    - work around by *first class families* in [[Chapter 10][Chapter 10]]
 
 * Chapter 3 Variance
 1. covariant
