@@ -142,6 +142,12 @@ Type
       #+END_SRC
     - type families must be *saturated*. no currying.
     - work around by *first class families* in [[Chapter 10][Chapter 10]]
+11. Questions
+    a. what is usefulness with custom kind?
+    b. what is purpose of phantom type on Symbol, Natural etc?
+    c. how to connect term level value and type level value? see todo at [[file:HelloBuildInTypes.hs][here]].
+12. Further readings
+    a. [[https://dnikolovv.github.io/practical-haskell-ddd-gadt/][Domain Driven Design using GADTs]]
 
 * Chapter 3 Variance
 1. covariant
@@ -156,6 +162,17 @@ Type
    - [[https://hackage.haskell.org/package/invariant][hackage invariant]]
    - /invariant type allows you to map from a to b iff a and b are iso/
 4. [ ] Don't understand nor the Positive and Negative of types.
+   - the books tell what it is. but why? how it comes at first place?
+   - though I can use the rule to determine what data type can have Functor instance, but dont understand the math theory behind the scene.
+5. further reads for Covariance and Contravariance
+   - [[https://en.wikipedia.org/wiki/Covariance_and_contravariance_%28computer_science%29][wikipedia - Covariance and contravariance]]
+   - [[https://www.fpcomplete.com/blog/2016/11/covariance-contravariance/][FP Complet - Covariance and Contravariance]]
+   - [[https://typeclasses.com/contravariance][Understanding contravariance]]
+     #+ATTR_ORG: :width 700
+     [[./upshot-covariant-contravariant.png]]
+6. Why need ~profuctor~?
+   - what is the best use case?
+   - re-read [[http://blog.sigfpe.com/2011/07/profunctors-in-haskell.html][this]]
 
 * Chapter 4 Working with types
 1. ~ScopeTypeVariables~
@@ -165,6 +182,8 @@ Type
    + directly apply types to expressions
    + ~fmap @Maybe :: (a->b) -> Maybe a -> Maybe b~
    + ~:t fmap @_ @Int @Bool :: Functor w => (Int->Bool) -> w Int -> w Bool~
+3. Ambiguous Types
+   + lost on the HM type inference
 
 * Chapter 5 Contstraints and GADTs
 1. type class Constraints :: left side of fat arrow ~=>~
