@@ -182,18 +182,18 @@ Type
    + directly apply types to expressions
    + ~fmap @Maybe :: (a->b) -> Maybe a -> Maybe b~
    + ~:t fmap @_ @Int @Bool :: Functor w => (Int->Bool) -> w Int -> w Bool~
-3. Ambiguous Types
+3. Ambiguous Typefast-tagss
    + lost on the HM type inference
 
 * Chapter 5 Contstraints and GADTs
 1. type class Constraints :: left side of fat arrow ~=>~
 2. type equalities: the ~a ~ Int~ in ~five :: (a ~ Int) => a~
 3. GADT is syntactic sugar over type equalities.
-4. heterogeneous list :: a list that can store values of different types
-5. [ ] need to dig deeper into heterogeneous list implementation
+4. heterogeneous list - a list that can store values of different types
+5. need to dig deeper into heterogeneous list implementation
 
 * Chapter 6 Rank-N Types
-1. can not compile
+1. Can not compile
    #+BEGIN_SRC haskell
 applyToFive :: (a -> a) -> Int
 applyToFive f = f 5
