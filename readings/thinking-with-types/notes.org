@@ -207,12 +207,17 @@ applyToFive f = f 5
 8. call it ~rank-n~ when above rank-1
 9. why higher-rank types? functions which takes /callbacks/.
 10. CPS, ~Cont~ data type v.s. nested callback
+11. Questions
+    a. The ~Free a~ degrade runtime performance. But how ~CodensityT~ improve given it also build nested tree?
 
 * Chapter 7 Existential Types
 1. ~data Any = forall a. Any a~
 2. can also be represented using GADT
 3. Generalized Constraint
+
    #+BEGIN_SRC haskell
+-- the 'c t' exists at left side of '=>'
+-- seem pretty interesting and useful.
 data Has (c :: Type -> Constraint) where
   Has :: c t => t -> Has c
 
@@ -239,10 +244,11 @@ The kind of constraints, like Show a
    #+END_QUOTE
 
 * Chapter 8 Roles
-1. ~newtype~ is zero cost
-2. ~coerce :: Coercible a b => a -> b~
+1. ~newtype~ is zero cost, no runtime difference but at compile time
+2. hence give us ability to *reinterpret* a value
+3. ~coerce :: Coercible a b => a -> b~
    + as long as ~a~ and ~b~ have same runtime representation.
-3. type has been assigned to role, and there are 3 roles
+4. type has been assigned to role, and there are 3 roles
    + nominal
    + representational
    + phantom
