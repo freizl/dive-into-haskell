@@ -1,0 +1,10 @@
+#+title: Readme
+
+* Chapter 12 Meta-programming in Haskell
+** Notes
+1. ~-ddump-deriv~
+2. More about roles and role inference in GHC User's Guide
+** Papers
+1. [[https://www.seas.upenn.edu/~sweirich/papers/coercible-JFP.pdf][Safe Zero-Cost Coercions for Haskell]]
+   - [[https://youtu.be/iLZdN-R1JGk][Video by SPJ]]
+2. [[https://www.kosmikus.org/DerivingVia/deriving-via-paper.pdf][Deriving Via or, How to Turn Hand-Written Instances into an Anto-Pattern]]
